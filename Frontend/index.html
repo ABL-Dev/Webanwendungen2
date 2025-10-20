@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financ Tracker Dashboard</title>
+    <link rel="stylesheet" href="/Backend/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Backend/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark text-light">
+
+    <!--Header-->
+    <header class="container-fluid py-3 border-bottom border-secondary">
+        <div class="row align-items-center">
+
+            <!--Linker Bereich-->
+            <div class="col-auto">
+                <h1 class="mb-0">Finance Tracker</h1>
+            </div>
+
+            <!--Mitlerer bereich-->
+                <div class="col form-floating">
+                    <input type="text" class="form-control" placeholder="Search" 
+                        id="floatingInput"">
+                    <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
+                </div>
+            <!--Rechter bereich-->
+            <div class="col-auto d-flex align-items-center gap-3 justify-content-end">
+                <button class="btn btn-outline-primary">+ New Entry</button>
+                <button class="btn btn-outline-secondary"><i class="bi bi-gear"></i></button>
+            </div>
+        </div>
+    </header>
+
+
+    <script src="/Backend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
