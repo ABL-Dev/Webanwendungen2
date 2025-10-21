@@ -1,11 +1,18 @@
 :root{
     --main-blue: #87C1E0;
     --main-background: #03090D;
+    --main-border: #233747;
+    --kachel-background: #0A1420;
+}
+
+.head{
+    background-color: var(--kachel-background) !important;
+    border-color: var(--main-border) !important;
 }
 
 .suchleiste{
     background-color: var(--main-background)!important;
-    border-color: var(--main-blue) !important;
+    border-color: var(--main-border) !important;
     color: var(--main-blue) !important;
 }
 
