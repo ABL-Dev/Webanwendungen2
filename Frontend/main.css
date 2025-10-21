@@ -1,0 +1,14 @@
+:root{
+    --main-blue: #87C1E0;
+    --main-background: #03090D;
+}
+
+.suchleiste{
+    background-color: var(--main-background)!important;
+    border-color: var(--main-blue) !important;
+    color: var(--main-blue) !important;
+}
+
+.suchleisteLabel{
+    color: var(--main-blue) !important;
+}

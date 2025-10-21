@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body class="bg-dark text-light">
 
     <!--Header-->
-    <header class="container-fluid py-3 border-bottom border-secondary">
+    <header class="container-fluid py-3 border-bottom border-primary" style="background-color: #0A1420">
         <div class="row align-items-center">
 
             <!--Linker Bereich-->
@@ -21,14 +22,17 @@
             </div>
 
             <!--Mitlerer bereich-->
-                <div class="col form-floating">
-                    <input type="text" class="form-control" placeholder="Search" 
-                        id="floatingInput"">
-                    <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
+            <div class="col mx-5">
+                <div class="form-floating">
+                    <input type="text" class="form-control suchleiste" placeholder="Search" 
+                        id="floatingInput">
+                    <label class="suchleisteLabel" for="floatingInput"><i class="bi bi-search"></i> Search</label>
                 </div>
+            </div>
+
             <!--Rechter bereich-->
-            <div class="col-auto d-flex align-items-center gap-3 justify-content-end">
-                <button class="btn btn-outline-primary">+ New Entry</button>
+            <div class="col-auto justify-content-end">
+                <button class="btn btn-outline-primary mx-3">+ New Entry</button>
                 <button class="btn btn-outline-secondary"><i class="bi bi-gear"></i></button>
             </div>
         </div>
