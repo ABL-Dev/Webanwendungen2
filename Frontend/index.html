@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css"
 </head>
 
 <body class="bg-dark text-light">
@@ -37,24 +37,59 @@
             </div>
         </div>
     </header>
-    
-    <dashboard class="container-fluid full-height px-3">
-        <div class="row h-100 g-2">
+
+    <!--Monats navaber-->
+
+
+
+    <!--Dashboard bereiche-->
+    <dashboard class="container-fluid h-100 py-3 flex-column">
+        <div class="row h-100 g-3 mx-3">
+
             <!--Spalte 1-->
-            <div class="col-md-5">
-            <div class="bereich bereich-1">Bereich 1</div>
-            <div class="bereich bereich-2">Bereich 2</div>
+            <div class="col-md-5 d-flex flex-column h-100 gap-3">
+                <!--Kuchen Diagram-->
+                <div class="card flex-fill">
+                    <div class="card-header">Kuchen Diagramm</div>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        Kuchen Diagramm [Plazhalter]
+                    </div>
+                </div>
+                <div class="card flex-fill">
+                    <div class="card-header">Budget Overview</div> 
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        Budget Overview
+                    </div>
+                </div>
             </div>
 
             <!--Spalte 2-->
-            <div class="col-md-3">
-            <div class="bereich bereich-3">Bereich 3</div>
-            <div class="bereich bereich-4">Bereich 4</div>
+            <div class="col-md-3 d-flex flex-column h-100 gap-3">
+                <!--Financial Overview-->
+                <div class="card" style="flex: 1 0 35%;">
+                    <div class="card-header">Financial Overview</div>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        Financial Overview
+                    </div>
+                </div>
+
+                <!--Notizen-->
+                <div class="card flex-fill">
+                    <div class="card-header">Notizen</div>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        Notizen
+                    </div>
+                </div>
             </div>
 
             <!--Spalte 3-->
-            <div class="col-md-4">
-            <div class="bereich bereich-1">Bereich 5</div>
+            <div class="col-md-4 d-flex flex-column h-100">
+                <div class="card flex-fill">
+                    <div class="card-header">Recent Transactions</div>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        Recent Transactions
+                    </div>
+                </div>
             </div>
         </div>
 
