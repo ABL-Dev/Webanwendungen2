@@ -32,7 +32,7 @@
 
             <!--Rechter bereich-->
             <div class="col-auto justify-content-end">
-                <button class="btn btn-outline-primary mx-3">+ New Entry</button>
+                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ New Entry</button>
                 <button class="btn btn-outline-secondary"><i class="bi bi-gear"></i></button>
             </div>
         </div>
@@ -115,7 +115,72 @@
     </dashboard>
     
     <!--Modal (popUp)-->
+    <dialog class="modal fade" id="NEModal" tabindex="-1" aria-labelledby="New Entry" aria-hidden="true">
+        <section class="modal-dialog modal-lg">
+            <article class="modal-content">
 
+                    <header class="modal-header">
+                        <h5 class="modal-title">Neuen Eintrag anlegen</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    </header>
+
+                    <main class="modal-body">
+                        <form>
+                            <!--Eingaben Ausgaben-->
+                            <fieldset class="mb-3">
+                                <legend class="fs-6 mb-2">Transaction Type</legend>
+                                <nav class="d-flex gap-3">
+                                    <button class="btn btn-outline-primary flex-fill">€ Income</button>
+                                    <button class="btn btn-outline-primary flex-fill">€ Expense</button>
+                                </nav>
+                            </fieldset>
+
+                            <!--Amount & Datum-->
+                            <section class="row mb-3">
+                                <article class="col-md-6">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="text" class="form-control" id="amount" placeholder="0,00€">
+                                </article>
+                                <article class="col-md-6">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date">
+                                </article>
+                            </section>
+
+                            <!--Category-->
+                            <section class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select id="category" class="form-select">
+                                    <!--Einige optionen aber noch nicht final-->
+                                    <option selected>Select Category</option>
+                                    <option>Essen</option>
+                                    <option>Transport</option>
+                                    <option>Gehalt</option>
+                                    <option>Miete</option>
+                                </select>
+                            </section>
+
+                            <!--Beschreibung-->
+                            <section class="mb-3">
+                                <label for="beschreibung" class="form-label">Beschreibung</label>
+                                <input type="text" class="form-control" id="beschreibung" placeholder="z.b. Einkauf beim Kaufland">
+                            </section>
+
+                            <!--Notizen-->
+                            <section class="mb-3">
+                                <label for="notizen" class="form-label">Notizen (optional)</label>
+                                <textarea class="form-control" id="notizen" rows="3"></textarea>
+                            </section>
+                        </form>
+                    </main>
+
+                    <footer class="modal-footer">
+                        <button class="btn btn-outline-primary">Eintrag erstellen</button>
+                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Abrechen</button>
+                    </footer>
+            </article>
+        </section>
+    </dialog>
 
 
     <script src="/Backend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
