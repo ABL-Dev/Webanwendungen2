@@ -115,8 +115,8 @@
     </dashboard>
     
     <!--Modal (popUp)-->
-    <dialog class="modal fade" id="NEModal" tabindex="-1" aria-labelledby="New Entry" aria-hidden="true">
-        <section class="modal-dialog modal-lg">
+    <dialog class="modal fade" id="NEModal" tabindex="-1" aria-labelledby="New Entry" aria-hidden="true" data-bs-backdrop="static">
+        <section class="modal-dialog modal-dialog-centered">
             <article class="modal-content">
 
                     <header class="modal-header">
@@ -174,7 +174,7 @@
                         </form>
                     </main>
 
-                    <footer class="modal-footer">
+                    <footer class="modal-footer" style="justify-content: space-between;">
                         <button class="btn btn-outline-primary">Eintrag erstellen</button>
                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Abrechen</button>
                     </footer>

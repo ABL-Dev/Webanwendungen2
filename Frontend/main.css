@@ -26,3 +26,8 @@ html, body {
 .suchleisteLabel {
     color: var(--main-blue) !important;
 }
+
+/*Modal background*/
+.modal{
+    background-color: var(--main-background) !important;
+}
