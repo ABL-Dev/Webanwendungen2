@@ -127,13 +127,18 @@
                     <main class="modal-body">
                         <form>
                             <!--Eingaben Ausgaben-->
-                            <fieldset class="mb-3">
-                                <legend class="fs-6 mb-2">Transaction Type</legend>
-                                <nav class="d-flex gap-3">
-                                    <button class="btn btn-outline-primary flex-fill">€ Income</button>
-                                    <button class="btn btn-outline-primary flex-fill">€ Expense</button>
-                                </nav>
-                            </fieldset>
+                            <section class="mb-3">
+                                <label class="form-label">Transaction Type</label>
+                                <div class="d-flex justify-content-center gap-3" role="group" aria-label="Income or Expense">
+                                    <!-- Income Button -->
+                                    <input type="radio" class="btn-check" name="transactionType" id="income" autocomplete="off" value="income" required>
+                                    <label class="btn btn-outline-success w-100" for="income">€ Income</label>
+
+                                    <!-- Expense Button -->
+                                    <input type="radio" class="btn-check" name="transactionType" id="expense" autocomplete="off" value="expense" required>
+                                    <label class="btn btn-outline-danger w-100" for="expense">€ Expense</label>
+                                </div>
+                            </section>
 
                             <!--Amount & Datum-->
                             <section class="row mb-3">
