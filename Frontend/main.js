@@ -63,3 +63,20 @@ document.addEventListener("DOMContentLoaded", () =>{
     }, false);
   });
 })();
+
+//Suchleiste
+
+const input = document.getElementById("suchleiste");
+
+input.addEventListener('input', ()=>{
+  const eingabe = input.value.trim();
+
+  if(eingabe.length > 0){
+    input.classList.add('is-invalid');
+
+      // Heir kann später eine richtige suchlogig eingebaut werden
+  }
+  else{
+    input.classList.remove('is-invalid');
+  }
+})
