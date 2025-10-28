@@ -125,50 +125,63 @@
                     </header>
 
                     <main class="modal-body">
-                        <form>
+                        <form class="needs-validation" novalidate>
                             <!--Eingaben Ausgaben-->
                             <section class="mb-3">
-                                <label class="form-label">Transaction Type</label>
-                                <div class="d-flex justify-content-center gap-3" role="group" aria-label="Income or Expense">
+                                <label class="form-label">Transaktions Typ</label>
+                                <div class="transaction-type-group d-flex justify-content-center gap-3" aria-label="Income or Expense">
                                     <!-- Income Button -->
-                                    <input type="radio" class="btn-check" name="transactionType" id="income" autocomplete="off" value="income" required>
-                                    <label class="btn btn-outline-success w-100" for="income">€ Income</label>
+                                    <input type="radio" class="btn-check" name="transactionType" id="income" autocomplete="off" value="income">
+                                    <label class="btn btn-outline-success w-100" for="income">€ Einnahmen</label>
 
                                     <!-- Expense Button -->
-                                    <input type="radio" class="btn-check" name="transactionType" id="expense" autocomplete="off" value="expense" required>
-                                    <label class="btn btn-outline-danger w-100" for="expense">€ Expense</label>
+                                    <input type="radio" class="btn-check" name="transactionType" id="expense" autocomplete="off" value="expense">
+                                    <label class="btn btn-outline-danger w-100" for="expense">€ Ausgaben</label>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Bitte wählen Sie eine Transaktionsart aus.
                                 </div>
                             </section>
 
                             <!--Amount & Datum-->
                             <section class="row mb-3">
                                 <article class="col-md-6">
-                                    <label for="amount" class="form-label">Amount</label>
-                                    <input type="text" class="form-control" id="amount" placeholder="0,00€">
+                                    <label for="amount" class="form-label">Betrag</label>
+                                    <input type="text" id="amount" class="form-control" placeholder="0,00€" inputmode="decimal" pattern="^\d+([.,]\d{2})$" required>
+                                    <div class="invalid-feedback">Bitte einen gültigen Betrag mit zwei Nachkommastellen eingeben</div>
                                 </article>
                                 <article class="col-md-6">
-                                    <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="date">
+                                    <label for="date" class="form-label">Datum</label>
+                                    <input type="date" class="form-control" id="date" required>
+                                    <div class="invalid-feedback">
+                                        Bitte ein gültiges Datum auswählen.
+                                    </div>
                                 </article>
                             </section>
 
                             <!--Category-->
                             <section class="mb-3">
-                                <label for="category" class="form-label">Category</label>
-                                <select id="category" class="form-select">
+                                <label for="category" class="form-label">Kategorie</label>
+                                <select id="category" class="form-select" required>
                                     <!--Einige optionen aber noch nicht final-->
-                                    <option selected>Select Category</option>
-                                    <option>Essen</option>
-                                    <option>Transport</option>
-                                    <option>Gehalt</option>
-                                    <option>Miete</option>
+                                    <option value="" selected>Kategorie wählen</option>
+                                    <option value="Essen">Essen</option>
+                                    <option value="Transport">Transport</option>
+                                    <option value="Gehalt">Gehalt</option>
+                                    <option value="Miete">Miete</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Bitte eine Kategorie auswählen.
+                                </div>
                             </section>
 
                             <!--Beschreibung-->
                             <section class="mb-3">
                                 <label for="beschreibung" class="form-label">Beschreibung</label>
-                                <input type="text" class="form-control" id="beschreibung" placeholder="z.b. Einkauf beim Kaufland">
+                                <input type="text" class="form-control" id="beschreibung" placeholder="z.b. Einkauf beim Kaufland" required>
+                                <div class="invalid-feedback">
+                                    Bitte eine Beschreibung eingeben.
+                                </div>
                             </section>
 
                             <!--Notizen-->
@@ -176,13 +189,13 @@
                                 <label for="notizen" class="form-label">Notizen (optional)</label>
                                 <textarea class="form-control" id="notizen" rows="3"></textarea>
                             </section>
+
+                            <div class="d-flex gap-3">
+                                <button class="btn btn-outline-primary flex-fill" type="submit">Eintrag erstellen</button>
+                                <button class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">Abrechen</button>
+                            </div>
                         </form>
                     </main>
-
-                    <footer class="modal-footer d-flex">
-                        <button class="btn btn-outline-primary flex-fill">Eintrag erstellen</button>
-                        <button class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">Abrechen</button>
-                    </footer>
             </article>
         </section>
     </dialog>
