@@ -5,14 +5,46 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     navButtons.forEach(button =>{
         button.addEventListener("click", () =>{
-            //Später Seite dynamisch neuladen
-            //loadNewData(button.textContent.trim()); -> mogliche dynamisirung
-            window.location.reload();
+
+            const  year = document.getElementById("year"); 
+            let yearNumber = Number(year.textContent);
+            switch (button.textContent) {
+                case '<':
+                    yearNumber--;
+                    year.textContent = yearNumber;
+                    //handleMonthClick(button.textContent, yearNumber);
+                    break;
+                
+                case '>':
+                    yearNumber++;
+                    year.textContent = yearNumber;
+                    //handleMonthClick(button.textContent, yearNumber);
+                    break;
+                            
+                default:
+                    const monthButtons = document.querySelectorAll(".month-btn");
+                    monthButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove("btn-primary");
+                        btn.classList.add("btn-outline-primary");
+                        
+                    });
+
+                    // Geklickten Button aktivieren & markieren
+                    button.disabled = true;
+                    button.classList.remove("btn-outline-primary");
+                    button.classList.add("btn-primary");
+                    
+                    //Für die spätere dynamik zum laden der Daten des buttens
+                    //handleMonthClick(button.textContent, yearNumber);
+
+                    break;
+            };
         });
     });
 });
 
-//Modal input validirung
+//Modal input validierung
 (() => {
   const forms = document.querySelectorAll('.needs-validation');
   const dateInput = document.getElementById('date');
@@ -65,9 +97,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 })();
 
 //Suchleiste
-
 const input = document.getElementById("suchleiste");
-
 input.addEventListener('input', ()=>{
   const eingabe = input.value.trim();
 
