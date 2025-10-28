@@ -19,4 +19,17 @@ $card-cap-color: #FFFFFF;
 // Jahres übersicht
 $btn-disabled-opacity: 1;
 
+//Modal
+$modal-content-color: #FFFFFF;
+$modal-content-bg: #0A1420;
+$modal-content-border-color: #87C1E0;
+$modal-header-border-color: #87C1E0;
+
+$input-color:   #a2a2a2;
+$input-bg: #03090D;
+$input-border-color: #87C1E0;
+
+$btn-close-color: #FFFFFF;
+$input-placeholder-color: #a2a2a2;
+
 @import "../node_modules/bootstrap/scss/bootstrap";

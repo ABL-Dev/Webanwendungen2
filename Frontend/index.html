@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Backend/node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="main.css"
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body class="bg-dark text-light">
@@ -32,7 +32,7 @@
 
             <!--Rechter bereich-->
             <div class="col-auto justify-content-end">
-                <button class="btn btn-outline-primary mx-3">+ New Entry</button>
+                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ New Entry</button>
                 <button class="btn btn-outline-secondary"><i class="bi bi-gear"></i></button>
             </div>
         </div>
@@ -64,7 +64,7 @@
 
     <!--Dashboard bereiche-->
     <section class="container-fluid h-100 py-3 flex-column">
-        <div class="row h-100 g-3 mx-3">
+        <div class="row h-100 g-3 mx-1">
 
             <!--Spalte 1-->
             <div class="col-md-5 d-flex flex-column h-100 gap-3">
@@ -112,9 +112,109 @@
                 </div>
             </div>
         </div>
-
     </dashboard>
     
+    <!--Modal (popUp)-->
+    <dialog class="modal fade" id="NEModal" tabindex="-1" aria-labelledby="New Entry" aria-hidden="true" data-bs-backdrop="static">
+        <section class="modal-dialog modal-dialog-centered">
+            <article class="modal-content">
+
+                    <header class="modal-header">
+                        <h5 class="modal-title">Neuen Eintrag anlegen</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    </header>
+
+                    <main class="modal-body">
+                        <form class="needs-validation" novalidate>
+                            <!--Eingaben Ausgaben-->
+                            <section class="mb-3">
+                                <label class="form-label">Transaktions Typ</label>
+                                <div class="transaction-type-group d-flex justify-content-center gap-3" aria-label="Income or Expense">
+                                    <!-- Income Button -->
+                                    <input type="radio" class="btn-check" name="transactionType" id="income" autocomplete="off" value="income">
+                                    <label class="btn btn-outline-success w-100" for="income">€ Einnahmen</label>
+
+                                    <!-- Expense Button -->
+                                    <input type="radio" class="btn-check" name="transactionType" id="expense" autocomplete="off" value="expense">
+                                    <label class="btn btn-outline-danger w-100" for="expense">€ Ausgaben</label>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Bitte wählen Sie eine Transaktionsart aus.
+                                </div>
+                            </section>
+
+                            <!--Amount & Datum-->
+                            <section class="row mb-3">
+                                <article class="col-md-6">
+                                    <label for="amount" class="form-label">Betrag</label>
+                                    <input type="text" id="amount" class="form-control" placeholder="0,00€" inputmode="decimal" pattern="^\d+([.,]\d{2})$" required>
+                                    <div class="invalid-feedback">Bitte einen gültigen Betrag mit zwei Nachkommastellen eingeben</div>
+                                </article>
+                                <article class="col-md-6">
+                                    <label for="date" class="form-label">Datum</label>
+                                    <input type="date" class="form-control" id="date" required>
+                                    <div class="invalid-feedback">
+                                        Bitte ein gültiges Datum auswählen.
+                                    </div>
+                                </article>
+                            </section>
+
+                            <!--Category-->
+                            <section class="mb-3">
+                                <label for="category" class="form-label">Kategorie</label>
+                                <select id="category" class="form-select" required>
+                                    <!--Einige optionen aber noch nicht final-->
+                                    <option value="" selected>Kategorie wählen</option>
+                                    <option value="Haupteinkommen">Haupteinkommen</option>
+                                    <option value="Nebeneinkommen">Nebeneinkommen</option>
+                                    <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
+                                    <option value="Kapitaleinkünfte">Kapitaleinkünfte</option>
+                                    <option value="Sonstige Einnahmen">Sonstige Einnahmen</option>
+                                    <option value="Wohnen">Wohnen</option>
+                                    <option value="Versicherungen">Versicherungen</option>
+                                    <option value="Mobilität (Fix)">Mobilität (Fix)</option>
+                                    <option value="Kommunikation/Medien">Kommunikation/Medien</option>
+                                    <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
+                                    <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
+                                    <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
+                                    <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
+                                    <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
+                                    <option value="Gesundheit">Gesundheit</option>
+                                    <option value="Freizeit & Unterhaltung">Freizeit & Unterhaltung</option>
+                                    <option value="Kinder/Haustiere">Kinder/Haustiere</option>
+                                    <option value="Urlaub & Reisen">Urlaub & Reisen</option>
+                                    <option value="Geschenke & Spenden">Geschenke & Spenden</option>
+                                    <option value="Sonstiges"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Bitte eine Kategorie auswählen.
+                                </div>
+                            </section>
+
+                            <!--Beschreibung-->
+                            <section class="mb-3">
+                                <label for="beschreibung" class="form-label">Beschreibung</label>
+                                <input type="text" class="form-control" id="beschreibung" placeholder="z.b. Einkauf beim Kaufland" required>
+                                <div class="invalid-feedback">
+                                    Bitte eine Beschreibung eingeben.
+                                </div>
+                            </section>
+
+                            <!--Notizen-->
+                            <section class="mb-3">
+                                <label for="notizen" class="form-label">Notizen (optional)</label>
+                                <textarea class="form-control" id="notizen" rows="3"></textarea>
+                            </section>
+
+                            <div class="d-flex gap-3">
+                                <button class="btn btn-outline-primary flex-fill" type="submit">Eintrag erstellen</button>
+                                <button class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">Abrechen</button>
+                            </div>
+                        </form>
+                    </main>
+            </article>
+        </section>
+    </dialog>
 
 
     <script src="/Backend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

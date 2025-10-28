@@ -26,3 +26,15 @@ html, body {
 .suchleisteLabel {
     color: var(--main-blue) !important;
 }
+
+/*Modal background*/
+.modal{
+    background-color: var(--main-background) !important;
+}
+
+input[type="date"]{
+    color-scheme: dark; /* macht das weiße Icon */
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
