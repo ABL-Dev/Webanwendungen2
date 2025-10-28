@@ -24,9 +24,12 @@
             <!--Mitlerer bereich-->
             <div class="col mx-5">
                 <div class="form-floating">
-                    <input type="text" class="form-control suchleiste" placeholder="Search" 
-                        id="floatingInput">
-                    <label class="suchleisteLabel" for="floatingInput"><i class="bi bi-search"></i> Search</label>
+                    <input type="text" class="form-control suchleiste" placeholder="Suchen" 
+                        id="suchleiste" required>
+                        <label class="suchleisteLabel" for="floatingInput"><i class="bi bi-search"></i> Search</label>
+                       <div class="invalid-feedback">
+                        Nichts gefunden
+                       </div> 
                 </div>
             </div>
 
@@ -164,7 +167,7 @@
                                 <label for="category" class="form-label">Kategorie</label>
                                 <select id="category" class="form-select" required>
                                     <!--Einige optionen aber noch nicht final-->
-                                    <option value="" selected>Kategorie wählen</option>
+                                    <option value="" selected disabled>Kategorie wählen</option>
                                     <option value="Haupteinkommen">Haupteinkommen</option>
                                     <option value="Nebeneinkommen">Nebeneinkommen</option>
                                     <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
