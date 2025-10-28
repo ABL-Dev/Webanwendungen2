@@ -38,3 +38,8 @@ input[type="date"]{
 input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
+
+#myChart {
+  width: 550px !important;
+  height: 300px !important;
+}
