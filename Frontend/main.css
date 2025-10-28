@@ -26,3 +26,8 @@ html, body {
 .suchleisteLabel {
     color: var(--main-blue) !important;
 }
+
+#myChart {
+  width: 550px !important;
+  height: 300px !important;
+}
