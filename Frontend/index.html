@@ -75,13 +75,15 @@
                 <div class="card flex-fill">
                     <div class="card-header">Kuchen Diagramm</div>
                     <div class="card-body d-flex justify-content-center align-items-center">
-                        Kuchen Diagramm [Plazhalter]
+                        <!--Dimension wird in css angepasst.-->
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
                 <div class="card flex-fill">
                     <div class="card-header">Budget Overview</div> 
                     <div class="card-body d-flex justify-content-center align-items-center">
-                        Budget Overview
+                        <!--Dimension wird in css angepasst.-->
+                        <canvas id="budgetChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -220,6 +222,7 @@
     </dialog>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/Backend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
 </body>
