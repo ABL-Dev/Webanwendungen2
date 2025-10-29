@@ -67,3 +67,44 @@ ul {
   max-height: 75vh;
   overflow-y: auto;
 }/* bis hier */
+
+/* ab hier sachen für financial overview. */
+.financial-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #fff;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  padding: 4px 2px 4px 20px;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: #b0b8c1;
+  margin-bottom: 2px;
+}
+
+.amount {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.change {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.change.up {
+  color: #4caf50;
+}
+
+.change.down {
+  color: #f44336;
+}/* bis hier */
