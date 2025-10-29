@@ -434,12 +434,23 @@ window.onload = function () {
     }
   });
 
-  // Bar chart (budget):
   const ctxbar = document.getElementById('budgetChart').getContext('2d');
 
-  const categories = ['Money', 'Shopping', 'Car', 'Rent', 'Contracts'];
-  const spent = [300, 68, 240, 1200, 110];          // Amount spent
-  const totalBudget = [600, 100, 300, 1200, 200];   // Maximum budget
+  const categories = categoryNames;
+  // Spent amount in each category.
+  const spent = Object.values(categorySums);
+  // Max. budget in each category.
+  // TODO: Hier evtl.new entry knopf rippen aber nur mit kategorien und total budget, damit man dann
+  // hier je nach kategoriename ein totalbudget wert hat. falls kein wert -> totalbudget = spent.
+  const totalBudget = [600, 500, 300, 1200, 200]; 
+
+  // Split into two parts, spent and exceeded.
+  // Spent.
+  const normalSpent = spent.map((s, i) => Math.min(s, totalBudget[i]));
+  // Exceeded.
+  const exceededSpent = spent.map((s, i) => Math.max(0, s - totalBudget[i]));
+  // Not exceeded (remaining).
+  const remaining = totalBudget.map((t, i) => Math.max(0, t - spent[i]));
 
   new Chart(ctxbar, {
     type: 'bar',
@@ -447,15 +458,22 @@ window.onload = function () {
       labels: categories,
       datasets: [
         {
-          label: 'Spent',
-          data: spent,
+          label: 'Spent (within budget)',
+          data: normalSpent,
           backgroundColor: 'rgba(75, 192, 255, 0.7)',
           borderRadius: 5,
           barThickness: 20
         },
         {
+          label: 'Spent (exceeded)',
+          data: exceededSpent,
+          backgroundColor: 'rgba(255, 99, 132, 0.7)', // red color for exceeded part
+          borderRadius: 5,
+          barThickness: 20
+        },
+        {
           label: 'Remaining',
-          data: totalBudget.map((t, i) => t - spent[i]),
+          data: remaining,
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderRadius: 5,
           barThickness: 20
@@ -463,7 +481,7 @@ window.onload = function () {
       ]
     },
     options: {
-      indexAxis: 'y',   // Horizontal bars
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -475,24 +493,31 @@ window.onload = function () {
             callback: val => val + ' €'
           },
           min: 0,
-          max: Math.max(...totalBudget)
+          max: Math.max(...totalBudget.concat(spent)) // so that exceeded scales properly.
         },
         y: { stacked: true, ticks: { color: '#fff' }, grid: { display: false } }
       },
       plugins: {
-        legend: { display: false }, // <-- Legend removed
+        legend: { display: false },
         tooltip: {
           callbacks: {
             label: function (context) {
               const i = context.dataIndex;
-              const used = spent[i];
-              const max = totalBudget[i];
-              const percent = ((used / max) * 100).toFixed(1);
-              return `${used} € / ${max} € (${percent}%)`;
+              const datasetLabel = context.dataset.label;
+              if (datasetLabel === 'Spent (within budget)') {
+                return `Im Budget: ${normalSpent[i]} €`;
+              }
+              if (datasetLabel === 'Spent (exceeded)') {
+                return `Überschritten: ${exceededSpent[i]} €`;
+              }
+              if (datasetLabel === 'Remaining') {
+                return `Übrig: ${remaining[i]} €`;
+              }
             }
           }
         }
       }
     }
   });
+
 };
