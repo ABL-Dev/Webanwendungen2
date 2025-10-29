@@ -111,105 +111,492 @@ input.addEventListener('input', ()=>{
   }
 })
 
-window.onload = function() {
-    // Pie chart:
-    const ctx = document.getElementById('myChart').getContext('2d');
+window.onload = function () {
+  // Pie chart //
 
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
-            datasets: [{
-                label: 'Color Distribution',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)'
-                ],
-                borderColor: 'white',
-                borderWidth: 2
-            }]
+  // Static json values used by the pie chart.
+  // This data will later be fetched from the SQL server (for now its just static).
+  transactions = [
+  {
+    "einnahme": true,
+    "betrag": 2850.00,
+    "datum": "2025-09-01",
+    "kategorie": "haupteinkommen",
+    "beschreibung": "Gehalt September"
+  },
+  {
+    "einnahme": false,
+    "betrag": 950.00,
+    "datum": "2025-09-02",
+    "kategorie": "wohnen",
+    "beschreibung": "Miete Wohnung"
+  },
+  {
+    "einnahme": false,
+    "betrag": 78.50,
+    "datum": "2025-09-03",
+    "kategorie": "versicherungen",
+    "beschreibung": "Haftpflichtversicherung"
+  },
+  {
+    "einnahme": false,
+    "betrag": 12.99,
+    "datum": "2025-09-03",
+    "kategorie": "abbonements",
+    "beschreibung": "Netflix Abo"
+  },
+  {
+    "einnahme": false,
+    "betrag": 5.99,
+    "datum": "2025-09-04",
+    "kategorie": "abbonements",
+    "beschreibung": "Spotify Premium"
+  },
+  {
+    "einnahme": false,
+    "betrag": 54.20,
+    "datum": "2025-09-04",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Wocheneinkauf Supermarkt"
+  },
+  {
+    "einnahme": false,
+    "betrag": 32.45,
+    "datum": "2025-09-05",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Einkauf beim Bäcker und Metzger"
+  },
+  {
+    "einnahme": false,
+    "betrag": 120.00,
+    "datum": "2025-09-05",
+    "kategorie": "sonstiges",
+    "beschreibung": "Geschenk für Freundin"
+  },
+  {
+    "einnahme": false,
+    "betrag": 45.00,
+    "datum": "2025-09-06",
+    "kategorie": "sonstiges",
+    "beschreibung": "Kinobesuch und Snacks"
+  },
+  {
+    "einnahme": false,
+    "betrag": 30.25,
+    "datum": "2025-09-07",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Einkauf Lidl"
+  },
+  {
+    "einnahme": false,
+    "betrag": 89.00,
+    "datum": "2025-09-08",
+    "kategorie": "versicherungen",
+    "beschreibung": "Kfz-Versicherung"
+  },
+  {
+    "einnahme": false,
+    "betrag": 75.00,
+    "datum": "2025-09-09",
+    "kategorie": "wohnen",
+    "beschreibung": "Stromabschlag"
+  },
+  {
+    "einnahme": false,
+    "betrag": 25.50,
+    "datum": "2025-09-09",
+    "kategorie": "sonstiges",
+    "beschreibung": "Café-Besuch mit Freunden"
+  },
+  {
+    "einnahme": false,
+    "betrag": 15.00,
+    "datum": "2025-09-10",
+    "kategorie": "abbonements",
+    "beschreibung": "Adobe Creative Cloud"
+  },
+  {
+    "einnahme": false,
+    "betrag": 48.70,
+    "datum": "2025-09-10",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Wocheneinkauf Supermarkt"
+  },
+  {
+    "einnahme": true,
+    "betrag": 120.00,
+    "datum": "2025-09-11",
+    "kategorie": "sonstiges",
+    "beschreibung": "Verkauf gebrauchtes Smartphone"
+  },
+  {
+    "einnahme": false,
+    "betrag": 9.99,
+    "datum": "2025-09-12",
+    "kategorie": "abbonements",
+    "beschreibung": "YouTube Premium"
+  },
+  {
+    "einnahme": false,
+    "betrag": 27.30,
+    "datum": "2025-09-13",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Einkauf Rewe"
+  },
+  {
+    "einnahme": false,
+    "betrag": 110.00,
+    "datum": "2025-09-14",
+    "kategorie": "sonstiges",
+    "beschreibung": "Kleidung Herbstkollektion"
+  },
+  {
+    "einnahme": false,
+    "betrag": 64.50,
+    "datum": "2025-09-15",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Wocheneinkauf Aldi"
+  },
+  {
+    "einnahme": false,
+    "betrag": 95.00,
+    "datum": "2025-09-16",
+    "kategorie": "versicherungen",
+    "beschreibung": "Hausratversicherung"
+  },
+  {
+    "einnahme": false,
+    "betrag": 50.00,
+    "datum": "2025-09-17",
+    "kategorie": "sonstiges",
+    "beschreibung": "Tankfüllung Auto"
+  },
+  {
+    "einnahme": false,
+    "betrag": 22.80,
+    "datum": "2025-09-18",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Bäckerei und Markt"
+  },
+  {
+    "einnahme": false,
+    "betrag": 5.50,
+    "datum": "2025-09-19",
+    "kategorie": "sonstiges",
+    "beschreibung": "Kaffee to go"
+  },
+  {
+    "einnahme": false,
+    "betrag": 45.00,
+    "datum": "2025-09-20",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Wocheneinkauf"
+  },
+  {
+    "einnahme": false,
+    "betrag": 14.99,
+    "datum": "2025-09-21",
+    "kategorie": "abbonements",
+    "beschreibung": "Amazon Prime"
+  },
+  {
+    "einnahme": false,
+    "betrag": 73.00,
+    "datum": "2025-09-22",
+    "kategorie": "wohnen",
+    "beschreibung": "Internet und Telefon"
+  },
+  {
+    "einnahme": false,
+    "betrag": 40.00,
+    "datum": "2025-09-23",
+    "kategorie": "sonstiges",
+    "beschreibung": "Restaurantbesuch"
+  },
+  {
+    "einnahme": false,
+    "betrag": 62.80,
+    "datum": "2025-09-24",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Einkauf Supermarkt"
+  },
+  {
+    "einnahme": true,
+    "betrag": 200.00,
+    "datum": "2025-09-25",
+    "kategorie": "sonstiges",
+    "beschreibung": "Nebenjob Wochenende"
+  },
+  {
+    "einnahme": false,
+    "betrag": 16.90,
+    "datum": "2025-09-26",
+    "kategorie": "sonstiges",
+    "beschreibung": "Friseurtermin"
+  },
+  {
+    "einnahme": false,
+    "betrag": 53.40,
+    "datum": "2025-09-27",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Wocheneinkauf Rewe"
+  },
+  {
+    "einnahme": false,
+    "betrag": 11.99,
+    "datum": "2025-09-28",
+    "kategorie": "abbonements",
+    "beschreibung": "Apple Music"
+  },
+  {
+    "einnahme": false,
+    "betrag": 18.50,
+    "datum": "2025-09-29",
+    "kategorie": "sonstiges",
+    "beschreibung": "Mittagessen Kantine"
+  },
+  {
+    "einnahme": false,
+    "betrag": 47.10,
+    "datum": "2025-09-30",
+    "kategorie": "lebensmittel",
+    "beschreibung": "Monatsabschluss Einkauf"
+  }
+  ];
+
+  // First filter only entries in json where "einnahme" is false -> ausgabe.
+  const expenses = transactions.filter(entry => entry.einnahme === false);
+
+  // Sum up "betrag" values for each category.
+  const categorySums = {}; // Using dictionary for category:sum data.
+  expenses.forEach(entry => {
+    const category = entry.kategorie;
+    categorySums[category] = (categorySums[category] || 0) + entry.betrag;
+  });
+
+  // Use the dict keys as labels for the pie chart.
+  // But make the first letter of every word uppercase.
+  const categoryNames = Object.keys(categorySums).map(key =>
+    key.charAt(0).toUpperCase() + key.slice(1)
+  );
+
+  const ctx = document.getElementById('myChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: categoryNames, // Use the dict keys as labels.
+      datasets: [{
+        label: 'Gesamtausgaben',
+        data: Object.values(categorySums), // Use the dict values as data.
+        backgroundColor: [
+  'rgba(131, 182, 217, 0.8)',
+  'rgba(72, 61, 139, 0.8)',
+  'rgba(48, 130, 255, 0.8)',
+  'rgba(156, 140, 255, 0.8)',
+  'rgba(26, 26, 150, 0.8)',
+  'rgba(100, 149, 237, 0.8)',
+  'rgba(123, 104, 238, 0.8)',
+  'rgba(0, 0, 205, 0.8)',
+  'rgba(70, 130, 180, 0.8)',
+  'rgba(65, 105, 225, 0.8)',
+  'rgba(148, 0, 211, 0.8)',
+  'rgba(0, 0, 139, 0.8)',
+  'rgba(0, 191, 255, 0.8)',
+  'rgba(106, 90, 205, 0.8)',
+  'rgba(72, 61, 139, 0.8)',
+  'rgba(123, 104, 238, 0.8)',
+  'rgba(25, 25, 112, 0.8)',
+  'rgba(0, 0, 255, 0.8)',
+  'rgba(65, 105, 225, 0.8)',
+  'rgba(123, 104, 238, 0.8)',
+  'rgba(0, 0, 139, 0.8)'
+],
+        borderColor: 'white',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // allows custom sizing
+      plugins: {
+        legend: {
+          position: 'right', // 🟢 move labels to the right
+          labels: {
+            boxWidth: 25, // smaller color boxes
+            padding: 20   // spacing between labels
+          }
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, // allows custom sizing
-            plugins: {
-                legend: {
-                    position: 'right', // 🟢 move labels to the right
-                    labels: {
-                        boxWidth: 25, // smaller color boxes
-                        padding: 20   // spacing between labels
-                    }
-                },
-            },
-            layout: {
-                padding: 10 // optional spacing around chart
-            }
-        }
-    });
+      },
+      layout: {
+        padding: 10 // optional spacing around chart
+      }
+    }
+  });
 
-    // Bar chart (budget):
-    const ctxbar = document.getElementById('budgetChart').getContext('2d');
+  const ctxbar = document.getElementById('budgetChart').getContext('2d');
 
-    const categories = ['Money', 'Shopping', 'Car', 'Rent', 'Contracts'];
-    const spent = [300, 68, 240, 1200, 110];          // Amount spent
-    const totalBudget = [600, 100, 300, 1200, 200];   // Maximum budget
+  const categories = categoryNames;
+  // Spent amount in each category.
+  const spent = Object.values(categorySums);
+  // Max. budget in each category.
+  // TODO: Hier evtl.new entry knopf rippen aber nur mit kategorien und total budget, damit man dann
+  // hier je nach kategoriename ein totalbudget wert hat. falls kein wert -> totalbudget = spent.
+  const totalBudget = [600, 500, 300, 1200, 200]; 
 
-    new Chart(ctxbar, {
-        type: 'bar',
-        data: {
-            labels: categories,
-            datasets: [
-                {
-                    label: 'Spent',
-                    data: spent,
-                    backgroundColor: 'rgba(75, 192, 255, 0.7)',
-                    borderRadius: 5,
-                    barThickness: 20
-                },
-                {
-                    label: 'Remaining',
-                    data: totalBudget.map((t, i) => t - spent[i]),
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: 5,
-                    barThickness: 20
-                }
-            ]
+  // Split into two parts, spent and exceeded.
+  // Spent.
+  const normalSpent = spent.map((s, i) => Math.min(s, totalBudget[i]));
+  // Exceeded.
+  const exceededSpent = spent.map((s, i) => Math.max(0, s - totalBudget[i]));
+  // Not exceeded (remaining).
+  const remaining = totalBudget.map((t, i) => Math.max(0, t - spent[i]));
+
+  new Chart(ctxbar, {
+    type: 'bar',
+    data: {
+      labels: categories,
+      datasets: [
+        {
+          label: 'Spent (within budget)',
+          data: normalSpent,
+          backgroundColor: 'rgba(75, 192, 255, 0.7)',
+          borderRadius: 5,
+          barThickness: 20
         },
-        options: {
-            indexAxis: 'y',   // Horizontal bars
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    stacked: true,
-                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                    ticks: {
-                        color: '#9cc0ff',
-                        callback: val => val + ' €'
-                    },
-                    min: 0,
-                    max: Math.max(...totalBudget)
-                },
-                y: { stacked: true, ticks: { color: '#fff' }, grid: { display: false } }
-            },
-            plugins: {
-                legend: { display: false }, // <-- Legend removed
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const i = context.dataIndex;
-                            const used = spent[i];
-                            const max = totalBudget[i];
-                            const percent = ((used / max) * 100).toFixed(1);
-                            return `${used} € / ${max} € (${percent}%)`;
-                        }
-                    }
-                }
-            }
+        {
+          label: 'Spent (exceeded)',
+          data: exceededSpent,
+          backgroundColor: 'rgba(255, 99, 132, 0.7)', // red color for exceeded part
+          borderRadius: 5,
+          barThickness: 20
+        },
+        {
+          label: 'Remaining',
+          data: remaining,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: 5,
+          barThickness: 20
         }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          stacked: true,
+          grid: { color: 'rgba(255, 255, 255, 0.1)' },
+          ticks: {
+            color: '#9cc0ff',
+            callback: val => val + ' €'
+          },
+          min: 0,
+          max: Math.max(...totalBudget.concat(spent)) // so that exceeded scales properly.
+        },
+        y: { stacked: true, ticks: { color: '#fff' }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const i = context.dataIndex;
+              const datasetLabel = context.dataset.label;
+              if (datasetLabel === 'Spent (within budget)') {
+                return `Im Budget: ${normalSpent[i]} €`;
+              }
+              if (datasetLabel === 'Spent (exceeded)') {
+                return `Überschritten: ${exceededSpent[i]} €`;
+              }
+              if (datasetLabel === 'Remaining') {
+                return `Übrig: ${remaining[i]} €`;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  //////////////////////////
+
+  // Financial overview //
+  // Formats number to euro value.
+  function formatEuro(amount) {
+    return amount.toLocaleString("de-DE", {
+      style: "currency",
+      currency: "EUR"
     });
+  }
+
+  // Calculate sums.
+  let einnahmenSumme = 0;
+  let ausgabenSumme = 0;
+  transactions.forEach(t => {
+    if (t.einnahme) {
+      einnahmenSumme += t.betrag;
+    } else {
+      ausgabenSumme += t.betrag;
+    }
+  });
+
+  // Dynamically enter sums to corresponding id.
+  document.getElementById("income").textContent = formatEuro(einnahmenSumme);
+  document.getElementById("expenses").textContent = formatEuro(ausgabenSumme);
+
+  // TODO: Will man so total ausrechnen? Oder gibt es extra variable für total?
+  // TODO: Prozentzahlen dynamisch anpassen unter den werten.
+  document.getElementById("total").textContent = formatEuro(einnahmenSumme - ausgabenSumme);
+
+  //////////////////////////
+
+  // Recent transactions //
+  // Helping function to show how many days ago from today the transaction was done.
+  function daysAgo(dateStr) {
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diff = now - date;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    // Everything <= 1day.
+    if (days === 0) return "Today";
+    if (days === 1) return "Yesterday";
+
+    // Everything older than 1 day.
+    return `${days} days ago`;
+  }
+
+  // Get the list inside of index.html.
+  const listContainer = document.getElementById("transactionList");
+  listContainer.innerHTML = ''; // Clear existing
+
+  // Add row for each entry in set of data (json).
+  transactions.forEach(tx => {
+    const li = document.createElement("li");
+
+    const leftDiv = document.createElement("div");
+    leftDiv.classList.add("left-text");
+
+    const desc = document.createElement("div");
+    desc.classList.add("description");
+    desc.textContent = tx.beschreibung;
+
+    const date = document.createElement("div");
+    date.classList.add("date");
+    date.textContent = daysAgo(tx.datum);
+
+    leftDiv.appendChild(desc);
+    leftDiv.appendChild(date);
+
+    const amount = document.createElement("div");
+    amount.textContent = (tx.einnahme ? "++" : "-") + tx.betrag.toFixed(2);
+    amount.style.fontWeight = "bold";
+
+    li.appendChild(leftDiv);
+    li.appendChild(amount);
+
+    listContainer.appendChild(li);
+  });
 };
