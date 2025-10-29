@@ -520,4 +520,51 @@ window.onload = function () {
     }
   });
 
+  // Recent transactions //
+  // Helping function to show how many days ago from today the transaction was done.
+  function daysAgo(dateStr) {
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diff = now - date;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    // Everything <= 1day.
+    if (days === 0) return "Today";
+    if (days === 1) return "Yesterday";
+
+    // Everything older than 1 day.
+    return `${days} days ago`;
+  }
+
+  // Get the list inside of index.html.
+  const listContainer = document.getElementById("transactionList");
+  listContainer.innerHTML = ''; // Clear existing
+
+  // Add row for each entry in set of data (json).
+  transactions.forEach(tx => {
+    const li = document.createElement("li");
+
+    const leftDiv = document.createElement("div");
+    leftDiv.classList.add("left-text");
+
+    const desc = document.createElement("div");
+    desc.classList.add("description");
+    desc.textContent = tx.beschreibung;
+
+    const date = document.createElement("div");
+    date.classList.add("date");
+    date.textContent = daysAgo(tx.datum);
+
+    leftDiv.appendChild(desc);
+    leftDiv.appendChild(date);
+
+    const amount = document.createElement("div");
+    amount.textContent = (tx.einnahme ? "++" : "-") + tx.betrag.toFixed(2);
+    amount.style.fontWeight = "bold";
+
+    li.appendChild(leftDiv);
+    li.appendChild(amount);
+
+    listContainer.appendChild(li);
+  });
 };
