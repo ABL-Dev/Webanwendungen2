@@ -633,4 +633,37 @@ window.onload = function () {
     }
     render();
   })();
+
+
+  //////////////////////////
+
+  // Financial overview //
+  // Formats number to euro value.
+  function formatEuro(amount) {
+    return amount.toLocaleString("de-DE", {
+      style: "currency",
+      currency: "EUR"
+    });
+  }
+
+  // Calculate sums.
+  let einnahmenSumme = 0;
+  let ausgabenSumme = 0;
+  transactions.forEach(t => {
+    if (t.einnahme) {
+      einnahmenSumme += t.betrag;
+    } else {
+      ausgabenSumme += t.betrag;
+    }
+  });
+
+  // Dynamically enter sums to corresponding id.
+  document.getElementById("income").textContent = formatEuro(einnahmenSumme);
+  document.getElementById("expenses").textContent = formatEuro(ausgabenSumme);
+
+  // TODO: Will man so total ausrechnen? Oder gibt es extra variable für total?
+  // TODO: Prozentzahlen dynamisch anpassen unter den werten.
+  document.getElementById("total").textContent = formatEuro(einnahmenSumme - ausgabenSumme);
 }
+
+
