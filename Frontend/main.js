@@ -114,8 +114,8 @@ input.addEventListener('input', () => {
 window.onload = function () {
   // Pie chart //
 
-  // Static json values used by the pie chart.
-  // This data will later be fetched from the SQL server (for now its just static).
+  // Statische json Werte für das ganze Dashboard.
+  // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
   transactions = [
     {
       "einnahme": true,
@@ -364,18 +364,18 @@ window.onload = function () {
     }
   ];
 
-  // First filter only entries in json where "einnahme" is false -> ausgabe.
+  // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
   const expenses = transactions.filter(entry => entry.einnahme === false);
 
-  // Sum up "betrag" values for each category.
-  const categorySums = {}; // Using dictionary for category:sum data.
+  // Summen für die jeweiligen Kategorien.
+  const categorySums = {}; // Dictionary -> Kategoriename:Summe.
   expenses.forEach(entry => {
     const category = entry.kategorie;
     categorySums[category] = (categorySums[category] || 0) + entry.betrag;
   });
 
-  // Use the dict keys as labels for the pie chart.
-  // But make the first letter of every word uppercase.
+  // Dictionary keys werden zu labels.
+  // Erste Buchstabe aber immer groß.
   const categoryNames = Object.keys(categorySums).map(key =>
     key.charAt(0).toUpperCase() + key.slice(1)
   );
@@ -385,10 +385,10 @@ window.onload = function () {
   new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: categoryNames, // Use the dict keys as labels.
+      labels: categoryNames,
       datasets: [{
         label: 'Gesamtausgaben',
-        data: Object.values(categorySums), // Use the dict values as data.
+        data: Object.values(categorySums), // Dictionary values sind die Daten (Summen).
         backgroundColor: [
           'rgba(131, 182, 217, 0.8)',
           'rgba(72, 61, 139, 0.8)',
@@ -418,18 +418,18 @@ window.onload = function () {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false, // allows custom sizing
+      maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'right', // move labels to the right
+          position: 'right', // Labels rechts.
           labels: {
-            boxWidth: 25, // smaller color boxes
-            padding: 20   // spacing between labels
+            boxWidth: 25,
+            padding: 20
           }
         },
       },
       layout: {
-        padding: 10 // optional spacing around chart
+        padding: 10 // Platz um Chart herum.
       }
     }
   });
@@ -437,19 +437,17 @@ window.onload = function () {
   const ctxbar = document.getElementById('budgetChart').getContext('2d');
 
   const categories = categoryNames;
-  // Spent amount in each category.
+  // Ausgaben je Kategorie.
   const spent = Object.values(categorySums);
-  // Max. budget in each category.
-  // TODO: Hier evtl.new entry knopf rippen aber nur mit kategorien und total budget, damit man dann
-  // hier je nach kategoriename ein totalbudget wert hat. falls kein wert -> totalbudget = spent.
+  // Max. budget in Kategorie (wie viel man pro Kategorie ausgeben darf).
   const totalBudget = [600, 500, 300, 1200, 200];
 
-  // Split into two parts, spent and exceeded.
-  // Spent.
+  // In zwei Teile aufteilen.
+  // Ausgaben.
   const normalSpent = spent.map((s, i) => Math.min(s, totalBudget[i]));
-  // Exceeded.
+  // Mehr als Limit ausgegeben (rot).
   const exceededSpent = spent.map((s, i) => Math.max(0, s - totalBudget[i]));
-  // Not exceeded (remaining).
+  // Übrig, also wie viel Geld man in dieser Kategorie noch ausgeben dürfte.
   const remaining = totalBudget.map((t, i) => Math.max(0, t - spent[i]));
 
   new Chart(ctxbar, {
@@ -467,7 +465,7 @@ window.onload = function () {
         {
           label: 'Spent (exceeded)',
           data: exceededSpent,
-          backgroundColor: 'rgba(255, 99, 132, 0.7)', // red color for exceeded part
+          backgroundColor: 'rgba(255, 99, 132, 0.7)', // Zu viel ausgegeben in rot.
           borderRadius: 5,
           barThickness: 20
         },
@@ -493,7 +491,7 @@ window.onload = function () {
             callback: val => val + ' €'
           },
           min: 0,
-          max: Math.max(...totalBudget.concat(spent)) // so that exceeded scales properly.
+          max: Math.max(...totalBudget.concat(spent)) // Exceeded wird richtig gescaled hier.
         },
         y: { stacked: true, ticks: { color: '#fff' }, grid: { display: false } }
       },
