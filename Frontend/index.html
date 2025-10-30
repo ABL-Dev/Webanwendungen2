@@ -149,15 +149,16 @@
         </div>
 
                 <!--Notizen-->
-                <div class="card flex-fill h-100" id="notesCard">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button id="addNoteBtn" class="btn btn-sm btn-outline-primary">+ Notiz hinzufügen</button>
+                <div class="card flex-fill h-100 d-flex flex-column" id="notesCard">
+                    <div class="card-header d-flex">
+                        <span>Notizen</span>
+                        <div class="ms-auto">
+                            <button id="addNoteBtn" class="btn btn-sm btn-outline-primary mx-2">+ Notiz hinzufügen</button>
                             <button id="clearNotesBtn" class="btn btn-sm btn-outline-danger">Alle löschen</button>
                         </div>
                     </div>
-                    <div class="card-body" >
-                        <ul id="notesList" class="list-group list-group-flush noteScroll">
+                    <div class="card-body flex-grow-1 noteScroll" style="overflow-y: auto; max-height: 55vh;">
+                        <ul id="notesList" class="list-group list-group-flush">
 
                         </ul>
                     </div>
@@ -320,22 +321,22 @@
     <dialog class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true"
         data-bs-backdrop="static">
         <section class="modal-dialog modal-dialog-centered">
-            <article class="modal-content bg-dark text-light border border-secondary">
+            <article class="modal-content border border-primary">
 
-                <header class="modal-header border-secondary">
+                <header class="modal-header border-primary">
                     <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
-                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </header>
 
                 <main class="modal-body text-center">
 
                     <!-- Interface Settings -->
                     <h5 class="mb-2">Interface</h5>
-                    <hr class="border-secondary mb-3">
+                    <hr class="border-primary mb-3">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <label for="languageSelect" class="mb-0">Language</label>
-                        <select id="languageSelect" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="languageSelect" class="form-select w-auto border-primary">
                             <option value="de" selected>Deutsch</option>
                             <option value="en">English</option>
                         </select>
@@ -343,11 +344,11 @@
 
                     <!-- Finance Settings -->
                     <h5 class="mt-4 mb-2">Finance Settings</h5>
-                    <hr class="border-secondary mb-3">
+                    <hr class="border-primary mb-3">
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect1" class="mb-0">Category 1</label>
-                        <select id="categorySelect1" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="categorySelect1" class="form-select w-auto border-primary">
                             <option value="Haupteinkommen" selected>Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
                             <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
@@ -373,7 +374,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect2" class="mb-0">Category 2</label>
-                        <select id="categorySelect2" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="categorySelect2" class="form-select w-auto border-primary">
                             <option value="Wohnen" selected>Wohnen</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -399,7 +400,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect3" class="mb-0">Category 3</label>
-                        <select id="categorySelect3" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="categorySelect3" class="form-select w-auto border-primary">
                             <option value="Lebensmittel & Haushalt" selected>Lebensmittel & Haushalt</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -422,7 +423,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect4" class="mb-0">Category 4</label>
-                        <select id="categorySelect4" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="categorySelect4" class="form-select w-auto border-primary">
                             <option value="Mobilität (Fix)" selected>Mobilität (Fix)</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -445,7 +446,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect5" class="mb-0">Category 5</label>
-                        <select id="categorySelect5" class="form-select w-auto bg-dark text-light border-secondary">
+                        <select id="categorySelect5" class="form-select w-auto border-primary">
                             <option value="Freizeit & Unterhaltung" selected>Freizeit & Unterhaltung</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -467,7 +468,7 @@
                     </section>
                 </main>
 
-                <footer class="modal-footer border-secondary">
+                <footer class="modal-footer border-primary">
                     <button class="btn btn-outline-primary" id="saveFinanceSettings">Speichern</button>
                     <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Schließen</button>
                 </footer>
@@ -479,18 +480,18 @@
     <!-- Neue Notiz hinzufügen popup -->
 <dialog class="modal fade" id="addNoteModal" tabindex="-1" aria-hidden="true">
     <section class="modal-dialog modal-dialog-centered">
-        <article class="modal-content bg-dark text-light border border-secondary">
-            <header class="modal-header border-secondary">
+        <article class="modal-content border border-primary">
+            <header class="modal-header border-primary">
                 <h5 class="modal-title">Neue Notiz hinzufügen</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
             </header>
             <main class="modal-body">
-                <textarea id="addNoteTextarea" class="form-control bg-dark text-light border-secondary"
+                <textarea id="addNoteTextarea" class="form-control border-primary"
                     rows="3" placeholder="Notiz eingeben..."></textarea>
             </main>
-            <footer class="modal-footer border-secondary">
+            <footer class="modal-footer border-primary">
                 <button id="saveNewNoteBtn" class="btn btn-outline-primary">Speichern</button>
-                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <button class="btn btn-outline-primary" data-bs-dismiss="modal">Abbrechen</button>
             </footer>
         </article>
     </section>
@@ -499,18 +500,18 @@
     <!-- Notiz bearbeiten popup -->
     <dialog class="modal fade" id="editNoteModal" tabindex="-1" aria-hidden="true">
         <section class="modal-dialog modal-dialog-centered">
-            <article class="modal-content bg-dark text-light border border-secondary">
-                <header class="modal-header border-secondary">
+            <article class="modal-content border border-primary">
+                <header class="modal-header border-primary">
                     <h5 class="modal-title">Notiz bearbeiten</h5>
-                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </header>
                 <main class="modal-body">
-                    <textarea id="editNoteTextarea" class="form-control bg-dark text-light border-secondary"
+                    <textarea id="editNoteTextarea" class="form-control border-primary"
                         rows="3"></textarea>
                 </main>
-                <footer class="modal-footer border-secondary">
+                <footer class="modal-footer border-primary">
                     <button id="saveEditNoteBtn" class="btn btn-outline-primary">Speichern</button>
-                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                    <button class="btn btn-outline-primary" data-bs-dismiss="modal">Abbrechen</button>
                 </footer>
             </article>
         </section>
@@ -519,18 +520,18 @@
     <!-- Alle Notizen löschen popup -->
     <dialog class="modal fade" id="confirmDeleteAllModal" tabindex="-1" aria-hidden="true">
         <section class="modal-dialog modal-dialog-centered">
-            <article class="modal-content bg-dark text-light border border-secondary">
-                <header class="modal-header border-secondary">
+            <article class="modal-content border border-primary">
+                <header class="modal-header border-primary">
                     <h5 class="modal-title">Alle Notizen löschen?</h5>
-                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </header>
                 <main class="modal-body text-center">
                     <p>Möchtest du wirklich <strong>alle Notizen dauerhaft löschen</strong>? Diese Aktion kann nicht
                         rückgängig gemacht werden.</p>
                 </main>
-                <footer class="modal-footer border-secondary justify-content-center">
+                <footer class="modal-footer border-primary justify-content-center">
                     <button id="confirmDeleteAllBtn" class="btn btn-outline-danger">Ja, löschen</button>
-                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                    <button class="btn btn-outline-primary" data-bs-dismiss="modal">Abbrechen</button>
                 </footer>
             </article>
         </section>

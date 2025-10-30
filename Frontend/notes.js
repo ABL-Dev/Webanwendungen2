@@ -25,12 +25,12 @@ function renderNotes() {
     notesList.innerHTML = "";
     notes.forEach((note, index) => {
         const li = document.createElement("li");
-        li.className = "list-group-item d-flex justify-content-between align-items-center bg-transparent text-light border-secondary";
+        li.className = "list-group-item d-flex justify-content-between align-items-center bg-transparent text-light border-primary";
 
         li.innerHTML = `
             <span>${note}</span>
-            <div class="btn-group btn-group-sm">
-                <button class="btn btn-outline-primary edit-btn" title="Bearbeiten">
+            <div class="btn-group-sm">
+                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
                 <button class="btn btn-outline-danger delete-btn" title="Löschen">
