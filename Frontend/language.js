@@ -34,6 +34,13 @@ i18next.init({
                 "Close": "Schließen",
                 "Save": "Speichern",
                 "Cancel": "Abbrechen",
+                "+ Entry Note": "+ Notiz hinzufügen",
+                "delete all": "Alle löschen",
+                "Entry New Note": "Neue Notiz hinzufügen" ,
+                "Delete all notes?": "Alle Notizen löschen?",
+                "Are you sure you want to permanently delete all notes?": "Möchtest du wirklich alle Notizen dauerhaft löschen?",
+                "yes, delete": "Ja, löschen",
+                "days ago": "Tage zuvor",
 
                 // Dashboard
                 "Pie Chart": "Kreisdiagramm",
@@ -114,6 +121,12 @@ i18next.init({
                 "Schließen": "Close",
                 "Speichern": "Save",
                 "Abbrechen": "Cancel",
+                "+ Notiz hinzufügen": "+ Entry Note",
+                "Alle löschen": "delete all",
+                "Neue Notiz hinzufügen": "Entry New Note",
+                "Alle Notizen löschen?": "Delete all notes? ",
+                "Möchtest du wirklich alle Notizen dauerhaft löschen?":  "Are you sure you want to permanently delete all notes?",
+                "Ja, löschen": "yes, delete",
 
                 // Dashboard
                 "Kreisdiagramm": "Pie Chart",
