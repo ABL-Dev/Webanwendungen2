@@ -599,7 +599,7 @@ window.onload = function () {
         desc.textContent = tx.beschreibung || (tx.kategorie || 'Transaktion');
 
         const date = document.createElement("div");
-        date.className = "date small text-muted";
+        date.className = "date small text-primary";
         date.textContent = daysAgo(tx.datum);
 
         textWrap.appendChild(desc);
@@ -619,7 +619,7 @@ window.onload = function () {
 
         // optional: kleine Kategorie-Zeile unter Betrag
         const catSmall = document.createElement('div');
-        catSmall.className = 'small text-muted';
+        catSmall.className = 'small text-primary';
         catSmall.textContent = tx.kategorie || '';
 
         amount.appendChild(amtSpan);
