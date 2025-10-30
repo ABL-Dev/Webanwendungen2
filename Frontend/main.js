@@ -539,10 +539,26 @@ window.onload = function () {
 
     // einfache Kategorie -> Bootstrap Icon Map
     const iconMap = {
-      'haupteinkommen': 'bi-wallet2', 'gehalt':'bi-wallet2', 'salary':'bi-wallet2',
-      'grocery': 'bi-cart3', 'food':'bi-basket3', 'shopping':'bi-cart3',
-      'miete': 'bi-building', 'rent':'bi-building', 'strom':'bi-lightning-charge',
-      'auto':'bi-car-front'
+      "haupteinkommen": "bi-wallet-fill",
+      "nebeneinkommen": "bi-cash-stack",
+      "staatliche Leistungen/Transfers": "bi-patch-check-fill",
+      "kapitaleinkünfte": "bi-graph-up-arrow",
+      "sonstige Einnahmen": "bi-three-dots",
+      "wohnen": "bi-house-fill",
+      "versicherungen": "bi-shield-shaded",
+      "mobilität (Fix)": "bi-bus-front-fill",
+      "kommunikation/Medien": "bi-headset",
+      "finanzen/Sparen (Fix)": "bi-bank",
+      "abbonements": "bi-repeat",
+      "lebensmittel": "bi-cart-fill",
+      "mobilität (Variabel)": "bi-fuel-pump-fill",
+      "kleidung & Körperpflege": "bi-bag-fill",
+      "gesundheit": "bi-heart-pulse-fill",
+      "freizeit & Unterhaltung": "bi-controller",
+      "kinder/Haustiere": "bi-people-fill",
+      "urlaub & Reisen": "bi-airplane-fill",
+      "geschenke & Spenden": "bi-gift-fill",
+      "sonstiges": "bi-three-dots",
     };
 
     //Ortnet den Katigorien Icons zu
