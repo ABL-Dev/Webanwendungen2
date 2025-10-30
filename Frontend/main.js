@@ -578,7 +578,7 @@ window.onload = function () {
 
       transactions.forEach(tx => {
         const li = document.createElement("li");
-        li.className = 'd-flex align-items-start justify-content-between gap-3 py-2 border-bottom';
+        li.className = 'd-flex align-items-start justify-content-between gap-3 py-2 border-bottom border-primary';
 
         //links icon + text
         const left = document.createElement('div');
@@ -589,7 +589,7 @@ window.onload = function () {
         iconWrap.style.width = '44px';
         iconWrap.style.height = '44px';
         // setze icon
-        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.1rem"></i>`;
+        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
 
         const textWrap = document.createElement('div');
         textWrap.className = 'left-text';
