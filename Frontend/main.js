@@ -520,83 +520,117 @@ window.onload = function () {
     }
   });
 
-  //////////////////////////
+  //************************************************************************************************************************************+
+  // Recent Transactions
+  //*****************************************************************************************************************************
 
-  // Financial overview //
-  // Formats number to euro value.
-  function formatEuro(amount) {
-    return amount.toLocaleString("de-DE", {
-      style: "currency",
-      currency: "EUR"
-    });
-  }
+  (() => {
 
-  // Calculate sums.
-  let einnahmenSumme = 0;
-  let ausgabenSumme = 0;
-  transactions.forEach(t => {
-    if (t.einnahme) {
-      einnahmenSumme += t.betrag;
-    } else {
-      ausgabenSumme += t.betrag;
+    //daysAgo-Funktion
+    function daysAgo(dateStr) {
+      const now = new Date();
+      const date = new Date(dateStr);
+      const diff = now - date;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      if (days === 0) return "Today";
+      if (days === 1) return "Yesterday";
+      return `${days} days ago`;
     }
-  });
 
-  // Dynamically enter sums to corresponding id.
-  document.getElementById("income").textContent = formatEuro(einnahmenSumme);
-  document.getElementById("expenses").textContent = formatEuro(ausgabenSumme);
+    // einfache Kategorie -> Bootstrap Icon Map
+    const iconMap = {
+      "haupteinkommen": "bi-wallet-fill",
+      "nebeneinkommen": "bi-cash-stack",
+      "staatliche Leistungen/Transfers": "bi-patch-check-fill",
+      "kapitaleinkünfte": "bi-graph-up-arrow",
+      "sonstige Einnahmen": "bi-three-dots",
+      "wohnen": "bi-house-fill",
+      "versicherungen": "bi-shield-shaded",
+      "mobilität (Fix)": "bi-bus-front-fill",
+      "kommunikation/Medien": "bi-headset",
+      "finanzen/Sparen (Fix)": "bi-bank",
+      "abbonements": "bi-repeat",
+      "lebensmittel": "bi-cart-fill",
+      "mobilität (Variabel)": "bi-fuel-pump-fill",
+      "kleidung & Körperpflege": "bi-bag-fill",
+      "gesundheit": "bi-heart-pulse-fill",
+      "freizeit & Unterhaltung": "bi-controller",
+      "kinder/Haustiere": "bi-people-fill",
+      "urlaub & Reisen": "bi-airplane-fill",
+      "geschenke & Spenden": "bi-gift-fill",
+      "sonstiges": "bi-three-dots",
+    };
 
-  // TODO: Will man so total ausrechnen? Oder gibt es extra variable für total?
-  // TODO: Prozentzahlen dynamisch anpassen unter den werten.
-  document.getElementById("total").textContent = formatEuro(einnahmenSumme - ausgabenSumme);
+    //Ortnet den Katigorien Icons zu
+    function chooseIcon(cat) {
+      // fals es nicht das richtige Icon gibt wird das ? genommen
+      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
+    }
 
-  //////////////////////////
+    // Renderer
+    function render() {
+      //Hohlt die ul
+      const listContainer = document.getElementById("transactionList");
+      listContainer.innerHTML = '';
 
-  // Recent transactions //
-  // Helping function to show how many days ago from today the transaction was done.
-  function daysAgo(dateStr) {
-    const now = new Date();
-    const date = new Date(dateStr);
-    const diff = now - date;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      // nach Datum sortieren (neu -> alt)
+      transactions.sort((a,b) => new Date(b.datum) - new Date(a.datum));
 
-    // Everything <= 1day.
-    if (days === 0) return "Today";
-    if (days === 1) return "Yesterday";
+      transactions.forEach(tx => {
+        const li = document.createElement("li");
+        li.className = 'd-flex align-items-start justify-content-between gap-3 py-2 border-bottom border-primary';
 
-    // Everything older than 1 day.
-    return `${days} days ago`;
-  }
+        //links icon + text
+        const left = document.createElement('div');
+        left.className = 'd-flex align-items-start gap-2';
 
-  // Get the list inside of index.html.
-  const listContainer = document.getElementById("transactionList");
-  listContainer.innerHTML = ''; // Clear existing
+        const iconWrap = document.createElement('div');
+        iconWrap.className = 'flex-shrink-0 d-flex align-items-center justify-content-center rounded-3 p-2';
+        iconWrap.style.width = '44px';
+        iconWrap.style.height = '44px';
+        // setze icon
+        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
 
-  // Add row for each entry in set of data (json).
-  transactions.forEach(tx => {
-    const li = document.createElement("li");
+        const textWrap = document.createElement('div');
+        textWrap.className = 'left-text';
 
-    const leftDiv = document.createElement("div");
-    leftDiv.classList.add("left-text");
+        const desc = document.createElement("div");
+        desc.className = "description fw-semibold";
+        desc.textContent = tx.beschreibung || (tx.kategorie || 'Transaktion');
 
-    const desc = document.createElement("div");
-    desc.classList.add("description");
-    desc.textContent = tx.beschreibung;
+        const date = document.createElement("div");
+        date.className = "date small text-primary";
+        date.textContent = daysAgo(tx.datum);
 
-    const date = document.createElement("div");
-    date.classList.add("date");
-    date.textContent = daysAgo(tx.datum);
+        textWrap.appendChild(desc);
+        textWrap.appendChild(date);
 
-    leftDiv.appendChild(desc);
-    leftDiv.appendChild(date);
+        left.appendChild(iconWrap);
+        left.appendChild(textWrap);
 
-    const amount = document.createElement("div");
-    amount.textContent = (tx.einnahme ? "++" : "-") + tx.betrag.toFixed(2);
-    amount.style.fontWeight = "bold";
+        // right: Betrag
+        const amount = document.createElement("div");
+        amount.className = 'text-end';
+        const amtSpan = document.createElement('div');
+        amtSpan.className = 'fw-bold';
+        const formatted = Number(tx.betrag || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted;
+        amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
 
-    li.appendChild(leftDiv);
-    li.appendChild(amount);
+        // optional: kleine Kategorie-Zeile unter Betrag
+        const catSmall = document.createElement('div');
+        catSmall.className = 'small text-primary';
+        catSmall.textContent = tx.kategorie || '';
 
-    listContainer.appendChild(li);
-  });
-};
+        amount.appendChild(amtSpan);
+        amount.appendChild(catSmall);
+
+        li.appendChild(left);
+        li.appendChild(amount);
+
+        listContainer.appendChild(li);
+      });
+    }
+    render();
+  })();
+}
