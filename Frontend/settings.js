@@ -1,3 +1,6 @@
+const settingsModalEl = document.getElementById("settingsModal");
+const settingsModal = new bootstrap.Modal(settingsModalEl);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Alle verfügbaren Kategorien
     const categories = [

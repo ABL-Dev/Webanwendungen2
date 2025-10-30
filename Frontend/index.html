@@ -321,7 +321,7 @@
     <dialog class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true"
         data-bs-backdrop="static">
         <section class="modal-dialog modal-dialog-centered">
-            <article class="modal-content border border-primary">
+            <article class="modal-content border border-primary w-auto">
 
                 <header class="modal-header border-primary">
                     <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
@@ -345,10 +345,11 @@
                     <!-- Finance Settings -->
                     <h5 class="mt-4 mb-2">Finance Settings</h5>
                     <hr class="border-primary mb-3">
-
+                    
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect1" class="mb-0">Category 1</label>
-                        <select id="categorySelect1" class="form-select w-auto border-primary">
+                        <label for="categorySelect1" class="mb-0 me-3 text-nowrap">Category 1</label>
+                        
+                        <select id="categorySelect1" class="form-select w-auto border-primary me-2">
                             <option value="Haupteinkommen" selected>Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
                             <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
@@ -370,11 +371,13 @@
                             <option value="Geschenke & Spenden">Geschenke & Spenden</option>
                             <option value="Sonstiges">Sonstiges</option>
                         </select>
+
+                        <input type="text" id="totalBudget1" class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget" size="8"/>
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect2" class="mb-0">Category 2</label>
-                        <select id="categorySelect2" class="form-select w-auto border-primary">
+                        <label for="categorySelect2" class="mb-0 me-3">Category 2</label>
+                        <select id="categorySelect2" class="form-select w-auto border-primary me-2">
                             <option value="Wohnen" selected>Wohnen</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -396,11 +399,13 @@
                             <option value="Geschenke & Spenden">Geschenke & Spenden</option>
                             <option value="Sonstiges">Sonstiges</option>
                         </select>
+
+                        <input type="text" id="totalBudget2" class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget" size="8"/>
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect3" class="mb-0">Category 3</label>
-                        <select id="categorySelect3" class="form-select w-auto border-primary">
+                        <label for="categorySelect3" class="mb-0 me-3">Category 3</label>
+                        <select id="categorySelect3" class="form-select w-auto border-primary me-2">
                             <option value="Lebensmittel & Haushalt" selected>Lebensmittel & Haushalt</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -419,11 +424,13 @@
                             <option value="Geschenke & Spenden">Geschenke & Spenden</option>
                             <option value="Sonstiges">Sonstiges</option>
                         </select>
+
+                        <input type="text" id="totalBudget3" class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget" size="8"/>
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect4" class="mb-0">Category 4</label>
-                        <select id="categorySelect4" class="form-select w-auto border-primary">
+                        <label for="categorySelect4" class="mb-0 me-3">Category 4</label>
+                        <select id="categorySelect4" class="form-select w-auto border-primary me-2">
                             <option value="Mobilität (Fix)" selected>Mobilität (Fix)</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -442,11 +449,13 @@
                             <option value="Geschenke & Spenden">Geschenke & Spenden</option>
                             <option value="Sonstiges">Sonstiges</option>
                         </select>
+
+                        <input type="text" id="totalBudget4" class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget" size="8"/>
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect5" class="mb-0">Category 5</label>
-                        <select id="categorySelect5" class="form-select w-auto border-primary">
+                        <label for="categorySelect5" class="mb-0 me-3">Category 5</label>
+                        <select id="categorySelect5" class="form-select w-auto border-primary me-2">
                             <option value="Freizeit & Unterhaltung" selected>Freizeit & Unterhaltung</option>
                             <option value="Haupteinkommen">Haupteinkommen</option>
                             <option value="Nebeneinkommen">Nebeneinkommen</option>
@@ -465,6 +474,8 @@
                             <option value="Geschenke & Spenden">Geschenke & Spenden</option>
                             <option value="Sonstiges">Sonstiges</option>
                         </select>
+
+                        <input type="text" id="totalBudget5" class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget" size="8"/>
                     </section>
                 </main>
 
