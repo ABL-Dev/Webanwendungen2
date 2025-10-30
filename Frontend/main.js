@@ -116,7 +116,7 @@ window.onload = function () {
 
   // Statische json Werte für das ganze Dashboard.
   // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
-  transactions = [
+  const transactions = [
     {
       "einnahme": true,
       "betrag": 2850.00,
@@ -450,7 +450,7 @@ window.onload = function () {
   // Übrig, also wie viel Geld man in dieser Kategorie noch ausgeben dürfte.
   const remaining = totalBudget.map((t, i) => Math.max(0, t - spent[i]));
 
-  new Chart(ctxbar, {
+  const totalBudgetChart = new Chart(ctxbar, {
     type: 'bar',
     data: {
       labels: categories,
@@ -572,7 +572,7 @@ window.onload = function () {
       listContainer.innerHTML = '';
 
       // nach Datum sortieren (neu -> alt)
-      transactions.sort((a,b) => new Date(b.datum) - new Date(a.datum));
+      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
       transactions.forEach(tx => {
         const li = document.createElement("li");
@@ -662,6 +662,86 @@ window.onload = function () {
   // TODO: Will man so total ausrechnen? Oder gibt es extra variable für total?
   // TODO: Prozentzahlen dynamisch anpassen unter den werten.
   document.getElementById("total").textContent = formatEuro(einnahmenSumme - ausgabenSumme);
+
+  // SETTINGS SAVE KNOPF //
+
+  const selectedElementArray = []; // Ausgewählte Kategorien in Settings.
+  const selectedTotalBudgetArray = []; // Ausgewählte max. Budgets in Settings.
+
+  // Hier den event listener gemacht, weil hier alle Variablen sind.
+  const saveButton = document.getElementById("saveFinanceSettings");
+  saveButton.addEventListener("click", function () {
+    for (let i = 1; i < 6; i++) {
+      const selectElement = document.getElementById("categorySelect" + i);
+      selectedElementArray.push(selectElement.value);
+
+      const totalBudgetElement = document.getElementById("totalBudget" + i);
+      selectedTotalBudgetArray.push(totalBudgetElement.value);
+    }
+
+    // Neue total Budgets die in settings gesetzt wurden (graue balken in diagramm).
+    const newTotalBudget = selectedTotalBudgetArray;
+
+    // Danach wandle die neuen Kategorien um in lowercase (so wie die daten im json stehen).
+    // Gibt es die daten im json wird der bereits bestehende wert für die kategorie genommen.
+    // Wurde in den settings eine kategorie ausgewählt die es im json/später in der datenbank
+    // gar nicht gibt - dann wird die kategorie als label übernommen, aber die ausgaben sind einfach 0
+    // für diese kategorie.
+    const categoryNamesLower = selectedElementArray.map(str => str.toLowerCase());
+    totalBudgetChart.data.labels = categoryNamesLower; // Alte Kategorien mit neuen aus Settings austauschen im Chart.
+
+    // Neues "spent" Array wird erstellt.
+    // Gibt es Ausgaben für die ausgewählte Kategorie in Settings werden diese übernommen.
+    // Gibt es keine Ausgaben für die Kategorie (Daten für Kategorie existieren noch nicht)
+    // dann wird als Summe der Ausgaben einfach 0 übernommen.
+    
+    //Object.values(categorySums);
+    const newSpent = [];
+
+    // Gehe durch Daten Dictionary und prüfe ob es bereits Summenwerte gibt für ausgewählte Kategorien aus Settings.
+    // Sonst ordne 0 zu, weil es keine Daten zur Kategorie gibt.
+    for (let i = 0; i < 5; i++) {
+      if (categorySums[categoryNamesLower[i]] == undefined) { // Kategoriewerte existieren nicht = 0.
+        newSpent.push("0");
+      }
+      else {
+        newSpent.push(categorySums[categoryNamesLower[i]]); // Es gibt Werte zur Kategorie -> Werte übernehmen.
+      }
+    }
+    
+    // Oben wurde totalBudget ersetzt, jetzt werden die restlichen alten Werte des Budget Overview Charts ersetzt.
+    // In zwei Teile aufteilen.
+    // Ausgaben.
+    const newNormalSpent = newSpent.map((s, i) => Math.min(s, newTotalBudget[i]));
+    // Mehr als Limit ausgegeben (rot).
+    const newExceededSpent = newSpent.map((s, i) => Math.max(0, s - newTotalBudget[i]));
+    // Übrig, also wie viel Geld man in dieser Kategorie noch ausgeben dürfte.
+    const newRemaining = newTotalBudget.map((t, i) => Math.max(0, t - newSpent[i]));
+
+    // Chart updaten mit Settings Daten.
+    totalBudgetChart.data.datasets[0].data = newNormalSpent;
+    totalBudgetChart.data.datasets[1].data = newExceededSpent;
+    totalBudgetChart.data.datasets[2].data = newRemaining;
+
+    // X-Achse manuell updaten mit neuen Settings Daten.
+    totalBudgetChart.options.scales.x.max = Math.max(...newTotalBudget.concat(newSpent));
+
+    // Tooltips manuell updaten mit neuen Settings Daten.
+    totalBudgetChart.options.plugins.tooltip.callbacks.label = function (context) {
+      const i = context.dataIndex;
+      const datasetLabel = context.dataset.label;
+      if (datasetLabel === 'Spent (within budget)') return `Im Budget: ${newNormalSpent[i]} €`;
+      if (datasetLabel === 'Spent (exceeded)') return `Überschritten: ${newExceededSpent[i]} €`;
+      if (datasetLabel === 'Remaining') return `Übrig: ${newRemaining[i]} €`;
+    };
+
+    // Chart updaten mit neuen Werten und neu zeichnen.
+    totalBudgetChart.update();
+
+    // Settings Seite schließen.
+    settingsModal.hide();
+  });
 }
+
 
 
