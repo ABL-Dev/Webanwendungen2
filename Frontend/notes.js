@@ -25,7 +25,7 @@ function renderNotes() {
     notesList.innerHTML = "";
     notes.forEach((note, index) => {
         const li = document.createElement("li");
-        li.className = "list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary";
+        li.className = "list-group-item d-flex justify-content-between align-items-center bg-transparent text-light border-secondary";
 
         li.innerHTML = `
             <span>${note}</span>

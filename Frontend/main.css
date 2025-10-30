@@ -68,6 +68,11 @@ ul {
   overflow-y: auto;
 }/* bis hier */
 
+.noteScroll {
+  max-height: 25vh;
+  overflow-y: auto;
+}
+
 /* ab hier sachen für financial overview. */
 .financial-overview {
   display: flex;
