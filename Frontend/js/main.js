@@ -667,11 +667,30 @@ window.onload = function () {
         const nots = document.createElement("div");
         nots.textContent = tx.notizen;
         nots.className = 'mt-2 small'
-        nots.style.marginLeft = 'calc(44px + 0.5rem)'; // 52 px da Icon=44px + gap2=0.5rem
         nots.style.color = '#a2a2a2';
 
+        const ecBtn = document.createElement('div');
+        ecBtn.innerHTML = `
+            <div class="btn-group-sm">
+                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger delete-btn" title="Löschen">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </div>
+        `;
+
+        const bottomRow = document.createElement('div');
+        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
+        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
+        
+        bottomRow.appendChild(nots);
+        bottomRow.appendChild(ecBtn);
+
+
         li.appendChild(mainRow);
-        li.appendChild(nots);
+        li.appendChild(bottomRow);
 
         listContainer.appendChild(li);
       });
