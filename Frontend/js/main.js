@@ -121,246 +121,281 @@ window.onload = function () {
       "einnahme": true,
       "betrag": 2850.00,
       "datum": "2025-09-01",
-      "kategorie": "haupteinkommen",
-      "beschreibung": "Gehalt September"
+      "kategorie": "Haupteinkommen",
+      "beschreibung": "Gehalt September",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 950.00,
       "datum": "2025-09-02",
-      "kategorie": "wohnen",
-      "beschreibung": "Miete Wohnung"
+      "kategorie": "Wohnen",
+      "beschreibung": "Miete Wohnung",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 78.50,
       "datum": "2025-09-03",
-      "kategorie": "versicherungen",
-      "beschreibung": "Haftpflichtversicherung"
+      "kategorie": "Versicherungen",
+      "beschreibung": "Haftpflichtversicherung",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 12.99,
       "datum": "2025-09-03",
-      "kategorie": "abbonements",
-      "beschreibung": "Netflix Abo"
+      "kategorie": "Abbonements",
+      "beschreibung": "Netflix Abo",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 5.99,
       "datum": "2025-09-04",
-      "kategorie": "abbonements",
-      "beschreibung": "Spotify Premium"
+      "kategorie": "Abbonements",
+      "beschreibung": "Spotify Premium",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 54.20,
       "datum": "2025-09-04",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Wocheneinkauf Supermarkt"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Wocheneinkauf Supermarkt",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 32.45,
       "datum": "2025-09-05",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Einkauf beim Bäcker und Metzger"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Einkauf beim Bäcker und Metzger",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 120.00,
       "datum": "2025-09-05",
-      "kategorie": "sonstiges",
-      "beschreibung": "Geschenk für Freundin"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Geschenk für Freundin",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-06",
-      "kategorie": "sonstiges",
-      "beschreibung": "Kinobesuch und Snacks"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Kinobesuch und Snacks",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 30.25,
       "datum": "2025-09-07",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Einkauf Lidl"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Einkauf Lidl",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 89.00,
       "datum": "2025-09-08",
-      "kategorie": "versicherungen",
-      "beschreibung": "Kfz-Versicherung"
+      "kategorie": "Versicherungen",
+      "beschreibung": "Kfz-Versicherung",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 75.00,
       "datum": "2025-09-09",
-      "kategorie": "wohnen",
-      "beschreibung": "Stromabschlag"
+      "kategorie": "Wohnen",
+      "beschreibung": "Stromabschlag",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 25.50,
       "datum": "2025-09-09",
-      "kategorie": "sonstiges",
-      "beschreibung": "Café-Besuch mit Freunden"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Café-Besuch mit Freunden",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 15.00,
       "datum": "2025-09-10",
-      "kategorie": "abbonements",
-      "beschreibung": "Adobe Creative Cloud"
+      "kategorie": "Abbonements",
+      "beschreibung": "Adobe Creative Cloud",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 48.70,
       "datum": "2025-09-10",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Wocheneinkauf Supermarkt"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Wocheneinkauf Supermarkt",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": true,
       "betrag": 120.00,
       "datum": "2025-09-11",
-      "kategorie": "sonstiges",
-      "beschreibung": "Verkauf gebrauchtes Smartphone"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Verkauf gebrauchtes Smartphone",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 9.99,
       "datum": "2025-09-12",
-      "kategorie": "abbonements",
-      "beschreibung": "YouTube Premium"
+      "kategorie": "Abbonements",
+      "beschreibung": "YouTube Premium",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 27.30,
       "datum": "2025-09-13",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Einkauf Rewe"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Einkauf Rewe",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 110.00,
       "datum": "2025-09-14",
-      "kategorie": "sonstiges",
-      "beschreibung": "Kleidung Herbstkollektion"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Kleidung Herbstkollektion",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 64.50,
       "datum": "2025-09-15",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Wocheneinkauf Aldi"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Wocheneinkauf Aldi",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 95.00,
       "datum": "2025-09-16",
-      "kategorie": "versicherungen",
-      "beschreibung": "Hausratversicherung"
+      "kategorie": "Versicherungen",
+      "beschreibung": "Hausratversicherung",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 50.00,
       "datum": "2025-09-17",
-      "kategorie": "sonstiges",
-      "beschreibung": "Tankfüllung Auto"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Tankfüllung Auto",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 22.80,
       "datum": "2025-09-18",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Bäckerei und Markt"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Bäckerei und Markt",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 5.50,
       "datum": "2025-09-19",
-      "kategorie": "sonstiges",
-      "beschreibung": "Kaffee to go"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Kaffee to go",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-20",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Wocheneinkauf"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Wocheneinkauf",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 14.99,
       "datum": "2025-09-21",
-      "kategorie": "abbonements",
-      "beschreibung": "Amazon Prime"
+      "kategorie": "Abbonements",
+      "beschreibung": "Amazon Prime",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 73.00,
       "datum": "2025-09-22",
-      "kategorie": "wohnen",
-      "beschreibung": "Internet und Telefon"
+      "kategorie": "Wohnen",
+      "beschreibung": "Internet und Telefon",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 40.00,
       "datum": "2025-09-23",
-      "kategorie": "sonstiges",
-      "beschreibung": "Restaurantbesuch"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Restaurantbesuch",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 62.80,
       "datum": "2025-09-24",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Einkauf Supermarkt"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Einkauf Supermarkt",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": true,
       "betrag": 200.00,
       "datum": "2025-09-25",
-      "kategorie": "sonstiges",
-      "beschreibung": "Nebenjob Wochenende"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Nebenjob Wochenende",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 16.90,
       "datum": "2025-09-26",
-      "kategorie": "sonstiges",
-      "beschreibung": "Friseurtermin"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Friseurtermin",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 53.40,
       "datum": "2025-09-27",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Wocheneinkauf Rewe"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Wocheneinkauf Rewe",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 11.99,
       "datum": "2025-09-28",
-      "kategorie": "abbonements",
-      "beschreibung": "Apple Music"
+      "kategorie": "Abbonements",
+      "beschreibung": "Apple Music",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 18.50,
       "datum": "2025-09-29",
-      "kategorie": "sonstiges",
-      "beschreibung": "Mittagessen Kantine"
+      "kategorie": "Sonstiges",
+      "beschreibung": "Mittagessen Kantine",
+      "notizen": "Notizen ..."
     },
     {
       "einnahme": false,
       "betrag": 47.10,
       "datum": "2025-09-30",
-      "kategorie": "lebensmittel",
-      "beschreibung": "Monatsabschluss Einkauf"
+      "kategorie": "Lebensmittel",
+      "beschreibung": "Monatsabschluss Einkauf",
+      "notizen": "Notizen ..."
     }
   ];
 
@@ -576,7 +611,7 @@ window.onload = function () {
 
       transactions.forEach(tx => {
         const li = document.createElement("li");
-        li.className = 'd-flex align-items-start justify-content-between gap-3 py-2 border-bottom border-primary';
+        li.className = 'py-2 border-bottom border-primary';
 
         //links icon + text
         const left = document.createElement('div');
@@ -594,7 +629,7 @@ window.onload = function () {
 
         const desc = document.createElement("div");
         desc.className = "description fw-semibold";
-        desc.textContent = tx.beschreibung || (tx.kategorie || 'Transaktion');
+        desc.textContent = tx.beschreibung;
 
         const date = document.createElement("div");
         date.className = "date small text-primary";
@@ -611,20 +646,51 @@ window.onload = function () {
         amount.className = 'text-end';
         const amtSpan = document.createElement('div');
         amtSpan.className = 'fw-bold';
-        const formatted = Number(tx.betrag || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted;
+        const formatted = Number(tx.betrag).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
         amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
 
         // optional: kleine Kategorie-Zeile unter Betrag
         const catSmall = document.createElement('div');
         catSmall.className = 'small text-primary';
-        catSmall.textContent = tx.kategorie || '';
+        catSmall.textContent = tx.kategorie;
 
         amount.appendChild(amtSpan);
         amount.appendChild(catSmall);
 
-        li.appendChild(left);
-        li.appendChild(amount);
+        const mainRow = document.createElement('div');
+        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
+
+        mainRow.appendChild(left);
+        mainRow.appendChild(amount);
+
+        const nots = document.createElement("div");
+        nots.textContent = tx.notizen;
+        nots.className = 'mt-2 small'
+        nots.style.color = '#a2a2a2';
+
+        const ecBtn = document.createElement('div');
+        ecBtn.innerHTML = `
+            <div class="btn-group-sm">
+                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger delete-btn" title="Löschen">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </div>
+        `;
+
+        const bottomRow = document.createElement('div');
+        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
+        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
+        
+        bottomRow.appendChild(nots);
+        bottomRow.appendChild(ecBtn);
+
+
+        li.appendChild(mainRow);
+        li.appendChild(bottomRow);
 
         listContainer.appendChild(li);
       });
