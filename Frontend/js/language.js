@@ -23,7 +23,6 @@ i18next.init({
     resources: {
         de: {
             translation: {
-                // Allgemein
                 "Finance Tracker": "Finanz-Tracker",
                 "Search": "Suchen",
                 "Nothing found": "Nichts gefunden",
@@ -41,8 +40,6 @@ i18next.init({
                 "Are you sure you want to permanently delete all notes?": "Möchtest du wirklich alle Notizen dauerhaft löschen?",
                 "yes, delete": "Ja, löschen",
                 "days ago": "Tage zuvor",
-
-                // Dashboard
                 "Pie Chart": "Kreisdiagramm",
                 "Budget Overview": "Budgetübersicht",
                 "Financial Overview": "Finanzübersicht",
@@ -51,14 +48,10 @@ i18next.init({
                 "Expenses": "Ausgaben",
                 "Notes": "Notizen",
                 "Recent Transactions": "Letzte Transaktionen",
-
-                // Monate
                 "Mar": "Mär",
                 "May": "Mai",
                 "Oct": "Okt",
                 "Dec": "Dez",
-
-                // Modal / Formular
                 "Create New Entry": "Neuen Eintrag anlegen",
                 "Transaction type": "Transaktionstyp",
                 "€ Income": "€ Einnahmen",
@@ -76,8 +69,6 @@ i18next.init({
                 "Please select a category.": "Bitte eine Kategorie auswählen.",
                 "Please enter a description.": "Bitte eine Beschreibung eingeben.",
                 "Abort": "Abbrechen",
-
-                // Kategorien
                 "Main income": "Haupteinkommen",
                 "Supplementary income": "Nebeneinkommen",
                 "Government benefits/transfers": "Staatliche Leistungen/Transfers",
@@ -90,6 +81,7 @@ i18next.init({
                 "Finances/savings (fixed)": "Finanzen/Sparen (Fix)",
                 "Subscriptions/memberships": "Abonnements/Mitgliedschaften",
                 "Food & household": "Lebensmittel & Haushalt",
+                "Food": "Lebensmittel",
                 "Mobility (variable)": "Mobilität (Variabel)",
                 "Clothing & personal care": "Kleidung & Körperpflege",
                 "Health": "Gesundheit",
@@ -98,19 +90,20 @@ i18next.init({
                 "Vacations & travel": "Urlaub & Reisen",
                 "Gifts & donations": "Geschenke & Spenden",
                 "Other": "Sonstiges",
-
-                // Finance Settings
                 "Finance Settings": "Finanz-Einstellungen",
                 "Category 1": "Kategorie 1",
                 "Category 2": "Kategorie 2",
                 "Category 3": "Kategorie 3",
                 "Category 4": "Kategorie 4",
                 "Category 5": "Kategorie 5",
+                "Please enter a valid amount with two decimal places.": "Bitte einen gültigen Betrag mit zwei Nachkommastellen eingeben.",
+                "The field is empty.": "Das Feld ist leer.",
+                "Enter note...": "Notiz eingeben...",
+                "e.g. shopping at Kaufland": "z.b. Einkauf beim Kaufland"
             }
         },
         en: {
             translation: {
-                // General
                 "Finanz-Tracker": "Finance Tracker",
                 "Suchen": "Search",
                 "Nichts gefunden": "Nothing found",
@@ -127,8 +120,6 @@ i18next.init({
                 "Alle Notizen löschen?": "Delete all notes? ",
                 "Möchtest du wirklich alle Notizen dauerhaft löschen?":  "Are you sure you want to permanently delete all notes?",
                 "Ja, löschen": "yes, delete",
-
-                // Dashboard
                 "Kreisdiagramm": "Pie Chart",
                 "Budgetübersicht": "Budget Overview",
                 "Finanzübersicht": "Financial Overview",
@@ -137,14 +128,10 @@ i18next.init({
                 "Ausgaben": "Expenses",
                 "Notizen": "Notes",
                 "Letzte Transaktionen": "Recent Transactions",
-
-                // Months
                 "Mär": "Mar",
                 "Mai": "May",
                 "Okt": "Oct",
                 "Dez": "Dec",
-
-                // Modal / Form
                 "Neuen Eintrag anlegen": "Create New Entry",
                 "Transaktionstyp": "Transaction type",
                 "€ Einnahmen": "€ Income",
@@ -162,8 +149,6 @@ i18next.init({
                 "Bitte eine Kategorie auswählen.": "Please select a category.",
                 "Bitte eine Beschreibung eingeben.": "Please enter a description.",
                 "Abrechen": "Cancel",
-
-                // Kategorien
                 "Haupteinkommen": "Main income",
                 "Nebeneinkommen": "Supplementary income",
                 "Staatliche Leistungen/Transfers": "Government benefits/transfers",
@@ -176,6 +161,7 @@ i18next.init({
                 "Finanzen/Sparen (Fix)": "Finances/savings (fixed)",
                 "Abonnements/Mitgliedschaften": "Subscriptions/memberships",
                 "Lebensmittel & Haushalt": "Food & household",
+                "Lebensmittel": "Food",
                 "Mobilität (Variabel)": "Mobility (variable)",
                 "Kleidung & Körperpflege": "Clothing & personal care",
                 "Gesundheit": "Health",
@@ -184,14 +170,16 @@ i18next.init({
                 "Urlaub & Reisen": "Vacations & travel",
                 "Geschenke & Spenden": "Gifts & donations",
                 "Sonstiges": "Other",
-
-                // Finance Settings
                 "Finanz-Einstellungen": "Finance Settings",
                 "Kategorie 1": "Category 1",
                 "Kategorie 2": "Category 2",
                 "Kategorie 3": "Category 3",
                 "Kategorie 4": "Category 4",
                 "Kategorie 5": "Category 5",
+                "Bitte einen gültigen Betrag mit zwei Nachkommastellen eingeben.": "Please enter a valid amount with two decimal places.",
+                "Das Feld ist leer.": "The field is empty.",
+                "Notiz eingeben...": "Enter note...",
+                "z.b. Einkauf beim Kaufland": "e.g. shopping at Kaufland"
             }
         }
     }
@@ -199,17 +187,26 @@ i18next.init({
     updateContent();
 });
 
-// --- Sprachwechsel Dropdown ---
+// Sprachwechsel Dropdown
 document.addEventListener("DOMContentLoaded", () => {
     const select = document.getElementById("languageSelect");
     if (!select) return;
 
-    const currentLang = localStorage.getItem("language") || "de";
-    select.value = currentLang;
+    // Immer Deutsch als Standard setzen
+    select.value = "de";
+    i18next.changeLanguage("de", updateContent);
 
     select.addEventListener("change", (e) => {
         const newLang = e.target.value;
         i18next.changeLanguage(newLang, updateContent);
-        localStorage.setItem("language", newLang);
+        // localStorage wird hier ignoriert, sodass Seite immer auf Deutsch startet
     });
+});
+
+
+// für die Übersetzung in recent transactions
+i18next.on('languageChanged', () => {
+    if (typeof updateCategoryDropdowns === "function") {
+        updateCategoryDropdowns();
+    }
 });
