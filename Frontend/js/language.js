@@ -81,6 +81,7 @@ i18next.init({
                 "Finances/savings (fixed)": "Finanzen/Sparen (Fix)",
                 "Subscriptions/memberships": "Abonnements/Mitgliedschaften",
                 "Food & household": "Lebensmittel & Haushalt",
+                "Food": "Lebensmittel",
                 "Mobility (variable)": "Mobilität (Variabel)",
                 "Clothing & personal care": "Kleidung & Körperpflege",
                 "Health": "Gesundheit",
@@ -160,6 +161,7 @@ i18next.init({
                 "Finanzen/Sparen (Fix)": "Finances/savings (fixed)",
                 "Abonnements/Mitgliedschaften": "Subscriptions/memberships",
                 "Lebensmittel & Haushalt": "Food & household",
+                "Lebensmittel": "Food",
                 "Mobilität (Variabel)": "Mobility (variable)",
                 "Kleidung & Körperpflege": "Clothing & personal care",
                 "Gesundheit": "Health",
@@ -185,17 +187,26 @@ i18next.init({
     updateContent();
 });
 
-// --- Sprachwechsel Dropdown ---
+// Sprachwechsel Dropdown
 document.addEventListener("DOMContentLoaded", () => {
     const select = document.getElementById("languageSelect");
     if (!select) return;
 
-    const currentLang = localStorage.getItem("language") || "de";
-    select.value = currentLang;
+    // Immer Deutsch als Standard setzen
+    select.value = "de";
+    i18next.changeLanguage("de", updateContent);
 
     select.addEventListener("change", (e) => {
         const newLang = e.target.value;
         i18next.changeLanguage(newLang, updateContent);
-        localStorage.setItem("language", newLang);
+        // localStorage wird hier ignoriert, sodass Seite immer auf Deutsch startet
     });
+});
+
+
+// für die Übersetzung in recent transactions
+i18next.on('languageChanged', () => {
+    if (typeof updateCategoryDropdowns === "function") {
+        updateCategoryDropdowns();
+    }
 });
