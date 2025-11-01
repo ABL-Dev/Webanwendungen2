@@ -424,6 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Fehlermarker nur setzen, wenn kein Radio gewählt wurde
       if (!radioChecked) {
         if (radioContainer) radioContainer.classList.add('is-invalid');
+        validationFailed = true;
       } else {
         if (radioContainer) radioContainer.classList.remove('is-invalid');
       }
@@ -431,6 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!radioChecked || !form.checkValidity()) {
         event.preventDefault(); // Wird nur bei Ungültigkeit aufgerufen
         event.stopPropagation();
+        validationFailed = true;
       }
 
       form.classList.add('was-validated');
@@ -464,7 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
         //Die daten müssen dan hier auf die Datenbank gepusht werden
         transactions.push(newTransaction);
         saveTransactions(transactions);
-        window.location.reload();
       }
 
 
