@@ -138,13 +138,9 @@ confirmDeleteAllBtn.addEventListener("click", () => {
 function setupModalReset(modalEl, textarea) {
     modalEl.addEventListener('hidden.bs.modal', function () {
         const form = this.querySelector('form');
-        //Der Rahmen ist nicht davor schon nicht rot...
-        // if (form) {
-        //     form.reset();
-        //     form.classList.remove('was-validated');
-        // }
         if (textarea) {
             textarea.classList.remove("is-invalid");
+            textarea.classList.remove("is-valid");
         }
     });
 }
@@ -153,13 +149,9 @@ setupModalReset(addNoteModalEl, addNoteTextarea);
 setupModalReset(editNoteModalEl, editNoteTextarea);
 
 // Fehlermeldung ausblenden beim Tippen
-// Vielleicht auch bei new Entry einbauen?
 addNoteTextarea.addEventListener("input", () => {
     addNoteTextarea.classList.remove("is-invalid");
-});
-
-editNoteTextarea.addEventListener("input", () => {
-    editNoteTextarea.classList.remove("is-invalid");
+    addNoteTextarea.classList.add("is-valid");
 });
 
 // Start Laden & Rendern
