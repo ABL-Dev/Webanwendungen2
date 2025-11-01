@@ -48,13 +48,46 @@ document.addEventListener("DOMContentLoaded", () => {
 (() => {
   const forms = document.querySelectorAll('.needs-validation');
   const dateInput = document.getElementById('date');
+ 
 
   // Heutiges Datum als Standard setzen
   const today = new Date().toISOString().split('T')[0];
   dateInput.value = today;
 
+
+  // Formular zurückseten beim schließen
+  if (NEModal){
+    NEModal.addEventListener('hidden.bs.modal', function () {
+      
+      const formToReset = this.querySelector('.needs-validation');
+      if (formToReset) {
+        // Formular einträge löschen
+        formToReset.reset();
+
+        //Valedirung entfernen
+        formToReset.classList.remove('was-validated');
+
+        //Radio buttens Fehlermeldung entfernen
+        const radioContainer = formToReset.querySelector('.transaction-type-group');
+        if (radioContainer) {
+          radioContainer.classList.remove('is-invalid');
+        }
+        
+        // Datum wieder auf heute setzen
+        const dateInputModal = formToReset.querySelector('#date');
+        if (dateInputModal) {
+          dateInputModal.value = today;
+        }
+
+
+      }
+
+    })
+  }
+
+
   Array.from(forms).forEach(form => {
-    const radioContainer = form.querySelector('.transaction-type-group');
+     const radioContainer = form.querySelector('.transaction-type-group');
     const radios = form.querySelectorAll('input[name="transactionType"]');
 
     // Wenn der Benutzer ein Radio wählt: Fehlermarker entfernen
