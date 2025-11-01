@@ -149,7 +149,7 @@
         </div>
 
                 <!--Notizen-->
-                <div class="card flex-fill h-100 d-flex flex-column" id="notesCard">
+                <!-- <div class="card flex-fill h-100 d-flex flex-column" id="notesCard">
                     <div class="card-header d-flex">
                         <span>Notizen</span>
                         <div class="ms-auto">
@@ -161,6 +161,18 @@
                         <ul id="notesList" class="list-group list-group-flush">
 
                         </ul>
+                    </div>
+                </div> -->
+                <div class="card flex-fill h-100 d-flex flex-column" id="notesCard">
+                    <div class="card-header d-flex">
+                        <span>To-Do's</span>
+                        <div class="ms-auto">
+                            <button id="addNoteBtn" class="btn btn-sm btn-outline-primary mx-2">+ Notiz hinzufügen</button>
+                            <button id="clearNotesBtn" class="btn btn-sm btn-outline-danger">Alle löschen</button>
+                        </div>
+                    </div>
+                    <div class="card-body flex-grow-1 noteScroll" style="overflow-y: auto; max-height: 55vh;">
+                        <ul id="notesList" class="list-group list-group-flush"></ul>
                     </div>
                 </div>
             </div>
