@@ -1,155 +1,6 @@
-// Navbar buttens (Statischer Dummy)
-
-document.addEventListener("DOMContentLoaded", () => {
-  const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
-
-  navButtons.forEach(button => {
-    button.addEventListener("click", () => {
-
-      const year = document.getElementById("year");
-      let yearNumber = Number(year.textContent);
-      switch (button.textContent) {
-        case '<':
-          yearNumber--;
-          year.textContent = yearNumber;
-          //handleMonthClick(button.textContent, yearNumber);
-          break;
-
-        case '>':
-          yearNumber++;
-          year.textContent = yearNumber;
-          //handleMonthClick(button.textContent, yearNumber);
-          break;
-
-        default:
-          const monthButtons = document.querySelectorAll(".month-btn");
-          monthButtons.forEach(btn => {
-            btn.disabled = false;
-            btn.classList.remove("btn-primary");
-            btn.classList.add("btn-outline-primary");
-
-          });
-
-          // Geklickten Button aktivieren & markieren
-          button.disabled = true;
-          button.classList.remove("btn-outline-primary");
-          button.classList.add("btn-primary");
-
-          //Für die spätere dynamik zum laden der Daten des buttens
-          //handleMonthClick(button.textContent, yearNumber);
-
-          break;
-      };
-    });
-  });
-});
-
-//Modal input validierung
-(() => {
-  const forms = document.querySelectorAll('.needs-validation');
-  const dateInput = document.getElementById('date');
- 
-
-  // Heutiges Datum als Standard setzen
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.value = today;
-
-
-  // Formular zurückseten beim schließen
-  if (NEModal){
-    NEModal.addEventListener('hidden.bs.modal', function () {
-      
-      const formToReset = this.querySelector('.needs-validation');
-      if (formToReset) {
-        // Formular einträge löschen
-        formToReset.reset();
-
-        //Valedirung entfernen
-        formToReset.classList.remove('was-validated');
-
-        //Radio buttens Fehlermeldung entfernen
-        const radioContainer = formToReset.querySelector('.transaction-type-group');
-        if (radioContainer) {
-          radioContainer.classList.remove('is-invalid');
-        }
-        
-        // Datum wieder auf heute setzen
-        const dateInputModal = formToReset.querySelector('#date');
-        if (dateInputModal) {
-          dateInputModal.value = today;
-        }
-
-
-      }
-
-    })
-  }
-
-
-  Array.from(forms).forEach(form => {
-     const radioContainer = form.querySelector('.transaction-type-group');
-    const radios = form.querySelectorAll('input[name="transactionType"]');
-
-    // Wenn der Benutzer ein Radio wählt: Fehlermarker entfernen
-    radios.forEach(r => r.addEventListener('change', () => {
-      if (radioContainer) radioContainer.classList.remove('is-invalid');
-    }));
-
-    // Betrag-Input 
-    const amount = document.getElementById('amount');
-
-    // Regex: eine oder mehrere Ziffern, dann , oder . gefolgt von genau 2 Ziffern
-    const amountRegex = /^\d+([.,]\d{2})$/;
-    function isValidAmountStr(val) {
-      if (!val) return false;
-      val = val.trim();
-      if (!amountRegex.test(val)) return false;
-      const num = parseFloat(val.replace(',', '.'));
-      return !isNaN(num) && num >= 0.01;
-    }
-
-    form.addEventListener('submit', event => {
-      const radioChecked = form.querySelector('input[name="transactionType"]:checked');
-
-      // Nur verhindern, wenn ungültig
-      if (!radioChecked || !form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      // Fehlermarker nur setzen, wenn kein Radio gewählt wurde
-      if (!radioChecked) {
-        if (radioContainer) radioContainer.classList.add('is-invalid');
-      } else {
-        if (radioContainer) radioContainer.classList.remove('is-invalid');
-      }
-
-      form.classList.add('was-validated');
-    }, false);
-  });
-})();
-
-//Suchleiste
-const input = document.getElementById("suchleiste");
-input.addEventListener('input', () => {
-  const eingabe = input.value.trim();
-
-  if (eingabe.length > 0) {
-    input.classList.add('is-invalid');
-
-    // Heir kann später eine richtige suchlogig eingebaut werden
-  }
-  else {
-    input.classList.remove('is-invalid');
-  }
-})
-
-window.onload = function () {
-  // Pie chart //
-
   // Statische json Werte für das ganze Dashboard.
   // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
-  const transactions = [
+const defaultTransactions = [
     {
       "einnahme": true,
       "betrag": 2850.00,
@@ -431,6 +282,213 @@ window.onload = function () {
       "notizen": "Notizen ..."
     }
   ];
+
+  // Daten lokal im browser speichern so können die daten beritz verändert werden später dynamisch
+const STORAGE_KEY = 'transactionData';
+
+function loadTransactions(){
+  const storeData = localStorage.getItem(STORAGE_KEY);
+  if (storeData) {
+    return JSON.parse(storeData);
+  }
+  saveTransactions(defaultTransactions);
+  return defaultTransactions;
+}
+
+function saveTransactions(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+let transactions = loadTransactions();
+
+
+// Navbar buttens (Statischer Dummy)
+
+document.addEventListener("DOMContentLoaded", () => {
+  const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
+
+  navButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+      const year = document.getElementById("year");
+      let yearNumber = Number(year.textContent);
+      switch (button.textContent) {
+        case '<':
+          yearNumber--;
+          year.textContent = yearNumber;
+          //handleMonthClick(button.textContent, yearNumber);
+          break;
+
+        case '>':
+          yearNumber++;
+          year.textContent = yearNumber;
+          //handleMonthClick(button.textContent, yearNumber);
+          break;
+
+        default:
+          const monthButtons = document.querySelectorAll(".month-btn");
+          monthButtons.forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove("btn-primary");
+            btn.classList.add("btn-outline-primary");
+
+          });
+
+          // Geklickten Button aktivieren & markieren
+          button.disabled = true;
+          button.classList.remove("btn-outline-primary");
+          button.classList.add("btn-primary");
+
+          //Für die spätere dynamik zum laden der Daten des buttens
+          //handleMonthClick(button.textContent, yearNumber);
+
+          break;
+      };
+    });
+  });
+});
+
+//Modal input validierung
+(() => {
+  const forms = document.querySelectorAll('.needs-validation');
+  const dateInput = document.getElementById('date');
+ 
+
+  // Heutiges Datum als Standard setzen
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+
+
+  // Formular zurückseten beim schließen
+  if (NEModal){
+    NEModal.addEventListener('hidden.bs.modal', function () {
+      
+      const formToReset = this.querySelector('.needs-validation');
+      if (formToReset) {
+        // Formular einträge löschen
+        formToReset.reset();
+
+        //Valedirung entfernen
+        formToReset.classList.remove('was-validated');
+
+        //Radio buttens Fehlermeldung entfernen
+        const radioContainer = formToReset.querySelector('.transaction-type-group');
+        if (radioContainer) {
+          radioContainer.classList.remove('is-invalid');
+        }
+        
+        // Datum wieder auf heute setzen
+        const dateInputModal = formToReset.querySelector('#date');
+        if (dateInputModal) {
+          dateInputModal.value = today;
+        }
+      }
+
+    })
+  }
+
+
+  Array.from(forms).forEach(form => {
+    const radioContainer = form.querySelector('.transaction-type-group');
+    const radios = form.querySelectorAll('input[name="transactionType"]');
+
+    //Alle inpus hohlen
+    const amountInput = document.getElementById('amount'); 
+    const categoryInput = document.getElementById('category'); 
+    const descriptionInput = document.getElementById('beschreibung');
+    const notesInput = document.getElementById('notizen');
+
+    // Wenn der Benutzer ein Radio wählt: Fehlermarker entfernen
+    radios.forEach(r => r.addEventListener('change', () => {
+      if (radioContainer) radioContainer.classList.remove('is-invalid');
+    }));
+
+    // Betrag-Input 
+    const amount = document.getElementById('amount');
+
+    // Regex: eine oder mehrere Ziffern, dann , oder . gefolgt von genau 2 Ziffern
+    const amountRegex = /^\d+([.,]\d{2})$/;
+    function isValidAmountStr(val) {
+      if (!val) return false;
+      val = val.trim();
+      if (!amountRegex.test(val)) return false;
+      const num = parseFloat(val.replace(',', '.'));
+      return !isNaN(num) && num >= 0.01;
+    }
+
+    form.addEventListener('submit', event => {
+
+      const radioChecked = form.querySelector('input[name="transactionType"]:checked');
+      let validationFailed = false;
+
+      // Fehlermarker nur setzen, wenn kein Radio gewählt wurde
+      if (!radioChecked) {
+        if (radioContainer) radioContainer.classList.add('is-invalid');
+      } else {
+        if (radioContainer) radioContainer.classList.remove('is-invalid');
+      }
+
+      if (!radioChecked || !form.checkValidity()) {
+        event.preventDefault(); // Wird nur bei Ungültigkeit aufgerufen
+        event.stopPropagation();
+      }
+
+      form.classList.add('was-validated');
+
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //  Daten Extrahiren und Hinzufügen wenn gültig
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+      if (!validationFailed) {
+        
+        const isEinnamhe = (radioChecked.value === 'einnahme');
+        
+        //Betrag umwandeln
+        const amuntStr = amountInput.value.replace(',', '.');
+        const betrag = parseFloat(amuntStr);
+
+        const datum = dateInput.value;
+        const kategorie = categoryInput.value;
+        const beschreibung = descriptionInput.value;
+        const notizen = notesInput.value;
+
+        const newTransaction = {
+          "einnahme": isEinnamhe,
+          "betrag": betrag,
+          "datum": datum,
+          "kategorie": kategorie,
+          "beschreibung": beschreibung,
+          "notizen": notizen
+        };
+
+        //Die daten müssen dan hier auf die Datenbank gepusht werden
+        transactions.push(newTransaction);
+        saveTransactions(transactions);
+        window.location.reload();
+      }
+
+
+    }, false);
+  });
+})();
+
+//Suchleiste
+const input = document.getElementById("suchleiste");
+input.addEventListener('input', () => {
+  const eingabe = input.value.trim();
+
+  if (eingabe.length > 0) {
+    input.classList.add('is-invalid');
+
+    // Heir kann später eine richtige suchlogig eingebaut werden
+  }
+  else {
+    input.classList.remove('is-invalid');
+  }
+})
+
+window.onload = function () {
+  // Pie chart // 
 
   // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
   const expenses = transactions.filter(entry => entry.einnahme === false);
