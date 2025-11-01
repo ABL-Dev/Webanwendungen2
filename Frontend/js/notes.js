@@ -1,6 +1,7 @@
 // DOM-Elemente
 const addNoteBtn = document.getElementById("addNoteBtn");
-const addNoteModal = new bootstrap.Modal(document.getElementById("addNoteModal"));
+const addNoteModalEl = document.getElementById("addNoteModal");
+const addNoteModal = new bootstrap.Modal(addNoteModalEl);
 const saveNewNoteBtn = document.getElementById("saveNewNoteBtn");
 const addNoteTextarea = document.getElementById("addNoteTextarea");
 const notesList = document.getElementById("notesList");
@@ -28,7 +29,7 @@ function loadNotes() {
     }
 }
 
-// LocalStorage: speichern so wie die transactions.
+// LocalStorage speichern so wie die transactions
 // Storage sichtbar im Browser unter Tab "Application" > Local Storage
 function saveNotes() {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -91,9 +92,10 @@ addNoteBtn.addEventListener("click", () => {
     addNoteModal.show();
 });
 
+// Neue Notiz speichern
 saveNewNoteBtn.addEventListener("click", () => {
     const noteText = addNoteTextarea.value.trim();
-     if (!noteText) {
+    if (!noteText) {
         // Fehlermeldung anzeigen wenn leer
         addNoteTextarea.classList.add("is-invalid");
     } else {
@@ -105,18 +107,14 @@ saveNewNoteBtn.addEventListener("click", () => {
         addNoteModal.hide();
     }
 });
-// Sobald getippt wird, wird Fehlermeldung ausgeblendet
-// Vielleicht das auch in New Entry einbauen?
-addNoteTextarea.addEventListener("input", () => {
-    if (addNoteTextarea.classList.contains("is-invalid")) {
-        addNoteTextarea.classList.remove("is-invalid");
-    }
-});
 
 // Bearbeiten speichern
 saveEditNoteBtn.addEventListener("click", () => {
     const noteText = editNoteTextarea.value.trim();
-    if (noteText && currentEditIndex !== null) {
+    if (!noteText) {
+        editNoteTextarea.classList.add("is-invalid");
+    } else if (currentEditIndex !== null) {
+        editNoteTextarea.classList.remove("is-invalid");
         notes[currentEditIndex].text = noteText;
         saveNotes();
         renderNotes();
@@ -136,6 +134,34 @@ confirmDeleteAllBtn.addEventListener("click", () => {
     confirmDeleteAllModal.hide();
 });
 
-// Start: Laden & Rendern
+// Formulare zurücksetzen beim Schließen
+function setupModalReset(modalEl, textarea) {
+    modalEl.addEventListener('hidden.bs.modal', function () {
+        const form = this.querySelector('form');
+        //Der Rahmen ist nicht davor schon nicht rot...
+        // if (form) {
+        //     form.reset();
+        //     form.classList.remove('was-validated');
+        // }
+        if (textarea) {
+            textarea.classList.remove("is-invalid");
+        }
+    });
+}
+
+setupModalReset(addNoteModalEl, addNoteTextarea);
+setupModalReset(editNoteModalEl, editNoteTextarea);
+
+// Fehlermeldung ausblenden beim Tippen
+// Vielleicht auch bei new Entry einbauen?
+addNoteTextarea.addEventListener("input", () => {
+    addNoteTextarea.classList.remove("is-invalid");
+});
+
+editNoteTextarea.addEventListener("input", () => {
+    editNoteTextarea.classList.remove("is-invalid");
+});
+
+// Start Laden & Rendern
 loadNotes();
 renderNotes();
