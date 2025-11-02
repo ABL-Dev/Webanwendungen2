@@ -536,10 +536,20 @@ dataConteiner.addEventListener('click', (event) =>{
     if (aktion === 'edit') {
        console.log("Bearbeiten " + eintragID);
     }else if (aktion === 'delete') {
-      console.log("Löschen " + eintragID)
+      transactionDelete(eintragID);
      }
   }
 });
+function transactionEdit(){
+
+};
+function transactionDelete(id){
+  //Erstellt ein neus Array mit allen auser dem zu Löschenden Objekt
+  const idZahl = parseInt(id, 10); // 10 für Dezimal
+  const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
+  saveTransactions(newTransaction);
+  recentTransaction();
+};
 
 
 //Suchleiste
@@ -557,7 +567,160 @@ input.addEventListener('input', () => {
   }
 })
 
+  //************************************************************************************************************************************+
+  // Recent Transactions
+  //*****************************************************************************************************************************
+
+function recentTransaction(){
+
+    //daysAgo-Funktion
+    function daysAgo(dateStr) {
+      const now = new Date();
+      const date = new Date(dateStr);
+      const diff = now - date;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      if (days === 0) return "Today";
+      if (days === 1) return "Yesterday";
+      return `${days} days ago`;
+    }
+
+  //////////////////////////
+
+    // einfache Kategorie -> Bootstrap Icon Map
+    const iconMap = {
+      "haupteinkommen": "bi-wallet-fill",
+      "nebeneinkommen": "bi-cash-stack",
+      "staatliche leistungen/transfers": "bi-patch-check-fill",
+      "kapitaleinkünfte": "bi-graph-up-arrow",
+      "sonstige einnahmen": "bi-three-dots",
+      "wohnen": "bi-house-fill",
+      "versicherungen": "bi-shield-shaded",
+      "mobilität (fix)": "bi-bus-front-fill",
+      "kommunikation/medien": "bi-headset",
+      "finanzen/sparen (fix)": "bi-bank",
+      "abbonements": "bi-repeat",
+      "lebensmittel": "bi-cart-fill",
+      "mobilität (variabel)": "bi-fuel-pump-fill",
+      "kleidung & körperpflege": "bi-bag-fill",
+      "gesundheit": "bi-heart-pulse-fill",
+      "freizeit & unterhaltung": "bi-controller",
+      "kinder/haustiere": "bi-people-fill",
+      "urlaub & reisen": "bi-airplane-fill",
+      "geschenke & spenden": "bi-gift-fill",
+      "sonstiges": "bi-three-dots",
+    };
+
+    //Ortnet den Katigorien Icons zu
+    function chooseIcon(cat) {
+      // fals es nicht das richtige Icon gibt wird das ? genommen
+      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
+    }
+
+    // Renderer
+    function render() {
+      //Hohlt die ul
+      const listContainer = document.getElementById("transactionList");
+      listContainer.innerHTML = '';
+
+      // Holt die Aktuellen daten aus dem Speicher
+      transactions = loadTransactions();
+      // nach Datum sortieren (neu -> alt)
+      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+      transactions.forEach(tx => {
+        const li = document.createElement("li");
+        li.className = 'py-2 border-bottom border-primary';
+
+        //links icon + text
+        const left = document.createElement('div');
+        left.className = 'd-flex align-items-start gap-2';
+
+        const iconWrap = document.createElement('div');
+        iconWrap.className = 'flex-shrink-0 d-flex align-items-center justify-content-center rounded-3 p-2';
+        iconWrap.style.width = '44px';
+        iconWrap.style.height = '44px';
+        // setze icon
+        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
+
+        const textWrap = document.createElement('div');
+        textWrap.className = 'left-text';
+
+        const desc = document.createElement("div");
+        desc.className = "description fw-semibold";
+        desc.textContent = tx.beschreibung;
+
+        const date = document.createElement("div");
+        date.className = "date small text-primary";
+        date.textContent = daysAgo(tx.datum);
+
+        textWrap.appendChild(desc);
+        textWrap.appendChild(date);
+
+        left.appendChild(iconWrap);
+        left.appendChild(textWrap);
+
+        // right: Betrag
+        const amount = document.createElement("div");
+        amount.className = 'text-end';
+        const amtSpan = document.createElement('div');
+        amtSpan.className = 'fw-bold';
+        const formatted = Number(tx.betrag).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
+        amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
+
+        //kleine Kategorie-Zeile unter Betrag
+        const catSmall = document.createElement('div');
+        catSmall.className = 'small text-primary';
+        catSmall.textContent = tx.kategorie;
+
+        amount.appendChild(amtSpan);
+        amount.appendChild(catSmall);
+
+        const mainRow = document.createElement('div');
+        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
+
+        mainRow.appendChild(left);
+        mainRow.appendChild(amount);
+
+        const nots = document.createElement("div");
+        nots.textContent = tx.notizen;
+        nots.className = 'mt-2 small'
+        nots.style.color = '#a2a2a2';
+
+        //Btns generriren
+        const ecBtn = document.createElement('div');
+        ecBtn.innerHTML = `
+            <div class="btn-group-sm">
+                <button class="btn btn-outline-primary mx-2 action-btn" title="Bearbeiten" data-id=${tx.id} data-action="edit">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger action-btn" title="Löschen" data-id=${tx.id} data-action="delete">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </div>
+        `;
+
+        const bottomRow = document.createElement('div');
+        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
+        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
+        
+        bottomRow.appendChild(nots);
+        bottomRow.appendChild(ecBtn);
+
+
+        li.appendChild(mainRow);
+        li.appendChild(bottomRow);
+
+        listContainer.appendChild(li);
+      });
+    }
+    render();
+  };
+
 window.onload = function () {
+  //Recent Transaktion laden
+  recentTransaction();
+
   // Pie chart // 
 
   // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
@@ -713,153 +876,6 @@ window.onload = function () {
       }
     }
   });
-
-  //************************************************************************************************************************************+
-  // Recent Transactions
-  //*****************************************************************************************************************************
-
-  (() => {
-
-    //daysAgo-Funktion
-    function daysAgo(dateStr) {
-      const now = new Date();
-      const date = new Date(dateStr);
-      const diff = now - date;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      if (days === 0) return "Today";
-      if (days === 1) return "Yesterday";
-      return `${days} days ago`;
-    }
-
-    // einfache Kategorie -> Bootstrap Icon Map
-    const iconMap = {
-      "haupteinkommen": "bi-wallet-fill",
-      "nebeneinkommen": "bi-cash-stack",
-      "staatliche leistungen/transfers": "bi-patch-check-fill",
-      "kapitaleinkünfte": "bi-graph-up-arrow",
-      "sonstige einnahmen": "bi-three-dots",
-      "wohnen": "bi-house-fill",
-      "versicherungen": "bi-shield-shaded",
-      "mobilität (fix)": "bi-bus-front-fill",
-      "kommunikation/medien": "bi-headset",
-      "finanzen/sparen (fix)": "bi-bank",
-      "abbonements": "bi-repeat",
-      "lebensmittel": "bi-cart-fill",
-      "mobilität (variabel)": "bi-fuel-pump-fill",
-      "kleidung & körperpflege": "bi-bag-fill",
-      "gesundheit": "bi-heart-pulse-fill",
-      "freizeit & unterhaltung": "bi-controller",
-      "kinder/haustiere": "bi-people-fill",
-      "urlaub & reisen": "bi-airplane-fill",
-      "geschenke & spenden": "bi-gift-fill",
-      "sonstiges": "bi-three-dots",
-    };
-
-    //Ortnet den Katigorien Icons zu
-    function chooseIcon(cat) {
-      // fals es nicht das richtige Icon gibt wird das ? genommen
-      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
-    }
-
-    // Renderer
-    function render() {
-      //Hohlt die ul
-      const listContainer = document.getElementById("transactionList");
-      listContainer.innerHTML = '';
-
-      // nach Datum sortieren (neu -> alt)
-      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
-
-      transactions.forEach(tx => {
-        const li = document.createElement("li");
-        li.className = 'py-2 border-bottom border-primary';
-
-        //links icon + text
-        const left = document.createElement('div');
-        left.className = 'd-flex align-items-start gap-2';
-
-        const iconWrap = document.createElement('div');
-        iconWrap.className = 'flex-shrink-0 d-flex align-items-center justify-content-center rounded-3 p-2';
-        iconWrap.style.width = '44px';
-        iconWrap.style.height = '44px';
-        // setze icon
-        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
-
-        const textWrap = document.createElement('div');
-        textWrap.className = 'left-text';
-
-        const desc = document.createElement("div");
-        desc.className = "description fw-semibold";
-        desc.textContent = tx.beschreibung;
-
-        const date = document.createElement("div");
-        date.className = "date small text-primary";
-        date.textContent = daysAgo(tx.datum);
-
-        textWrap.appendChild(desc);
-        textWrap.appendChild(date);
-
-        left.appendChild(iconWrap);
-        left.appendChild(textWrap);
-
-        // right: Betrag
-        const amount = document.createElement("div");
-        amount.className = 'text-end';
-        const amtSpan = document.createElement('div');
-        amtSpan.className = 'fw-bold';
-        const formatted = Number(tx.betrag).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
-        amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
-
-        //kleine Kategorie-Zeile unter Betrag
-        const catSmall = document.createElement('div');
-        catSmall.className = 'small text-primary';
-        catSmall.textContent = tx.kategorie;
-
-        amount.appendChild(amtSpan);
-        amount.appendChild(catSmall);
-
-        const mainRow = document.createElement('div');
-        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
-
-        mainRow.appendChild(left);
-        mainRow.appendChild(amount);
-
-        const nots = document.createElement("div");
-        nots.textContent = tx.notizen;
-        nots.className = 'mt-2 small'
-        nots.style.color = '#a2a2a2';
-
-        //Btns generriren
-        const ecBtn = document.createElement('div');
-        ecBtn.innerHTML = `
-            <div class="btn-group-sm">
-                <button class="btn btn-outline-primary mx-2 action-btn" title="Bearbeiten" data-id=${tx.id} data-action="edit">
-                    <i class="bi bi-pencil-fill"></i>
-                </button>
-                <button class="btn btn-outline-danger action-btn" title="Löschen" data-id=${tx.id} data-action="delete">
-                    <i class="bi bi-trash-fill"></i>
-                </button>
-            </div>
-        `;
-
-        const bottomRow = document.createElement('div');
-        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
-        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
-        
-        bottomRow.appendChild(nots);
-        bottomRow.appendChild(ecBtn);
-
-
-        li.appendChild(mainRow);
-        li.appendChild(bottomRow);
-
-        listContainer.appendChild(li);
-      });
-    }
-    render();
-  })();
-  //////////////////////////
 
   // Financial overview //
   // Formats number to euro value.
