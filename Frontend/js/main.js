@@ -548,7 +548,9 @@ function transactionDelete(id){
   const idZahl = parseInt(id, 10); // 10 für Dezimal
   const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
   saveTransactions(newTransaction);
-  recentTransaction();
+
+  // Kompleter relod der seite da auch alle diagrame usw. ne geladen werden müssen
+  window.location.reload();
 };
 
 
@@ -565,7 +567,7 @@ input.addEventListener('input', () => {
   else {
     input.classList.remove('is-invalid');
   }
-})
+});
 
   //************************************************************************************************************************************+
   // Recent Transactions
@@ -715,7 +717,7 @@ function recentTransaction(){
       });
     }
     render();
-  };
+};
 
 window.onload = function () {
   //Recent Transaktion laden
@@ -983,7 +985,7 @@ window.onload = function () {
     // Settings Seite schließen.
     settingsModal.hide();
   });
-}
+};
 
 
 
