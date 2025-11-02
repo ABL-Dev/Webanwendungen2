@@ -518,6 +518,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
+  //Resend Transaction btns abfragen
+const dataConteiner = document.getElementById('data-conteiner');
+dataConteiner.addEventListener('click', (event) =>{
+  const clickedElement = event.target.closest('.action-btn'); // closest sorgt dafür das es auch geht wennd das Icon getrückt wird
+
+  if (clickedElement){
+
+    const eintragID = clickedElement.dataset.id;
+    const aktion = clickedElement.dataset.action;
+
+    // Da jeder Click abgefangen wird das aber nicht zwingend ein btn ist wird das abgefangen und das event bendet
+    if(!eintragID || !aktion){
+      return;
+    }
+
+    if (aktion === 'edit') {
+       console.log("Bearbeiten " + eintragID);
+    }else if (aktion === 'delete') {
+      console.log("Löschen " + eintragID)
+     }
+  }
+});
+
+
 //Suchleiste
 const input = document.getElementById("suchleiste");
 input.addEventListener('input', () => {
@@ -787,7 +811,7 @@ window.onload = function () {
         amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
         amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
 
-        // optional: kleine Kategorie-Zeile unter Betrag
+        //kleine Kategorie-Zeile unter Betrag
         const catSmall = document.createElement('div');
         catSmall.className = 'small text-primary';
         catSmall.textContent = tx.kategorie;
@@ -806,13 +830,14 @@ window.onload = function () {
         nots.className = 'mt-2 small'
         nots.style.color = '#a2a2a2';
 
+        //Btns generriren
         const ecBtn = document.createElement('div');
         ecBtn.innerHTML = `
             <div class="btn-group-sm">
-                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
+                <button class="btn btn-outline-primary mx-2 action-btn" title="Bearbeiten" data-id=${tx.id} data-action="edit">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
-                <button class="btn btn-outline-danger delete-btn" title="Löschen">
+                <button class="btn btn-outline-danger action-btn" title="Löschen" data-id=${tx.id} data-action="delete">
                     <i class="bi bi-trash-fill"></i>
                 </button>
             </div>
@@ -834,8 +859,6 @@ window.onload = function () {
     }
     render();
   })();
-
-
   //////////////////////////
 
   // Financial overview //
