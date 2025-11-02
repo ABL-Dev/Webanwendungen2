@@ -2,6 +2,7 @@
   // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
 const defaultTransactions = [
     {
+      "id": 1,
       "einnahme": true,
       "betrag": 2850.00,
       "datum": "2025-09-01",
@@ -10,6 +11,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 2,
       "einnahme": false,
       "betrag": 950.00,
       "datum": "2025-09-02",
@@ -18,6 +20,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 3,
       "einnahme": false,
       "betrag": 78.50,
       "datum": "2025-09-03",
@@ -26,38 +29,43 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 4,
       "einnahme": false,
       "betrag": 12.99,
       "datum": "2025-09-03",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Netflix Abo",
       "notizen": "Notizen ..."
     },
     {
+      "id": 5,
       "einnahme": false,
       "betrag": 5.99,
       "datum": "2025-09-04",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Spotify Premium",
       "notizen": "Notizen ..."
     },
     {
+      "id": 6,
       "einnahme": false,
       "betrag": 54.20,
       "datum": "2025-09-04",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Supermarkt",
       "notizen": "Notizen ..."
     },
     {
+      "id": 7,
       "einnahme": false,
       "betrag": 32.45,
       "datum": "2025-09-05",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf beim Bäcker und Metzger",
       "notizen": "Notizen ..."
     },
     {
+      "id": 8,
       "einnahme": false,
       "betrag": 120.00,
       "datum": "2025-09-05",
@@ -66,6 +74,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 9,
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-06",
@@ -74,14 +83,16 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 10,
       "einnahme": false,
       "betrag": 30.25,
       "datum": "2025-09-07",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Lidl",
       "notizen": "Notizen ..."
     },
     {
+      "id": 11,
       "einnahme": false,
       "betrag": 89.00,
       "datum": "2025-09-08",
@@ -90,6 +101,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 12,
       "einnahme": false,
       "betrag": 75.00,
       "datum": "2025-09-09",
@@ -98,6 +110,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 13,
       "einnahme": false,
       "betrag": 25.50,
       "datum": "2025-09-09",
@@ -106,22 +119,25 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 14,
       "einnahme": false,
       "betrag": 15.00,
       "datum": "2025-09-10",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Adobe Creative Cloud",
       "notizen": "Notizen ..."
     },
     {
+      "id": 15,
       "einnahme": false,
       "betrag": 48.70,
       "datum": "2025-09-10",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Supermarkt",
       "notizen": "Notizen ..."
     },
     {
+      "id": 16,
       "einnahme": true,
       "betrag": 120.00,
       "datum": "2025-09-11",
@@ -130,22 +146,25 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 17,
       "einnahme": false,
       "betrag": 9.99,
       "datum": "2025-09-12",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "YouTube Premium",
       "notizen": "Notizen ..."
     },
     {
+      "id": 18,
       "einnahme": false,
       "betrag": 27.30,
       "datum": "2025-09-13",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Rewe",
       "notizen": "Notizen ..."
     },
     {
+      "id": 19,
       "einnahme": false,
       "betrag": 110.00,
       "datum": "2025-09-14",
@@ -154,14 +173,16 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 20,
       "einnahme": false,
       "betrag": 64.50,
       "datum": "2025-09-15",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Aldi",
       "notizen": "Notizen ..."
     },
     {
+      "id": 21,
       "einnahme": false,
       "betrag": 95.00,
       "datum": "2025-09-16",
@@ -170,6 +191,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 22,
       "einnahme": false,
       "betrag": 50.00,
       "datum": "2025-09-17",
@@ -178,14 +200,16 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 23,
       "einnahme": false,
       "betrag": 22.80,
       "datum": "2025-09-18",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Bäckerei und Markt",
       "notizen": "Notizen ..."
     },
     {
+      "id": 24,
       "einnahme": false,
       "betrag": 5.50,
       "datum": "2025-09-19",
@@ -194,22 +218,25 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 25,
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-20",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf",
       "notizen": "Notizen ..."
     },
     {
+      "id": 26,
       "einnahme": false,
       "betrag": 14.99,
       "datum": "2025-09-21",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Amazon Prime",
       "notizen": "Notizen ..."
     },
     {
+      "id": 27,
       "einnahme": false,
       "betrag": 73.00,
       "datum": "2025-09-22",
@@ -218,6 +245,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 28,
       "einnahme": false,
       "betrag": 40.00,
       "datum": "2025-09-23",
@@ -226,14 +254,16 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 29,
       "einnahme": false,
       "betrag": 62.80,
       "datum": "2025-09-24",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Supermarkt",
       "notizen": "Notizen ..."
     },
     {
+      "id": 30,
       "einnahme": true,
       "betrag": 200.00,
       "datum": "2025-09-25",
@@ -242,6 +272,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 31,
       "einnahme": false,
       "betrag": 16.90,
       "datum": "2025-09-26",
@@ -250,22 +281,25 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 32,
       "einnahme": false,
       "betrag": 53.40,
       "datum": "2025-09-27",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Rewe",
       "notizen": "Notizen ..."
     },
     {
+      "id": 33,
       "einnahme": false,
       "betrag": 11.99,
       "datum": "2025-09-28",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Apple Music",
       "notizen": "Notizen ..."
     },
     {
+      "id": 34,
       "einnahme": false,
       "betrag": 18.50,
       "datum": "2025-09-29",
@@ -274,10 +308,11 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 35,
       "einnahme": false,
       "betrag": 47.10,
       "datum": "2025-09-30",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Monatsabschluss Einkauf",
       "notizen": "Notizen ..."
     }
@@ -285,6 +320,7 @@ const defaultTransactions = [
 
   // Daten lokal im browser speichern so können die daten beritz verändert werden später dynamisch
 const STORAGE_KEY = 'transactionData';
+
 
 function loadTransactions(){
   const storeData = localStorage.getItem(STORAGE_KEY);
@@ -300,7 +336,7 @@ function saveTransactions(data){
 }
 
 let transactions = loadTransactions();
-
+let wasTransactionModified = false;
 
 // Navbar buttens (Statischer Dummy)
 
@@ -354,22 +390,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateInput = document.getElementById('date');
  
 
+
   // Heutiges Datum als Standard setzen
   const today = new Date().toISOString().split('T')[0];
   dateInput.value = today;
 
 
-  // Formular zurückseten beim schließen
+  // Formular zurückseten beim
   if (NEModal){
     NEModal.addEventListener('hidden.bs.modal', function () {
       
       const formToReset = this.querySelector('.needs-validation');
       if (formToReset) {
-        // Formular einträge löschen
+        // Formular einträge löschen++++++++++++++++++++++++++++++++++++++++++++++
         formToReset.reset();
 
         //Valedirung entfernen
         formToReset.classList.remove('was-validated');
+        formToReset.removeAttribute('data-editing-id');
 
         //Radio buttens Fehlermeldung entfernen
         const radioContainer = formToReset.querySelector('.transaction-type-group');
@@ -377,11 +415,19 @@ document.addEventListener("DOMContentLoaded", () => {
           radioContainer.classList.remove('is-invalid');
         }
         
+
         // Datum wieder auf heute setzen
         const dateInputModal = formToReset.querySelector('#date');
         if (dateInputModal) {
           dateInputModal.value = today;
         }
+
+        //Prüfen ob ein edit vorgenomen wurde
+        if (wasTransactionModified){
+          wasTransactionModified = false; //flag zurücksetzen
+          window.location.reload();
+        }
+
       }
 
     })
@@ -391,6 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
   Array.from(forms).forEach(form => {
     const radioContainer = form.querySelector('.transaction-type-group');
     const radios = form.querySelectorAll('input[name="transactionType"]');
+
 
     //Alle inpus hohlen
     const amountInput = document.getElementById('amount'); 
@@ -418,6 +465,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener('submit', event => {
 
+      if (event.submitter && event.submitter.hasAttribute('data-bs-dismiss')) {
+          event.preventDefault(); 
+          return; 
+      }
+
       const radioChecked = form.querySelector('input[name="transactionType"]:checked');
       let validationFailed = false;
 
@@ -441,37 +493,134 @@ document.addEventListener("DOMContentLoaded", () => {
       //  Daten Extrahiren und Hinzufügen wenn gültig
       //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //  Daten Extrahiren und Hinzufügen (ODER BEARBEITEN) wenn gültig
+      //  KORRIGIERTE VERSION
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
       if (!validationFailed) {
         
+        // 1. Daten aus dem Formular auslesen (wie bisher)
         const isEinnamhe = (radioChecked.value === 'einnahme');
-        
-        //Betrag umwandeln
         const amuntStr = amountInput.value.replace(',', '.');
         const betrag = parseFloat(amuntStr);
-
         const datum = dateInput.value;
         const kategorie = categoryInput.value;
         const beschreibung = descriptionInput.value;
         const notizen = notesInput.value;
+        
+        // 2. Prüfen: Sind wir im "Bearbeiten"-Modus?
+        const editingId = form.dataset.editingId;
+       
+        if (editingId) {
+            // ----------- MODUS: BEARBEITEN -----------
+            const idZahl = parseInt(editingId, 10);
+            const transactionToUpdate = transactions.find(tx => tx.id === idZahl);
 
-        const newTransaction = {
-          "einnahme": isEinnamhe,
-          "betrag": betrag,
-          "datum": datum,
-          "kategorie": kategorie,
-          "beschreibung": beschreibung,
-          "notizen": notizen
-        };
+            if (transactionToUpdate) {
+                // Aktualisiere das bestehende Objekt im 'transactions'-Array
+                transactionToUpdate.einnahme = isEinnamhe;
+                transactionToUpdate.betrag = betrag;
+                transactionToUpdate.datum = datum;
+                transactionToUpdate.kategorie = kategorie;
+                transactionToUpdate.beschreibung = beschreibung;
+                transactionToUpdate.notizen = notizen;
+            }            
+        } else {
+            // ----------- MODUS: NEU ERSTELLEN -----------
+            const maxId = transactions.reduce((max, objekt) =>{
+              return objekt.id > max ? objekt.id : max;
+            }, 0);
+            
+            const newTransaction = {
+              "id": (maxId + 1), // Neue ID
+              "einnahme": isEinnamhe,
+              "betrag": betrag,
+              "datum": datum,
+              "kategorie": kategorie,
+              "beschreibung": beschreibung,
+              "notizen": notizen
+            };
 
-        //Die daten müssen dan hier auf die Datenbank gepusht werden
-        transactions.push(newTransaction);
+            transactions.push(newTransaction);
+        }
+
         saveTransactions(transactions);
-      }
-
+        wasTransactionModified = true;
+      } // Ende if (!validationFailed)
 
     }, false);
   });
 })();
+
+  //Resend Transaction btns abfragen
+const dataConteiner = document.getElementById('data-conteiner');
+dataConteiner.addEventListener('click', (event) =>{
+  const clickedElement = event.target.closest('.action-btn'); // closest sorgt dafür das es auch geht wennd das Icon getrückt wird
+
+  if (clickedElement){
+
+    const eintragID = clickedElement.dataset.id;
+    const aktion = clickedElement.dataset.action;
+
+    // Da jeder Click abgefangen wird das aber nicht zwingend ein btn ist wird das abgefangen und das event bendet
+    if(!eintragID || !aktion) return;
+
+    if (aktion === 'edit') {
+      transactionEdit(eintragID);
+    }else if (aktion === 'delete') {
+      transactionDelete(eintragID);
+     }
+  }
+});
+
+function transactionEdit(id){
+  const idZahl = parseInt(id, 10);
+    // 1. Transaktion im globalen 'transactions'-Array finden
+    const transactionToEdit = transactions.find(tx => tx.id === idZahl);
+   
+    const form = document.querySelector('.needs-validation'); 
+    if (!form) return;
+
+    // Dem Formular mitteilen, welche ID bearbeitet wird
+    form.dataset.editingId = idZahl;
+
+    //Formularfelder füllen
+    document.getElementById('amount').value = transactionToEdit.betrag.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('category').value = transactionToEdit.kategorie;
+    document.getElementById('beschreibung').value = transactionToEdit.beschreibung;
+    document.getElementById('notizen').value = transactionToEdit.notizen;
+    document.getElementById('date').value = transactionToEdit.datum;
+
+    // Radio-Buttons setzen
+    // (Annahme: Ihre Radio-Buttons haben die IDs 'type-einnahme' und 'type-ausgabe')
+    if (transactionToEdit.einnahme) {
+        document.getElementById('income-btn').checked = true;
+    } else {
+        document.getElementById('expense-btn').checked = true;
+    }
+    
+    // Alte Validierungsmarkierungen entfernen
+    form.classList.remove('was-validated');
+
+    // Modal öffnen
+    // NEModal ist das Modal-Element mit der ID 'NEModal'
+    const modalElement = document.getElementById('NEModal'); 
+    const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    modalInstance.show();
+};
+
+function transactionDelete(id){
+  //Erstellt ein neus Array mit allen auser dem zu Löschenden Objekt
+  const idZahl = parseInt(id, 10); // 10 für Dezimal
+  const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
+  transactions = newTransaction;
+  saveTransactions(newTransaction);
+
+  // Kompleter relod der seite da auch alle diagrame usw. ne geladen werden müssen
+  window.location.reload();
+};
+
 
 //Suchleiste
 const input = document.getElementById("suchleiste");
@@ -486,9 +635,162 @@ input.addEventListener('input', () => {
   else {
     input.classList.remove('is-invalid');
   }
-})
+});
+
+  //************************************************************************************************************************************+
+  // Recent Transactions
+  //*****************************************************************************************************************************
+
+function recentTransaction(){
+
+    //daysAgo-Funktion
+    function daysAgo(dateStr) {
+      const now = new Date();
+      const date = new Date(dateStr);
+      const diff = now - date;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      if (days === 0) return "Today";
+      if (days === 1) return "Yesterday";
+      return `${days} days ago`;
+    }
+
+  //////////////////////////
+
+    // einfache Kategorie -> Bootstrap Icon Map
+    const iconMap = {
+      "haupteinkommen": "bi-wallet-fill",
+      "nebeneinkommen": "bi-cash-stack",
+      "staatliche leistungen/transfers": "bi-patch-check-fill",
+      "kapitaleinkünfte": "bi-graph-up-arrow",
+      "sonstige einnahmen": "bi-three-dots",
+      "wohnen": "bi-house-fill",
+      "versicherungen": "bi-shield-shaded",
+      "mobilität (fix)": "bi-bus-front-fill",
+      "kommunikation/medien": "bi-headset",
+      "finanzen/sparen (fix)": "bi-bank",
+      "abbonements": "bi-repeat",
+      "lebensmittel": "bi-cart-fill",
+      "mobilität (variabel)": "bi-fuel-pump-fill",
+      "kleidung & körperpflege": "bi-bag-fill",
+      "gesundheit": "bi-heart-pulse-fill",
+      "freizeit & unterhaltung": "bi-controller",
+      "kinder/haustiere": "bi-people-fill",
+      "urlaub & reisen": "bi-airplane-fill",
+      "geschenke & spenden": "bi-gift-fill",
+      "sonstiges": "bi-three-dots",
+    };
+
+    //Ortnet den Katigorien Icons zu
+    function chooseIcon(cat) {
+      // fals es nicht das richtige Icon gibt wird das ? genommen
+      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
+    }
+
+    // Renderer
+    function render() {
+      //Hohlt die ul
+      const listContainer = document.getElementById("transactionList");
+      listContainer.innerHTML = '';
+
+      // Holt die Aktuellen daten aus dem Speicher
+      transactions = loadTransactions();
+      // nach Datum sortieren (neu -> alt)
+      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+      transactions.forEach(tx => {
+        const li = document.createElement("li");
+        li.className = 'py-2 border-bottom border-primary';
+
+        //links icon + text
+        const left = document.createElement('div');
+        left.className = 'd-flex align-items-start gap-2';
+
+        const iconWrap = document.createElement('div');
+        iconWrap.className = 'flex-shrink-0 d-flex align-items-center justify-content-center rounded-3 p-2';
+        iconWrap.style.width = '44px';
+        iconWrap.style.height = '44px';
+        // setze icon
+        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
+
+        const textWrap = document.createElement('div');
+        textWrap.className = 'left-text';
+
+        const desc = document.createElement("div");
+        desc.className = "description fw-semibold";
+        desc.textContent = tx.beschreibung;
+
+        const date = document.createElement("div");
+        date.className = "date small text-primary";
+        date.textContent = daysAgo(tx.datum);
+
+        textWrap.appendChild(desc);
+        textWrap.appendChild(date);
+
+        left.appendChild(iconWrap);
+        left.appendChild(textWrap);
+
+        // right: Betrag
+        const amount = document.createElement("div");
+        amount.className = 'text-end';
+        const amtSpan = document.createElement('div');
+        amtSpan.className = 'fw-bold';
+        const formatted = Number(tx.betrag).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
+        amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
+
+        //kleine Kategorie-Zeile unter Betrag
+        const catSmall = document.createElement('div');
+        catSmall.className = 'small text-primary';
+        catSmall.textContent = tx.kategorie;
+
+        amount.appendChild(amtSpan);
+        amount.appendChild(catSmall);
+
+        const mainRow = document.createElement('div');
+        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
+
+        mainRow.appendChild(left);
+        mainRow.appendChild(amount);
+
+        const nots = document.createElement("div");
+        nots.textContent = tx.notizen;
+        nots.className = 'mt-2 small'
+        nots.style.color = '#a2a2a2';
+
+        //Btns generriren
+        const ecBtn = document.createElement('div');
+        ecBtn.innerHTML = `
+            <div class="btn-group-sm">
+                <button class="btn btn-outline-primary mx-2 action-btn" title="Bearbeiten" data-id=${tx.id} data-action="edit">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-outline-danger action-btn" title="Löschen" data-id=${tx.id} data-action="delete">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </div>
+        `;
+
+        const bottomRow = document.createElement('div');
+        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
+        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
+        
+        bottomRow.appendChild(nots);
+        bottomRow.appendChild(ecBtn);
+
+
+        li.appendChild(mainRow);
+        li.appendChild(bottomRow);
+
+        listContainer.appendChild(li);
+      });
+    }
+    render();
+};
 
 window.onload = function () {
+  //Recent Transaktion laden
+  recentTransaction();
+
   // Pie chart // 
 
   // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
@@ -645,154 +947,6 @@ window.onload = function () {
     }
   });
 
-  //************************************************************************************************************************************+
-  // Recent Transactions
-  //*****************************************************************************************************************************
-
-  (() => {
-
-    //daysAgo-Funktion
-    function daysAgo(dateStr) {
-      const now = new Date();
-      const date = new Date(dateStr);
-      const diff = now - date;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      if (days === 0) return "Today";
-      if (days === 1) return "Yesterday";
-      return `${days} days ago`;
-    }
-
-    // einfache Kategorie -> Bootstrap Icon Map
-    const iconMap = {
-      "haupteinkommen": "bi-wallet-fill",
-      "nebeneinkommen": "bi-cash-stack",
-      "staatliche Leistungen/Transfers": "bi-patch-check-fill",
-      "kapitaleinkünfte": "bi-graph-up-arrow",
-      "sonstige Einnahmen": "bi-three-dots",
-      "wohnen": "bi-house-fill",
-      "versicherungen": "bi-shield-shaded",
-      "mobilität (Fix)": "bi-bus-front-fill",
-      "kommunikation/Medien": "bi-headset",
-      "finanzen/Sparen (Fix)": "bi-bank",
-      "abbonements": "bi-repeat",
-      "lebensmittel": "bi-cart-fill",
-      "mobilität (Variabel)": "bi-fuel-pump-fill",
-      "kleidung & Körperpflege": "bi-bag-fill",
-      "gesundheit": "bi-heart-pulse-fill",
-      "freizeit & Unterhaltung": "bi-controller",
-      "kinder/Haustiere": "bi-people-fill",
-      "urlaub & Reisen": "bi-airplane-fill",
-      "geschenke & Spenden": "bi-gift-fill",
-      "sonstiges": "bi-three-dots",
-    };
-
-    //Ortnet den Katigorien Icons zu
-    function chooseIcon(cat) {
-      // fals es nicht das richtige Icon gibt wird das ? genommen
-      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
-    }
-
-    // Renderer
-    function render() {
-      //Hohlt die ul
-      const listContainer = document.getElementById("transactionList");
-      listContainer.innerHTML = '';
-
-      // nach Datum sortieren (neu -> alt)
-      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
-
-      transactions.forEach(tx => {
-        const li = document.createElement("li");
-        li.className = 'py-2 border-bottom border-primary';
-
-        //links icon + text
-        const left = document.createElement('div');
-        left.className = 'd-flex align-items-start gap-2';
-
-        const iconWrap = document.createElement('div');
-        iconWrap.className = 'flex-shrink-0 d-flex align-items-center justify-content-center rounded-3 p-2';
-        iconWrap.style.width = '44px';
-        iconWrap.style.height = '44px';
-        // setze icon
-        iconWrap.innerHTML = `<i class="bi ${chooseIcon(tx.kategorie)}" aria-hidden="true" style="font-size:1.3rem; color:#a2a2a2"></i>`;
-
-        const textWrap = document.createElement('div');
-        textWrap.className = 'left-text';
-
-        const desc = document.createElement("div");
-        desc.className = "description fw-semibold";
-        desc.textContent = tx.beschreibung;
-
-        const date = document.createElement("div");
-        date.className = "date small text-primary";
-        date.textContent = daysAgo(tx.datum);
-
-        textWrap.appendChild(desc);
-        textWrap.appendChild(date);
-
-        left.appendChild(iconWrap);
-        left.appendChild(textWrap);
-
-        // right: Betrag
-        const amount = document.createElement("div");
-        amount.className = 'text-end';
-        const amtSpan = document.createElement('div');
-        amtSpan.className = 'fw-bold';
-        const formatted = Number(tx.betrag).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        amtSpan.textContent = (tx.einnahme ? '+' : '-') + formatted + ' €';
-        amtSpan.classList.add(tx.einnahme ? 'text-success' : 'text-danger');
-
-        // optional: kleine Kategorie-Zeile unter Betrag
-        const catSmall = document.createElement('div');
-        catSmall.className = 'small text-primary';
-        catSmall.textContent = tx.kategorie;
-
-        amount.appendChild(amtSpan);
-        amount.appendChild(catSmall);
-
-        const mainRow = document.createElement('div');
-        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
-
-        mainRow.appendChild(left);
-        mainRow.appendChild(amount);
-
-        const nots = document.createElement("div");
-        nots.textContent = tx.notizen;
-        nots.className = 'mt-2 small'
-        nots.style.color = '#a2a2a2';
-
-        const ecBtn = document.createElement('div');
-        ecBtn.innerHTML = `
-            <div class="btn-group-sm">
-                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
-                    <i class="bi bi-pencil-fill"></i>
-                </button>
-                <button class="btn btn-outline-danger delete-btn" title="Löschen">
-                    <i class="bi bi-trash-fill"></i>
-                </button>
-            </div>
-        `;
-
-        const bottomRow = document.createElement('div');
-        bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
-        bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
-        
-        bottomRow.appendChild(nots);
-        bottomRow.appendChild(ecBtn);
-
-
-        li.appendChild(mainRow);
-        li.appendChild(bottomRow);
-
-        listContainer.appendChild(li);
-      });
-    }
-    render();
-  })();
-
-
-  //////////////////////////
-
   // Financial overview //
   // Formats number to euro value.
   function formatEuro(amount) {
@@ -899,7 +1053,7 @@ window.onload = function () {
     // Settings Seite schließen.
     settingsModal.hide();
   });
-}
+};
 
 
 
