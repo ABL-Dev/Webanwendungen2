@@ -2,6 +2,7 @@
   // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
 const defaultTransactions = [
     {
+      "id": 1,
       "einnahme": true,
       "betrag": 2850.00,
       "datum": "2025-09-01",
@@ -10,6 +11,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 2,
       "einnahme": false,
       "betrag": 950.00,
       "datum": "2025-09-02",
@@ -18,6 +20,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 3,
       "einnahme": false,
       "betrag": 78.50,
       "datum": "2025-09-03",
@@ -26,6 +29,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 4,
       "einnahme": false,
       "betrag": 12.99,
       "datum": "2025-09-03",
@@ -34,6 +38,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 5,
       "einnahme": false,
       "betrag": 5.99,
       "datum": "2025-09-04",
@@ -42,6 +47,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 6,
       "einnahme": false,
       "betrag": 54.20,
       "datum": "2025-09-04",
@@ -50,6 +56,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 7,
       "einnahme": false,
       "betrag": 32.45,
       "datum": "2025-09-05",
@@ -58,6 +65,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 8,
       "einnahme": false,
       "betrag": 120.00,
       "datum": "2025-09-05",
@@ -66,6 +74,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 9,
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-06",
@@ -74,6 +83,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 10,
       "einnahme": false,
       "betrag": 30.25,
       "datum": "2025-09-07",
@@ -82,6 +92,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 11,
       "einnahme": false,
       "betrag": 89.00,
       "datum": "2025-09-08",
@@ -90,6 +101,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 12,
       "einnahme": false,
       "betrag": 75.00,
       "datum": "2025-09-09",
@@ -98,6 +110,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 13,
       "einnahme": false,
       "betrag": 25.50,
       "datum": "2025-09-09",
@@ -106,6 +119,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 14,
       "einnahme": false,
       "betrag": 15.00,
       "datum": "2025-09-10",
@@ -114,6 +128,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 15,
       "einnahme": false,
       "betrag": 48.70,
       "datum": "2025-09-10",
@@ -122,6 +137,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 16,
       "einnahme": true,
       "betrag": 120.00,
       "datum": "2025-09-11",
@@ -130,6 +146,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 17,
       "einnahme": false,
       "betrag": 9.99,
       "datum": "2025-09-12",
@@ -138,6 +155,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 18,
       "einnahme": false,
       "betrag": 27.30,
       "datum": "2025-09-13",
@@ -146,6 +164,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 19,
       "einnahme": false,
       "betrag": 110.00,
       "datum": "2025-09-14",
@@ -154,6 +173,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 20,
       "einnahme": false,
       "betrag": 64.50,
       "datum": "2025-09-15",
@@ -162,6 +182,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 21,
       "einnahme": false,
       "betrag": 95.00,
       "datum": "2025-09-16",
@@ -170,6 +191,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 22,
       "einnahme": false,
       "betrag": 50.00,
       "datum": "2025-09-17",
@@ -178,6 +200,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 23,
       "einnahme": false,
       "betrag": 22.80,
       "datum": "2025-09-18",
@@ -186,6 +209,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 24,
       "einnahme": false,
       "betrag": 5.50,
       "datum": "2025-09-19",
@@ -194,6 +218,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 25,
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-20",
@@ -202,6 +227,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 26,
       "einnahme": false,
       "betrag": 14.99,
       "datum": "2025-09-21",
@@ -210,6 +236,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 27,
       "einnahme": false,
       "betrag": 73.00,
       "datum": "2025-09-22",
@@ -218,6 +245,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 28,
       "einnahme": false,
       "betrag": 40.00,
       "datum": "2025-09-23",
@@ -226,6 +254,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 29,
       "einnahme": false,
       "betrag": 62.80,
       "datum": "2025-09-24",
@@ -234,6 +263,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 30,
       "einnahme": true,
       "betrag": 200.00,
       "datum": "2025-09-25",
@@ -242,6 +272,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 31,
       "einnahme": false,
       "betrag": 16.90,
       "datum": "2025-09-26",
@@ -250,6 +281,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 32,
       "einnahme": false,
       "betrag": 53.40,
       "datum": "2025-09-27",
@@ -258,6 +290,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 33,
       "einnahme": false,
       "betrag": 11.99,
       "datum": "2025-09-28",
@@ -266,6 +299,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 34,
       "einnahme": false,
       "betrag": 18.50,
       "datum": "2025-09-29",
@@ -274,6 +308,7 @@ const defaultTransactions = [
       "notizen": "Notizen ..."
     },
     {
+      "id": 35,
       "einnahme": false,
       "betrag": 47.10,
       "datum": "2025-09-30",
@@ -354,19 +389,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateInput = document.getElementById('date');
  
 
+
   // Heutiges Datum als Standard setzen
   const today = new Date().toISOString().split('T')[0];
   dateInput.value = today;
 
 
-  // Formular zurückseten beim schließen
+  // Formular zurückseten beim
   if (NEModal){
     NEModal.addEventListener('hidden.bs.modal', function () {
       
       const formToReset = this.querySelector('.needs-validation');
       if (formToReset) {
-        // Formular einträge löschen
+        // Formular einträge löschen++++++++++++++++++++++++++++++++++++++++++++++
         formToReset.reset();
+
 
         //Valedirung entfernen
         formToReset.classList.remove('was-validated');
@@ -377,6 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
           radioContainer.classList.remove('is-invalid');
         }
         
+
         // Datum wieder auf heute setzen
         const dateInputModal = formToReset.querySelector('#date');
         if (dateInputModal) {
@@ -391,6 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
   Array.from(forms).forEach(form => {
     const radioContainer = form.querySelector('.transaction-type-group');
     const radios = form.querySelectorAll('input[name="transactionType"]');
+
 
     //Alle inpus hohlen
     const amountInput = document.getElementById('amount'); 
@@ -445,6 +484,11 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const isEinnamhe = (radioChecked.value === 'einnahme');
         
+        // höchste id finden
+        const maxId = transactions.reduce((max, objekt) =>{
+          return objekt.id > max ? objekt.id : max;
+        },0);
+        
         //Betrag umwandeln
         const amuntStr = amountInput.value.replace(',', '.');
         const betrag = parseFloat(amuntStr);
@@ -455,6 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const notizen = notesInput.value;
 
         const newTransaction = {
+          "id": (maxId+1),
           "einnahme": isEinnamhe,
           "betrag": betrag,
           "datum": datum,
@@ -666,23 +711,23 @@ window.onload = function () {
     const iconMap = {
       "haupteinkommen": "bi-wallet-fill",
       "nebeneinkommen": "bi-cash-stack",
-      "staatliche Leistungen/Transfers": "bi-patch-check-fill",
+      "staatliche leistungen/transfers": "bi-patch-check-fill",
       "kapitaleinkünfte": "bi-graph-up-arrow",
-      "sonstige Einnahmen": "bi-three-dots",
+      "sonstige einnahmen": "bi-three-dots",
       "wohnen": "bi-house-fill",
       "versicherungen": "bi-shield-shaded",
-      "mobilität (Fix)": "bi-bus-front-fill",
-      "kommunikation/Medien": "bi-headset",
-      "finanzen/Sparen (Fix)": "bi-bank",
+      "mobilität (fix)": "bi-bus-front-fill",
+      "kommunikation/medien": "bi-headset",
+      "finanzen/sparen (fix)": "bi-bank",
       "abbonements": "bi-repeat",
       "lebensmittel": "bi-cart-fill",
-      "mobilität (Variabel)": "bi-fuel-pump-fill",
-      "kleidung & Körperpflege": "bi-bag-fill",
+      "mobilität (variabel)": "bi-fuel-pump-fill",
+      "kleidung & körperpflege": "bi-bag-fill",
       "gesundheit": "bi-heart-pulse-fill",
-      "freizeit & Unterhaltung": "bi-controller",
-      "kinder/Haustiere": "bi-people-fill",
-      "urlaub & Reisen": "bi-airplane-fill",
-      "geschenke & Spenden": "bi-gift-fill",
+      "freizeit & unterhaltung": "bi-controller",
+      "kinder/haustiere": "bi-people-fill",
+      "urlaub & reisen": "bi-airplane-fill",
+      "geschenke & spenden": "bi-gift-fill",
       "sonstiges": "bi-three-dots",
     };
 
