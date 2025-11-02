@@ -33,7 +33,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 12.99,
       "datum": "2025-09-03",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Netflix Abo",
       "notizen": "Notizen ..."
     },
@@ -42,7 +42,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 5.99,
       "datum": "2025-09-04",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Spotify Premium",
       "notizen": "Notizen ..."
     },
@@ -51,7 +51,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 54.20,
       "datum": "2025-09-04",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Supermarkt",
       "notizen": "Notizen ..."
     },
@@ -60,7 +60,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 32.45,
       "datum": "2025-09-05",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf beim Bäcker und Metzger",
       "notizen": "Notizen ..."
     },
@@ -87,7 +87,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 30.25,
       "datum": "2025-09-07",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Lidl",
       "notizen": "Notizen ..."
     },
@@ -123,7 +123,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 15.00,
       "datum": "2025-09-10",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Adobe Creative Cloud",
       "notizen": "Notizen ..."
     },
@@ -132,7 +132,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 48.70,
       "datum": "2025-09-10",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Supermarkt",
       "notizen": "Notizen ..."
     },
@@ -150,7 +150,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 9.99,
       "datum": "2025-09-12",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "YouTube Premium",
       "notizen": "Notizen ..."
     },
@@ -159,7 +159,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 27.30,
       "datum": "2025-09-13",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Rewe",
       "notizen": "Notizen ..."
     },
@@ -177,7 +177,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 64.50,
       "datum": "2025-09-15",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Aldi",
       "notizen": "Notizen ..."
     },
@@ -204,7 +204,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 22.80,
       "datum": "2025-09-18",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Bäckerei und Markt",
       "notizen": "Notizen ..."
     },
@@ -222,7 +222,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 45.00,
       "datum": "2025-09-20",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf",
       "notizen": "Notizen ..."
     },
@@ -231,7 +231,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 14.99,
       "datum": "2025-09-21",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Amazon Prime",
       "notizen": "Notizen ..."
     },
@@ -258,7 +258,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 62.80,
       "datum": "2025-09-24",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Einkauf Supermarkt",
       "notizen": "Notizen ..."
     },
@@ -285,7 +285,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 53.40,
       "datum": "2025-09-27",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Wocheneinkauf Rewe",
       "notizen": "Notizen ..."
     },
@@ -294,7 +294,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 11.99,
       "datum": "2025-09-28",
-      "kategorie": "Abbonements",
+      "kategorie": "Abonnements/Mitgliedschaften",
       "beschreibung": "Apple Music",
       "notizen": "Notizen ..."
     },
@@ -312,7 +312,7 @@ const defaultTransactions = [
       "einnahme": false,
       "betrag": 47.10,
       "datum": "2025-09-30",
-      "kategorie": "Lebensmittel",
+      "kategorie": "Lebensmittel & Haushalt",
       "beschreibung": "Monatsabschluss Einkauf",
       "notizen": "Notizen ..."
     }
@@ -320,6 +320,7 @@ const defaultTransactions = [
 
   // Daten lokal im browser speichern so können die daten beritz verändert werden später dynamisch
 const STORAGE_KEY = 'transactionData';
+
 
 function loadTransactions(){
   const storeData = localStorage.getItem(STORAGE_KEY);
@@ -335,7 +336,7 @@ function saveTransactions(data){
 }
 
 let transactions = loadTransactions();
-
+let wasTransactionModified = false;
 
 // Navbar buttens (Statischer Dummy)
 
@@ -404,9 +405,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Formular einträge löschen++++++++++++++++++++++++++++++++++++++++++++++
         formToReset.reset();
 
-
         //Valedirung entfernen
         formToReset.classList.remove('was-validated');
+        formToReset.removeAttribute('data-editing-id');
 
         //Radio buttens Fehlermeldung entfernen
         const radioContainer = formToReset.querySelector('.transaction-type-group');
@@ -420,6 +421,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (dateInputModal) {
           dateInputModal.value = today;
         }
+
+        //Prüfen ob ein edit vorgenomen wurde
+        if (wasTransactionModified){
+          wasTransactionModified = false; //flag zurücksetzen
+          window.location.reload();
+        }
+
       }
 
     })
@@ -457,6 +465,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener('submit', event => {
 
+      if (event.submitter && event.submitter.hasAttribute('data-bs-dismiss')) {
+          event.preventDefault(); 
+          return; 
+      }
+
       const radioChecked = form.querySelector('input[name="transactionType"]:checked');
       let validationFailed = false;
 
@@ -480,39 +493,61 @@ document.addEventListener("DOMContentLoaded", () => {
       //  Daten Extrahiren und Hinzufügen wenn gültig
       //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      //  Daten Extrahiren und Hinzufügen (ODER BEARBEITEN) wenn gültig
+      //  KORRIGIERTE VERSION
+      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
       if (!validationFailed) {
         
+        // 1. Daten aus dem Formular auslesen (wie bisher)
         const isEinnamhe = (radioChecked.value === 'einnahme');
-        
-        // höchste id finden
-        const maxId = transactions.reduce((max, objekt) =>{
-          return objekt.id > max ? objekt.id : max;
-        },0);
-        
-        //Betrag umwandeln
         const amuntStr = amountInput.value.replace(',', '.');
         const betrag = parseFloat(amuntStr);
-
         const datum = dateInput.value;
         const kategorie = categoryInput.value;
         const beschreibung = descriptionInput.value;
         const notizen = notesInput.value;
+        
+        // 2. Prüfen: Sind wir im "Bearbeiten"-Modus?
+        const editingId = form.dataset.editingId;
+       
+        if (editingId) {
+            // ----------- MODUS: BEARBEITEN -----------
+            const idZahl = parseInt(editingId, 10);
+            const transactionToUpdate = transactions.find(tx => tx.id === idZahl);
 
-        const newTransaction = {
-          "id": (maxId+1),
-          "einnahme": isEinnamhe,
-          "betrag": betrag,
-          "datum": datum,
-          "kategorie": kategorie,
-          "beschreibung": beschreibung,
-          "notizen": notizen
-        };
+            if (transactionToUpdate) {
+                // Aktualisiere das bestehende Objekt im 'transactions'-Array
+                transactionToUpdate.einnahme = isEinnamhe;
+                transactionToUpdate.betrag = betrag;
+                transactionToUpdate.datum = datum;
+                transactionToUpdate.kategorie = kategorie;
+                transactionToUpdate.beschreibung = beschreibung;
+                transactionToUpdate.notizen = notizen;
+            }            
+        } else {
+            // ----------- MODUS: NEU ERSTELLEN -----------
+            const maxId = transactions.reduce((max, objekt) =>{
+              return objekt.id > max ? objekt.id : max;
+            }, 0);
+            
+            const newTransaction = {
+              "id": (maxId + 1), // Neue ID
+              "einnahme": isEinnamhe,
+              "betrag": betrag,
+              "datum": datum,
+              "kategorie": kategorie,
+              "beschreibung": beschreibung,
+              "notizen": notizen
+            };
 
-        //Die daten müssen dan hier auf die Datenbank gepusht werden
-        transactions.push(newTransaction);
+            transactions.push(newTransaction);
+        }
+
         saveTransactions(transactions);
-      }
-
+        wasTransactionModified = true;
+      } // Ende if (!validationFailed)
 
     }, false);
   });
@@ -529,24 +564,57 @@ dataConteiner.addEventListener('click', (event) =>{
     const aktion = clickedElement.dataset.action;
 
     // Da jeder Click abgefangen wird das aber nicht zwingend ein btn ist wird das abgefangen und das event bendet
-    if(!eintragID || !aktion){
-      return;
-    }
+    if(!eintragID || !aktion) return;
 
     if (aktion === 'edit') {
-       console.log("Bearbeiten " + eintragID);
+      transactionEdit(eintragID);
     }else if (aktion === 'delete') {
       transactionDelete(eintragID);
      }
   }
 });
-function transactionEdit(){
 
+function transactionEdit(id){
+  const idZahl = parseInt(id, 10);
+    // 1. Transaktion im globalen 'transactions'-Array finden
+    const transactionToEdit = transactions.find(tx => tx.id === idZahl);
+   
+    const form = document.querySelector('.needs-validation'); 
+    if (!form) return;
+
+    // Dem Formular mitteilen, welche ID bearbeitet wird
+    form.dataset.editingId = idZahl;
+
+    //Formularfelder füllen
+    document.getElementById('amount').value = transactionToEdit.betrag.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('category').value = transactionToEdit.kategorie;
+    document.getElementById('beschreibung').value = transactionToEdit.beschreibung;
+    document.getElementById('notizen').value = transactionToEdit.notizen;
+    document.getElementById('date').value = transactionToEdit.datum;
+
+    // Radio-Buttons setzen
+    // (Annahme: Ihre Radio-Buttons haben die IDs 'type-einnahme' und 'type-ausgabe')
+    if (transactionToEdit.einnahme) {
+        document.getElementById('income-btn').checked = true;
+    } else {
+        document.getElementById('expense-btn').checked = true;
+    }
+    
+    // Alte Validierungsmarkierungen entfernen
+    form.classList.remove('was-validated');
+
+    // Modal öffnen
+    // NEModal ist das Modal-Element mit der ID 'NEModal'
+    const modalElement = document.getElementById('NEModal'); 
+    const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    modalInstance.show();
 };
+
 function transactionDelete(id){
   //Erstellt ein neus Array mit allen auser dem zu Löschenden Objekt
   const idZahl = parseInt(id, 10); // 10 für Dezimal
   const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
+  transactions = newTransaction;
   saveTransactions(newTransaction);
 
   // Kompleter relod der seite da auch alle diagrame usw. ne geladen werden müssen
