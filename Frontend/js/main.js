@@ -342,27 +342,41 @@ let wasTransactionModified = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
+  const monthButtons = document.querySelectorAll(".month-btn");
+  const yearButton = document.getElementById("year");
 
+  //Aktuellen btn auswehlen
+  const now = new Date();
+  const currentMonthIndex = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  yearButton.textContent = currentYear;
+
+  const currentMonthButton = monthButtons[currentMonthIndex];
+  if (currentMonthButton) {
+    currentMonthButton.disabled = true;
+    currentMonthButton.classList.remove("btn-outline-primary");
+    currentMonthButton.classList.add("btn-primary");
+  }
+  //nav btn handler wenn ein btn gedrückt wird
   navButtons.forEach(button => {
     button.addEventListener("click", () => {
 
-      const year = document.getElementById("year");
-      let yearNumber = Number(year.textContent);
+      let yearNumber = Number(yearButton.textContent);
       switch (button.textContent) {
         case '<':
           yearNumber--;
-          year.textContent = yearNumber;
-          //handleMonthClick(button.textContent, yearNumber);
+          yearButton.textContent = yearNumber;
+          //lodData(button.textContent, yearNumber);
           break;
 
         case '>':
           yearNumber++;
-          year.textContent = yearNumber;
-          //handleMonthClick(button.textContent, yearNumber);
+          yearButton.textContent = yearNumber;
+          //lodData(button.textContent, yearNumber);
           break;
 
         default:
-          const monthButtons = document.querySelectorAll(".month-btn");
           monthButtons.forEach(btn => {
             btn.disabled = false;
             btn.classList.remove("btn-primary");
@@ -376,12 +390,15 @@ document.addEventListener("DOMContentLoaded", () => {
           button.classList.add("btn-primary");
 
           //Für die spätere dynamik zum laden der Daten des buttens
-          //handleMonthClick(button.textContent, yearNumber);
+          //lodData(button.textContent, yearNumber);
 
           break;
       };
     });
   });
+
+  //Hier eine funktion zum laden der aktuellen daten z.b.
+  //lodData(currentMonthIndex, currentYear)
 });
 
 //Modal input validierung
