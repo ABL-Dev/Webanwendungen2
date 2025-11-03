@@ -23,13 +23,28 @@
 
             <!--Mitlerer bereich-->
             <div class="col mx-5">
-                <div class="form-floating">
-                    <input type="text" class="form-control suchleiste" placeholder="Suchen" id="suchleiste" required>
-                    <label class="suchleisteLabel" for="suchleiste"><i class="bi bi-search"></i> Search</label>
-                    <div class="invalid-feedback">
-                        Nichts gefunden
+                <!--Monats navbar-->
+                <nav class="container-fluid py-2 text-center" id="navbar">
+                    <button class="btn btn-primary mb-2" disabled><span id="year"></span></button>
+                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
+                        <button class="btn btn-outline-primary btn-sm">&lt;</button>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <button class="btn btn-outline-primary btn-sm month-btn">Jan</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Feb</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Mär</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Apr</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Mai</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Jun</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Jul</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Aug</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Sep</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Okt</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Nov</button>
+                            <button class="btn btn-outline-primary btn-sm month-btn">Dez</button>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm">&gt;</button>
                     </div>
-                </div>
+                </nav>
             </div>
 
             <!--Rechter bereich-->
@@ -43,28 +58,7 @@
         </div>
     </header>
 
-    <!--Monats navaber-->
-    <nav class="container-fluid py-2 text-center" id="navbar">
-        <button class="btn btn-primary mb-2" disabled><span id="year"></span></button>
-        <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
-            <button class="btn btn-outline-primary btn-sm">&lt;</button>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <button class="btn btn-outline-primary btn-sm month-btn">Jan</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Feb</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Mär</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Apr</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Mai</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Jun</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Jul</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Aug</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Sep</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Okt</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Nov</button>
-                <button class="btn btn-outline-primary btn-sm month-btn">Dez</button>
-            </div>
-            <button class="btn btn-outline-primary btn-sm">&gt;</button>
-        </div>
-    </nav>
+    
 
 
     <!--Dashboard bereiche-->
@@ -163,17 +157,23 @@
             <!--Spalte 3 Letze Transaktionen-->
             <div class="col-md-4 d-flex flex-column h-100">
                 <div class="card flex-fill d-flex flex-column">
-                    <div class="card-header d-flex">Transaktionen</div>
-
-                    <!-- scrollbarer Body; passt sich der Höhe an -->
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Transaktionen</h5>
+            
+                        <div class="position-relative ms-2" style="max-width: 200px; width: 100%;">
+                            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
+                            <input type="text" class="form-control form-control-sm ps-4" placeholder="Suchen" id="suchleiste">
+                        </div>
+                    </div>
+            
                     <div class="card-body d-flex flex-column overflow-auto p-2" id="data-conteiner" style="max-height: 91vh;">
-                        <ul id="transactionList" class="list-unstyled mb-0" role="list"
-                            aria-label="Letzte Transaktionen">
+                        <ul id="transactionList" class="list-unstyled mb-0" role="list" aria-label="Letzte Transaktionen">
                             <!-- JS wird hier Items einfügen -->
                         </ul>
                     </div>
                 </div>
             </div>
+
 
             <!-- Template für JS: Klonen, befüllen und in -->
             <template id="transaction-template">
