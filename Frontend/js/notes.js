@@ -44,6 +44,9 @@ function renderNotes() {
         const li = document.createElement("li");
         li.className = "list-group-item d-flex justify-content-between align-items-center bg-transparent text-light border-primary";
 
+        const editBtnStyle = note.checked ? 'visibility: hidden; pointer-events: none;' : '';
+        const editBtnDisabled = note.checked ? 'disabled' : '';
+        
         li.innerHTML = `
             <div class="form-check d-flex align-items-center flex-grow-1">
                 <input class="form-check-input me-2" type="checkbox" id="note-${index}" ${note.checked ? "checked" : ""}>
@@ -52,7 +55,7 @@ function renderNotes() {
                 </label>
             </div>
             <div class="btn-group-sm">
-                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten">
+                <button class="btn btn-outline-primary edit-btn mx-2" title="Bearbeiten" style="${editBtnStyle}" ${editBtnDisabled}>
                     <i class="bi bi-pencil-fill"></i>
                 </button>
                 <button class="btn btn-outline-danger delete-btn" title="Löschen">
@@ -68,8 +71,8 @@ function renderNotes() {
             renderNotes();
         });
 
-        // Bearbeiten
-        li.querySelector(".edit-btn").addEventListener("click", () => {
+        // Bearbeiten 
+        li.querySelector(".edit-btn").addEventListener("click", () => {           
             currentEditIndex = index;
             editNoteTextarea.value = note.text;
             editNoteModal.show();
@@ -85,7 +88,6 @@ function renderNotes() {
         notesList.appendChild(li);
     });
 }
-
 // Neue Notiz hinzufügen
 addNoteBtn.addEventListener("click", () => {
     addNoteTextarea.value = "";
