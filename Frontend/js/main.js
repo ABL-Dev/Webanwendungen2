@@ -607,6 +607,8 @@ function transactionEdit(id){
     // NEModal ist das Modal-Element mit der ID 'NEModal'
     const modalElement = document.getElementById('NEModal'); 
     const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+
+    modalElement.querySelector('.modal-title').textContent = 'Transaktion bearbteiten';
     modalInstance.show();
 };
 
