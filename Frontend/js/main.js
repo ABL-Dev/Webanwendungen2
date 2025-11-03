@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //lodData(currentMonthIndex, currentYear)
 });
 
-//Modal input validierung
+//Modal input validierung New Entry
 (() => {
   const forms = document.querySelectorAll('.needs-validation');
   const dateInput = document.getElementById('date');
@@ -412,11 +412,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const today = new Date().toISOString().split('T')[0];
   dateInput.value = today;
 
-
   // Formular zurückseten beim
   if (NEModal){
     NEModal.addEventListener('hidden.bs.modal', function () {
       
+    //Setzt die überschrift und den submit btn richtig
+    const modalElement = document.getElementById('NEModal'); 
+    const btn = document.getElementById('btn-transaktionen');
+
+    modalElement.querySelector('.modal-title').textContent = 'Transaktionen erstellen';
+
       const formToReset = this.querySelector('.needs-validation');
       if (formToReset) {
         // Formular einträge löschen++++++++++++++++++++++++++++++++++++++++++++++
@@ -446,10 +451,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
       }
-
     })
   }
-
 
   Array.from(forms).forEach(form => {
     const radioContainer = form.querySelector('.transaction-type-group');
@@ -624,8 +627,10 @@ function transactionEdit(id){
     // NEModal ist das Modal-Element mit der ID 'NEModal'
     const modalElement = document.getElementById('NEModal'); 
     const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    const modalEdidBtn = document.getElementById('btn-transaktionen');
 
     modalElement.querySelector('.modal-title').textContent = 'Transaktion bearbteiten';
+    modalEdidBtn.textContent = "Transaktion bearbteiten";
     modalInstance.show();
 };
 
