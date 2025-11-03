@@ -661,67 +661,82 @@ input.addEventListener('input', () => {
   }
 });
 
-  //************************************************************************************************************************************+
-  // Recent Transactions
-  //*****************************************************************************************************************************
+//************************************************************************************************************************************+
+// Recent Transactions
+//*****************************************************************************************************************************
 
-function recentTransaction(){
+function recentTransaction(suchLeisteText) {
 
-    //daysAgo-Funktion
-    function daysAgo(dateStr) {
-      const now = new Date();
-      const date = new Date(dateStr);
-      const diff = now - date;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      if (days === 0) return "Today";
-      if (days === 1) return "Yesterday";
-      return `${days} days ago`;
-    }
+  //daysAgo-Funktion
+  function daysAgo(dateStr) {
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diff = now - date;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    if (days === 0) return "Today";
+    if (days === 1) return "Yesterday";
+    return `${days} days ago`;
+  }
 
   //////////////////////////
 
-    // einfache Kategorie -> Bootstrap Icon Map
-    const iconMap = {
-      "haupteinkommen": "bi-wallet-fill",
-      "nebeneinkommen": "bi-cash-stack",
-      "staatliche leistungen/transfers": "bi-patch-check-fill",
-      "kapitaleinkünfte": "bi-graph-up-arrow",
-      "sonstige einnahmen": "bi-three-dots",
-      "wohnen": "bi-house-fill",
-      "versicherungen": "bi-shield-shaded",
-      "mobilität (fix)": "bi-bus-front-fill",
-      "kommunikation/medien": "bi-headset",
-      "finanzen/sparen (fix)": "bi-bank",
-      "abonnements/mitgliedschaften": "bi-repeat",
-      "lebensmittel & haushalt": "bi-cart-fill",
-      "mobilität (variabel)": "bi-fuel-pump-fill",
-      "kleidung & körperpflege": "bi-bag-fill",
-      "gesundheit": "bi-heart-pulse-fill",
-      "freizeit & unterhaltung": "bi-controller",
-      "kinder/haustiere": "bi-people-fill",
-      "urlaub & reisen": "bi-airplane-fill",
-      "geschenke & spenden": "bi-gift-fill",
-      "sonstiges": "bi-three-dots",
-    };
+  // einfache Kategorie -> Bootstrap Icon Map
+  const iconMap = {
+    "haupteinkommen": "bi-wallet-fill",
+    "nebeneinkommen": "bi-cash-stack",
+    "staatliche leistungen/transfers": "bi-patch-check-fill",
+    "kapitaleinkünfte": "bi-graph-up-arrow",
+    "sonstige einnahmen": "bi-three-dots",
+    "wohnen": "bi-house-fill",
+    "versicherungen": "bi-shield-shaded",
+    "mobilität (fix)": "bi-bus-front-fill",
+    "kommunikation/medien": "bi-headset",
+    "finanzen/sparen (fix)": "bi-bank",
+    "abonnements/mitgliedschaften": "bi-repeat",
+    "lebensmittel & haushalt": "bi-cart-fill",
+    "mobilität (variabel)": "bi-fuel-pump-fill",
+    "kleidung & körperpflege": "bi-bag-fill",
+    "gesundheit": "bi-heart-pulse-fill",
+    "freizeit & unterhaltung": "bi-controller",
+    "kinder/haustiere": "bi-people-fill",
+    "urlaub & reisen": "bi-airplane-fill",
+    "geschenke & spenden": "bi-gift-fill",
+    "sonstiges": "bi-three-dots",
+  };
 
-    //Ortnet den Katigorien Icons zu
-    function chooseIcon(cat) {
-      // fals es nicht das richtige Icon gibt wird das ? genommen
-      return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
-    }
+  //Ortnet den Katigorien Icons zu
+  function chooseIcon(cat) {
+    // fals es nicht das richtige Icon gibt wird das ? genommen
+    return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
+  }
 
-    // Renderer
-    function render() {
-      //Hohlt die ul
-      const listContainer = document.getElementById("transactionList");
-      listContainer.innerHTML = '';
+  // Renderer
+  function render() {
+    //Hohlt die ul
+    const listContainer = document.getElementById("transactionList");
+    listContainer.innerHTML = '';
 
-      // Holt die Aktuellen daten aus dem Speicher
-      transactions = loadTransactions();
-      // nach Datum sortieren (neu -> alt)
-      transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+    // Holt die Aktuellen daten aus dem Speicher
+    transactions = loadTransactions();
+    // nach Datum sortieren (neu -> alt)
+    transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
-      transactions.forEach(tx => {
+    transactions.forEach(tx => {
+      var addZeile = false;
+
+      if (suchLeisteText == "") {
+        addZeile = true;
+      }
+      else {
+        const escaped = suchLeisteText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(escaped, 'i'); // 'i' = case-insensitive
+
+        if (regex.test(String(tx.beschreibung))) {
+          addZeile = true;
+        }
+      }
+
+      if (addZeile) {
         const li = document.createElement("li");
         li.className = 'py-2 border-bottom border-primary';
 
@@ -771,7 +786,7 @@ function recentTransaction(){
         amount.appendChild(catSmall);
 
         const mainRow = document.createElement('div');
-        mainRow.className = 'd-flex align-items-start justify-content-between gap-3' 
+        mainRow.className = 'd-flex align-items-start justify-content-between gap-3'
 
         mainRow.appendChild(left);
         mainRow.appendChild(amount);
@@ -797,23 +812,34 @@ function recentTransaction(){
         const bottomRow = document.createElement('div');
         bottomRow.className = 'd-flex justify-content-between align-items-center mt-2 small';
         bottomRow.style.marginLeft = 'calc(44px + 0.5rem)';
-        
+
         bottomRow.appendChild(nots);
         bottomRow.appendChild(ecBtn);
 
-
+        
         li.appendChild(mainRow);
         li.appendChild(bottomRow);
 
         listContainer.appendChild(li);
+      }
       });
     }
     render();
 };
 
+//************************************************************************************************************************************+
+// Search Transactions
+//*****************************************************************************************************************************
+
+// Grab the search input
+const suchleiste = document.getElementById('suchleiste');
+suchleiste.addEventListener('input', () => {
+    recentTransaction(suchleiste.value);
+});
+
 window.onload = function () {
   //Recent Transaktion laden
-  recentTransaction();
+  recentTransaction(""); // Mit leerem String (Standardladevorgang).
 
   // Pie chart // 
 
