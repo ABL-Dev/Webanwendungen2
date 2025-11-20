@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS transactions(
     type            TEXT CHECK(type IN('income', 'expense')) NOT NULL,
     amount_eur      REAL NOT NULL,
     date            DATE NOT NULL,
-    category_id     INTEGER
+    category_id     INTEGER,
     description     TEXT,
     nots            TEXT,
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
