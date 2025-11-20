@@ -1,49 +1,70 @@
 import express from 'express';
-import Database from 'better-sqlite3';
-import fs from "fs";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-try{
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // Datenbak
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Eigene Module importieren
+import db from './db/database.js'; 
+import * as helper from './helper.js'; // Importiert alle Funktionen aus helper.js
 
-    //connect database
-    console.log("Verbindung zur datenbank wird hergestelt");
-    const dbOptions = {verbose: console.log};
-    const dbFile = "./db/webanw2.sqlite";
-    const db = new Database(dbFile, dbOptions);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const app = express();
+const HTTP_PORT = 8000;
 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../Frontend')));
 
-    //Prüfen ob die tabelen schon Existiren
-    const exists = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='transactions'`).get();
+// +++ API ROUTEN +++
 
-    if(!exists){
-        const tabelen = fs.readFileSync("./db/Create Tabels.sql", "utf8");
-        db.exec(tabelen);
+// 1. Kategorien abrufen
+app.get('/api/categories', (req, res) => {
+    const rows = db.prepare('SELECT * FROM categories ORDER BY name ASC').all();
+    res.json(rows);
+});
+
+// 2. Transaktion speichern (mit Helper-Nutzung!)
+app.post('/api/transactions', (req, res) => {
+    try {
+        const { type, amount_eur, category_id, date, description } = req.body;
+
+        // --- Validierung mit helper.js ---
+        if (!helper.isNumeric(amount_eur)) {
+            return res.status(400).json({ success: false, error: "Betrag muss eine Zahl sein." });
+        }
+
+        // Optional: Datum prüfen (falls String leer ist, nimm "Jetzt")
+        let finalDate = date;
+        if (helper.isUndefined(date) || date === '') {
+             // Nutzt Luxon aus deinem Helper, um das aktuelle Datum als SQL-String zu holen
+             // Hinweis: Du müsstest ggf. formatToSQLDate(helper.getNow()) nutzen
+             finalDate = new Date().toISOString().split('T')[0]; 
+        }
+
+        // Speichern
+        const stmt = db.prepare(`
+            INSERT INTO transactions (type, amount_eur, date, category_id, description)
+            VALUES (@type, @amount_eur, @date, @category_id, @description)
+        `);
+
+        // Wir nutzen helper.round, um sicherzustellen, dass wir nur 2 Nachkommastellen speichern
+        const info = stmt.run({ 
+            type, 
+            amount_eur: helper.round(amount_eur), 
+            date: finalDate, 
+            category_id, 
+            description 
+        });
+
+        res.status(201).json({ success: true, id: info.lastInsertRowid });
+
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ success: false, error: e.message });
     }
-    console.log("DB wurde erstellt");
+});
 
+// +++ FRONTEND ROUTE +++
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/index.html'));
+});
 
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //Webserver
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    // Webserver starten
-    const HTTP_PORT = 8000;
-    const app = express();
-    app.use(express.static("../Frontend"))
-
-    app.get('/', (req, res) =>{
-        res.sendFile(__dirname, '../Frontend/index.html');
-    })
-
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`Server hört auf port ${HTTP_PORT}`)
-    })
-
-
-}
-catch(ex){
-    console.log("Beim Starten ist etwas schief gelaufen!")
-    console.log(ex)
-}
+app.listen(HTTP_PORT, () => console.log(`Server läuft auf http://localhost:${HTTP_PORT}`));
