@@ -1,18 +1,19 @@
-CREATE TABLE IF NOT EXISTS categories(
-    category_id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+-- kategorien und transaktionen umbenannt.
+CREATE TABLE IF NOT EXISTS kategorien(
+    kategorie_id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name            TEXT NOT NULL,
     max_budget_eur  REAL
 );
 
-CREATE TABLE IF NOT EXISTS transactions(
-    transactions_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    type            TEXT CHECK(type IN('income', 'expense')) NOT NULL,
-    amount_eur      REAL NOT NULL,
-    date            DATE NOT NULL,
-    category_id     INTEGER,
-    description     TEXT,
-    nots            TEXT,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+CREATE TABLE IF NOT EXISTS transaktionen(
+    tr_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    einnahme            TEXT CHECK(einnahme IN('true', 'false')) NOT NULL,
+    betrag      REAL NOT NULL,
+    datum            DATE NOT NULL,
+    kategorie_id     INTEGER,
+    beschreibung     TEXT,
+    notizen            TEXT,
+    FOREIGN KEY (kategorie_id) REFERENCES kategorien(kategorie_id)
 );
 
 CREATE TABLE IF NOT EXISTS todos(

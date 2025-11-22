@@ -1,341 +1,4 @@
-  // Statische json Werte für das ganze Dashboard.
-  // Diese Daten werden später dynamisch sein, für diese Abgabe jedoch nur statische Werte hier im Code.
-const defaultTransactions = [
-    {
-      "id": 1,
-      "einnahme": true,
-      "betrag": 2850.00,
-      "datum": "2025-09-01",
-      "kategorie": "Haupteinkommen",
-      "beschreibung": "Gehalt September",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 2,
-      "einnahme": false,
-      "betrag": 950.00,
-      "datum": "2025-09-02",
-      "kategorie": "Wohnen",
-      "beschreibung": "Miete Wohnung",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 3,
-      "einnahme": false,
-      "betrag": 78.50,
-      "datum": "2025-09-03",
-      "kategorie": "Versicherungen",
-      "beschreibung": "Haftpflichtversicherung",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 4,
-      "einnahme": false,
-      "betrag": 12.99,
-      "datum": "2025-09-03",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "Netflix Abo",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 5,
-      "einnahme": false,
-      "betrag": 5.99,
-      "datum": "2025-09-04",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "Spotify Premium",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 6,
-      "einnahme": false,
-      "betrag": 54.20,
-      "datum": "2025-09-04",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Wocheneinkauf Supermarkt",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 7,
-      "einnahme": false,
-      "betrag": 32.45,
-      "datum": "2025-09-05",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Einkauf beim Bäcker und Metzger",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 8,
-      "einnahme": false,
-      "betrag": 120.00,
-      "datum": "2025-09-05",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Geschenk für Freundin",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 9,
-      "einnahme": false,
-      "betrag": 45.00,
-      "datum": "2025-09-06",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Kinobesuch und Snacks",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 10,
-      "einnahme": false,
-      "betrag": 30.25,
-      "datum": "2025-09-07",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Einkauf Lidl",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 11,
-      "einnahme": false,
-      "betrag": 89.00,
-      "datum": "2025-09-08",
-      "kategorie": "Versicherungen",
-      "beschreibung": "Kfz-Versicherung",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 12,
-      "einnahme": false,
-      "betrag": 75.00,
-      "datum": "2025-09-09",
-      "kategorie": "Wohnen",
-      "beschreibung": "Stromabschlag",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 13,
-      "einnahme": false,
-      "betrag": 25.50,
-      "datum": "2025-09-09",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Café-Besuch mit Freunden",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 14,
-      "einnahme": false,
-      "betrag": 15.00,
-      "datum": "2025-09-10",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "Adobe Creative Cloud",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 15,
-      "einnahme": false,
-      "betrag": 48.70,
-      "datum": "2025-09-10",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Wocheneinkauf Supermarkt",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 16,
-      "einnahme": true,
-      "betrag": 120.00,
-      "datum": "2025-09-11",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Verkauf gebrauchtes Smartphone",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 17,
-      "einnahme": false,
-      "betrag": 9.99,
-      "datum": "2025-09-12",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "YouTube Premium",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 18,
-      "einnahme": false,
-      "betrag": 27.30,
-      "datum": "2025-09-13",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Einkauf Rewe",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 19,
-      "einnahme": false,
-      "betrag": 110.00,
-      "datum": "2025-09-14",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Kleidung Herbstkollektion",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 20,
-      "einnahme": false,
-      "betrag": 64.50,
-      "datum": "2025-09-15",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Wocheneinkauf Aldi",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 21,
-      "einnahme": false,
-      "betrag": 95.00,
-      "datum": "2025-09-16",
-      "kategorie": "Versicherungen",
-      "beschreibung": "Hausratversicherung",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 22,
-      "einnahme": false,
-      "betrag": 50.00,
-      "datum": "2025-09-17",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Tankfüllung Auto",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 23,
-      "einnahme": false,
-      "betrag": 22.80,
-      "datum": "2025-09-18",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Bäckerei und Markt",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 24,
-      "einnahme": false,
-      "betrag": 5.50,
-      "datum": "2025-09-19",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Kaffee to go",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 25,
-      "einnahme": false,
-      "betrag": 45.00,
-      "datum": "2025-09-20",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Wocheneinkauf",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 26,
-      "einnahme": false,
-      "betrag": 14.99,
-      "datum": "2025-09-21",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "Amazon Prime",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 27,
-      "einnahme": false,
-      "betrag": 73.00,
-      "datum": "2025-09-22",
-      "kategorie": "Wohnen",
-      "beschreibung": "Internet und Telefon",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 28,
-      "einnahme": false,
-      "betrag": 40.00,
-      "datum": "2025-09-23",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Restaurantbesuch",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 29,
-      "einnahme": false,
-      "betrag": 62.80,
-      "datum": "2025-09-24",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Einkauf Supermarkt",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 30,
-      "einnahme": true,
-      "betrag": 200.00,
-      "datum": "2025-09-25",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Nebenjob Wochenende",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 31,
-      "einnahme": false,
-      "betrag": 16.90,
-      "datum": "2025-09-26",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Friseurtermin",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 32,
-      "einnahme": false,
-      "betrag": 53.40,
-      "datum": "2025-09-27",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Wocheneinkauf Rewe",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 33,
-      "einnahme": false,
-      "betrag": 11.99,
-      "datum": "2025-09-28",
-      "kategorie": "Abonnements/Mitgliedschaften",
-      "beschreibung": "Apple Music",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 34,
-      "einnahme": false,
-      "betrag": 18.50,
-      "datum": "2025-09-29",
-      "kategorie": "Sonstiges",
-      "beschreibung": "Mittagessen Kantine",
-      "notizen": "Notizen ..."
-    },
-    {
-      "id": 35,
-      "einnahme": false,
-      "betrag": 47.10,
-      "datum": "2025-09-30",
-      "kategorie": "Lebensmittel & Haushalt",
-      "beschreibung": "Monatsabschluss Einkauf",
-      "notizen": "Notizen ..."
-    }
-  ];
-
-  // Daten lokal im browser speichern so können die daten beritz verändert werden später dynamisch
-const STORAGE_KEY = 'transactionData';
-
-
-function loadTransactions(){
-  const storeData = localStorage.getItem(STORAGE_KEY);
-  if (storeData) {
-    return JSON.parse(storeData);
-  }
-  saveTransactions(defaultTransactions);
-  return defaultTransactions;
-}
-
-function saveTransactions(data){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-let transactions = loadTransactions();
+let transactions = [];
 let wasTransactionModified = false;
 
 // Navbar buttens (Statischer Dummy)
@@ -484,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     form.addEventListener('submit', event => {
+      event.preventDefault(); // Wichtig: Damit das Kommunizieren mit dem Backend nicht unterbrochen wird von Submit.
 
       if (event.submitter && event.submitter.hasAttribute('data-bs-dismiss')) {
           event.preventDefault(); 
@@ -552,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
               return objekt.id > max ? objekt.id : max;
             }, 0);
             
-            const newTransaction = {
+            /*const newTransaction = {
               "id": (maxId + 1), // Neue ID
               "einnahme": isEinnamhe,
               "betrag": betrag,
@@ -562,10 +226,42 @@ document.addEventListener("DOMContentLoaded", () => {
               "notizen": notizen
             };
 
-            transactions.push(newTransaction);
+            transactions.push(newTransaction);*/
+
+            // TODO:
+          // Neue Daten an Server senden.
+
+          // Werte aus dem New-Entry-Dokument holen.
+          // TODO: Evtl. hier noch bestimmte Abfragen machen zu den Eingaben - Validation.
+          const einnahme = document.getElementById('income-btn').checked ? "true" : "false";
+          const betrag = parseFloat(document.getElementById('amount').value.replace(',', '.'));
+          const datum = String(document.getElementById('date').value); // YYYY-MM-DD
+          const kategorie = document.getElementById('category').value;
+          const beschreibung = String(document.getElementById('beschreibung').value);
+          //const notizen = document.getElementById('notizen').value;
+
+          const data = {
+            einnahme: einnahme,
+            betrag: betrag,
+            datum: datum,
+            kategorie: kategorie, // Hier sendet man nur Name der Kategorie mit. Im api/write wird dann Kategorie-ID geholt.
+            beschreibung: beschreibung
+          };
+
+          fetch('/api/write', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          })
+            .then(r => r.json())
+            .then(() => {
+              // Wichtig: Da man ganz oben den Submit unterdrückt mit event.preventDefault(); wird er hier manuell gemacht.
+              // TODO: Das muss beim editieren als auch beim Löschen ebenfalls gemacht werden.
+              form.submit();
+            });
+
         }
 
-        saveTransactions(transactions);
         wasTransactionModified = true;
       } // Ende if (!validationFailed)
 
@@ -710,14 +406,18 @@ function recentTransaction(suchLeisteText) {
     return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
   }
 
-  // Renderer
-  function render() {
+  // Renderer - Asynchron, da auf das Fetchen der Transaktionsdaten gewartet werden muss.
+  async function render() {
     //Hohlt die ul
     const listContainer = document.getElementById("transactionList");
     listContainer.innerHTML = '';
 
-    // Holt die Aktuellen daten aus dem Speicher
-    transactions = loadTransactions();
+    // Holt die aktuellen Daten aus der Datenbank.
+    const res = await fetch('/api/getTableArray');
+    const data = await res.json();
+    transactions = data;
+    console.log("Loaded transactions in render:", transactions);
+
     // nach Datum sortieren (neu -> alt)
     transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
@@ -824,7 +524,7 @@ function recentTransaction(suchLeisteText) {
       }
       });
     }
-    render();
+    return render(); // Gebe render() zurück, damit das window.onload-Fenster auf die zu fetchenden Transaktionen wartet.
 };
 
 //************************************************************************************************************************************+
@@ -837,14 +537,18 @@ suchleiste.addEventListener('input', () => {
     recentTransaction(suchleiste.value);
 });
 
-window.onload = function () {
+window.onload = async function () {
   //Recent Transaktion laden
-  recentTransaction(""); // Mit leerem String (Standardladevorgang).
+  await recentTransaction(""); // Mit leerem String (Standardladevorgang).
+  console.log("in window should have transactions now");
+  console.log("Loaded transactions in window:", transactions);
 
   // Pie chart // 
 
   // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
   const expenses = transactions.filter(entry => entry.einnahme === false);
+  console.log("transactions: ",transactions);
+  console.log("expenses: ",expenses);
 
   // Summen für die jeweiligen Kategorien.
   const categorySums = {}; // Dictionary -> Kategoriename:Summe.
@@ -858,6 +562,8 @@ window.onload = function () {
   const categoryNames = Object.keys(categorySums).map(key =>
     key.charAt(0).toUpperCase() + key.slice(1)
   );
+
+  console.log("categorynames:", categoryNames);
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -1104,6 +810,3 @@ window.onload = function () {
     settingsModal.hide();
   });
 };
-
-
-

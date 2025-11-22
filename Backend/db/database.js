@@ -31,7 +31,7 @@ try {
 
 // Standart-Kategorien Befüllen
 try {
-    const catCount = db.prepare('SELECT count(*) as count FROM categories').get().count;
+    const catCount = db.prepare('SELECT count(*) as count FROM kategorien').get().count;
 
     if (catCount === 0) {
         console.log("[DB] Keine Kategorien gefunden. Führe Seeding-Skript aus...");
