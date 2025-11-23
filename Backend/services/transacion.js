@@ -51,4 +51,33 @@ serviceRouter.post('/write', (req, res) => {
     }
 });
 
+
+serviceRouter.delete('/delete/:id', (req, res) =>{
+    const db = req.app.locals.db;
+    const transactionDao = new TransactionDao(db);
+
+    const id = req.params.id;
+
+    //URL String in Zahl ändern
+    const idAsNumber = parseInt(id, 10);
+    if (isNaN(idAsNumber)){
+        return res.status(400).json({success: false, error: "Ungültige Transaktions-ID."});
+    }
+    try {
+        transactionDao.delete(idAsNumber);
+
+        res.status(204).end();
+    }
+    catch{
+        console.log("Fehler beim Löschen:", error.message);
+
+        if (error.message.includes("Kein Eintrag mit der ID")){
+            return res.status(404).json({success: false, error: error.message});
+        }
+        res.status(500).json({success: false, error: "Interner Serverfehler beim Löschen."});
+    }
+
+});
+
+
 export default serviceRouter;

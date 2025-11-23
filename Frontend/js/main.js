@@ -331,12 +331,17 @@ function transactionEdit(id){
     modalInstance.show();
 };
 
-function transactionDelete(id){
-  //Erstellt ein neus Array mit allen auser dem zu Löschenden Objekt
-  const idZahl = parseInt(id, 10); // 10 für Dezimal
-  const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
-  transactions = newTransaction;
-  saveTransactions(newTransaction);
+async function transactionDelete(id){
+  const url = `/api/delete/${id}`;
+
+  try{
+    const respons = await fetch(url, {
+      method: 'DELETE'
+    });
+  }
+  catch{
+    console.error("Fetch-Fehler beim Löschen", error);
+  }
 
   // Kompleter relod der seite da auch alle diagrame usw. ne geladen werden müssen
   window.location.reload();

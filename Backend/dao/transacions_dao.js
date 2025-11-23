@@ -54,4 +54,23 @@ export default class transactionDao{
 
     }
 
+    update(id, transaction){
+
+    }
+
+    delete(id){
+        const sql = 'DELETE FROM transaktionen WHERE tr_id = ?';
+
+        const statment = this.__con.prepare(sql);
+        const result = statment.run(id);
+
+        if(result.changes === 1){
+            return true;
+        }else if(result.changes === 0){
+            throw new Error(`Kein Eintrag mit der ID ${id} gefunden`);
+        }else{
+            throw new Error(`Unerwartete Anzhal von gelöschten Datensätzen: ${result.changes}`);
+        }
+    }
+    
 }
