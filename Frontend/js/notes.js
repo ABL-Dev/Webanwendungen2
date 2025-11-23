@@ -21,19 +21,76 @@ const clearNotesBtn = document.getElementById("clearNotesBtn");
 let notes = [];
 let currentEditIndex = null;
 
-// LocalStorage: laden
-function loadNotes() {
-    const saved = localStorage.getItem("notes");
-    if (saved) {
-        notes = JSON.parse(saved);
-    }
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// API Block
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+async function apiLoadNotes() {
+    const res = await fetch('/api/todo/loadAll');
+    if (!res.ok) throw new Error('Fehler beim Laden der Notizen vom Server');
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error || 'Serverfehler');
+    
+    notes = json.data.map(r => ({ id: r.id ?? r.todo_id, text: r.note, checked: !!r.is_done }));
 }
 
-// LocalStorage speichern so wie die transactions
-// Storage sichtbar im Browser unter Tab "Application" > Local Storage
-function saveNotes() {
-    localStorage.setItem("notes", JSON.stringify(notes));
+async function apiCreateNote(text) {
+    const res = await fetch('/api/todo/write', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: text })
+    });
+    if (!res.ok) throw new Error('Fehler beim Erstellen der Notiz');
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error || 'Serverfehler beim Erstellen');
+    const d = json.data;
+    return { id: d.id ?? d.todo_id, text: d.note, checked: !!d.is_done };
 }
+
+async function apiUpdateNote(id, text, checked) {
+    const res = await fetch('/api/todo/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ todo_id: id, note: text, is_done: !!checked })
+    });
+    if (!res.ok) throw new Error('Fehler beim Aktualisieren der Notiz');
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error || 'Serverfehler beim Update');
+    const d = json.data;
+    return { id: d.id ?? d.todo_id, text: d.note, checked: !!d.is_done };
+}
+
+
+async function apiDeleteNote(id) {
+    const res = await fetch(`/api/todo/delete/${id}`, { method: 'DELETE' });
+    if (res.status === 204) return true;
+    if (!res.ok) throw new Error('Fehler beim Löschen der Notiz');
+    return true;
+}
+
+async function apiToggleNote(id, checked) {
+    const res = await fetch(`/api/todo/toggle/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_done: !!checked })
+    });
+    if (!res.ok) throw new Error('Fehler beim Umschalten');
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error || 'Serverfehler beim Toggle');
+    const d = json.data;
+    return { id: d.id ?? d.todo_id, text: d.note, checked: !!d.is_done };
+}
+
+async function apiDeleteAll() {
+    const res = await fetch('/api/todo/deleteAll', { method: 'DELETE' });
+    if (!res.ok) throw new Error('Fehler beim Löschen aller Einträge');
+    return true;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+//ENDE API Block
+//--------------------------------------------------------------------------------------------------------------------------
+
 
 // Rendern der Notizen
 function renderNotes() {
@@ -65,24 +122,55 @@ function renderNotes() {
         `;
 
         // Checkbox-Klick
-        li.querySelector("input").addEventListener("change", (e) => {
-            note.checked = e.target.checked;
-            saveNotes();
+        li.querySelector("input").addEventListener("change", async (e) => {
+            const checked = e.target.checked;
+            // Wenn es eine DB-id gibt -> nur den Boolean an die API senden.
+            if (note.id) {
+                try {
+                    const res = await fetch(`/api/todo/toggle/${note.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ is_done: !!checked })
+                    });
+                    if (!res.ok) {
+                        const txt = await res.text().catch(()=>null);
+                        throw new Error(txt || 'Serverfehler beim Toggle');
+                    }
+                    const json = await res.json().catch(()=>({ success: true, data: { is_done: !!checked } }));
+                    if (!json.success) throw new Error(json.error || 'Serverfehler beim Toggle');
+                    // Nur checked aktualisieren — NICHT den Text anfassen.
+                    notes[index].checked = !!json.data.is_done;
+                } catch (err) {
+                    alert('Konnte Status nicht speichern: ' + err.message);
+                    // revert UI
+                    e.target.checked = !checked;
+                    return;
+                }
+            } else {
+                // Kein ID (lokal) -> nur lokal setzen (kein Server-Call)
+                note.checked = !!checked;
+            }
+            // Render aktualisierte UI (Text bleibt unverändert)
             renderNotes();
         });
 
         // Bearbeiten 
-        li.querySelector(".edit-btn").addEventListener("click", () => {           
+        li.querySelector(".edit-btn").addEventListener("click",  () => {           
             currentEditIndex = index;
             editNoteTextarea.value = note.text;
             editNoteModal.show();
         });
 
         // Löschen
-        li.querySelector(".delete-btn").addEventListener("click", () => {
-            notes.splice(index, 1);
-            saveNotes();
-            renderNotes();
+        li.querySelector(".delete-btn").addEventListener("click", async () => {
+           try{
+                await apiDeleteNote(note.id);
+                notes.splice(index, 1);
+                renderNotes();
+            } catch (err) {
+                alert('Löschen fehlgeschlagen: ' + err.message);
+            }
+            
         });
 
         notesList.appendChild(li);
@@ -95,7 +183,7 @@ addNoteBtn.addEventListener("click", () => {
 });
 
 // Neue Notiz speichern
-saveNewNoteBtn.addEventListener("click", () => {
+saveNewNoteBtn.addEventListener("click", async ()   => {
     const noteText = addNoteTextarea.value.trim();
     if (!noteText) {
         // Fehlermeldung anzeigen wenn leer
@@ -103,24 +191,33 @@ saveNewNoteBtn.addEventListener("click", () => {
     } else {
         // Fehlermeldung entfernen wenn etwas drin steht und speichern
         addNoteTextarea.classList.remove("is-invalid");
-        notes.push({ text: noteText, checked: false });
-        saveNotes();
-        renderNotes();
-        addNoteModal.hide();
+        try {
+            const created = await apiCreateNote(noteText);
+            notes.push(created);
+            renderNotes();
+            addNoteModal.hide();
+        } catch (err) {
+            alert('Konnte Notiz nicht speichern: ' + err.message);
+        }
     }
 });
 
 // Bearbeiten speichern
-saveEditNoteBtn.addEventListener("click", () => {
+saveEditNoteBtn.addEventListener("click", async () => {
     const noteText = editNoteTextarea.value.trim();
     if (!noteText) {
         editNoteTextarea.classList.add("is-invalid");
     } else if (currentEditIndex !== null) {
         editNoteTextarea.classList.remove("is-invalid");
-        notes[currentEditIndex].text = noteText;
-        saveNotes();
-        renderNotes();
-        editNoteModal.hide();
+        try {
+            const note = notes[currentEditIndex];
+            const updated = await apiUpdateNote(note.id, noteText, note.checked);
+            notes[currentEditIndex] = updated;
+            renderNotes();
+            editNoteModal.hide();
+        } catch (err) {
+            alert('Konnte Notiz nicht aktualisieren: ' + err.message);
+        }
     }
 });
 
@@ -129,11 +226,16 @@ clearNotesBtn.addEventListener("click", () => {
     confirmDeleteAllModal.show();
 });
 
-confirmDeleteAllBtn.addEventListener("click", () => {
-    notes = [];
-    saveNotes();
-    renderNotes();
-    confirmDeleteAllModal.hide();
+confirmDeleteAllBtn.addEventListener("click", async () => {
+   try {
+        await apiDeleteAll();
+        notes = [];
+        renderNotes();
+        confirmDeleteAllModal.hide();
+    } catch (err) {
+        alert('Konnte nicht alle Einträge löschen: ' + err.message);
+    }
+    //confirmDeleteAllModal.hide();
 });
 
 // Formulare zurücksetzen beim Schließen
@@ -156,6 +258,12 @@ addNoteTextarea.addEventListener("input", () => {
     addNoteTextarea.classList.add("is-valid");
 });
 
-// Start Laden & Rendern
-loadNotes();
-renderNotes();
+(async function init() {
+    try {
+        await apiLoadNotes();
+        renderNotes();
+    } catch (err) {
+        console.error('Konnte Notizen laden:', err);
+        alert('Fehler beim Laden der Notizen vom Server: ' + err.message);
+    }
+})();

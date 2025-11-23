@@ -1,5 +1,3 @@
-import helper from "../helper";
-
 export default class TODO{
 
    constructor(dbConnection){
@@ -92,6 +90,30 @@ export default class TODO{
         const result = statement.run();
         
         return result.changes;
+    }
+
+    toggleDoneStatus(id, isDone) {
+        const sql = `
+            UPDATE todos 
+            SET is_done = ?
+            WHERE todo_id = ?
+        `;
+
+        const isDoneValue = isDone ? 1 : 0; // Konvertiert Boolean zu 1/0
+        
+        const statement = this.__con.prepare(sql);
+        const result = statement.run(isDoneValue, id);
+
+        if (result.changes === 0) {
+             // Lädt den Eintrag, um zu prüfen, ob die ID existiert, bevor ein Fehler geworfen wird
+             if (!this.loadById(id)) {
+                 throw new Error(`Konnte Todo mit ID ${id} nicht finden.`);
+             }
+             // Wenn der Status bereits korrekt war, ist result.changes 0, aber kein Fehler. Wir geben das vorhandene Objekt zurück.
+        }
+
+        // Gibt das aktualisierte Objekt zurück
+        return this.loadById(id);
     }
 
 }

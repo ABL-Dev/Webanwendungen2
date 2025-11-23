@@ -1,10 +1,10 @@
-import TodoDao from "../dao/todo_dao";
+import TodoDao from "../dao/todo_dao.js";
 import express from 'express';
 
 var serviceRouter = express.Router();
 
 // Neuen Eintrag machen
-serviceRouter.get('/todo/write', (req, res) => {
+serviceRouter.post('/todo/write', (req, res) => {
     
     const db = req.app.locals.db;
     const tododao = new TodoDao(db);
@@ -31,7 +31,7 @@ serviceRouter.get('/todo/write', (req, res) => {
 //alle Laden
 serviceRouter.get('/todo/loadAll', (req, res) => {
     const db = req.app.locals.db;
-    const todoDao = new TODO(db);
+    const todoDao = new TodoDao(db);
 
     try {
         const todos = todoDao.loadAll();
@@ -56,7 +56,7 @@ serviceRouter.get('/todo/loadAll', (req, res) => {
 //Updaten von Notizen
 serviceRouter.put('/todo/update', (req, res) => {
     const db = req.app.locals.db;
-    const todoDao = new TODO(db);
+    const todoDao = new TodoDao(db);
 
     const { todo_id, note, is_done } = req.body;
 
@@ -106,7 +106,7 @@ serviceRouter.put('/todo/update', (req, res) => {
 //Löschen von einzelen einträgen
 serviceRouter.delete('/todo/delete/:id', (req, res) => {
     const db = req.app.locals.db;
-    const todoDao = new TODO(db);
+    const todoDao = new TodoDao(db);
 
     const id = req.params.id;
 
@@ -138,7 +138,7 @@ serviceRouter.delete('/todo/delete/:id', (req, res) => {
 //Nach id laden 
 serviceRouter.get('/todo/load/:id', (req, res) => {
     const db = req.app.locals.db;
-    const todoDao = new TODO(db);
+    const todoDao = new TodoDao(db);
 
     const id = req.params.id;
     const idAsNumber = parseInt(id, 10);
@@ -171,9 +171,9 @@ serviceRouter.get('/todo/load/:id', (req, res) => {
 });
 
 //Alle Löschen
-serviceRouter.delete('todo/deleteAll', (req, res) => {
+serviceRouter.delete('/todo/deleteAll', (req, res) => {
     const db = req.app.locals.db;
-    const todoDao = new TODO(db);
+    const todoDao = new TodoDao(db);
 
     try {
         // DAO aufrufen
@@ -188,6 +188,43 @@ serviceRouter.delete('todo/deleteAll', (req, res) => {
     } catch (error) {
         console.error("Fehler beim Löschen aller Todos:", error.message);
         res.status(500).json({ success: false, error: "Interner Serverfehler beim Löschen aller Einträge." });
+    }
+});
+
+//Togeln des isdone für die TOdos
+serviceRouter.patch('/todo/toggle/:id', (req, res) => {
+    const db = req.app.locals.db;
+    const todoDao = new TodoDao(db);
+
+    const id = req.params.id;
+    const { is_done } = req.body; // Erwartet nur den neuen Status im Body
+
+    const idAsNumber = parseInt(id, 10);
+    if (isNaN(idAsNumber) || typeof is_done !== 'boolean') {
+        return res.status(400).json({ success: false, error: "Ungültige Todo-ID oder fehlender/ungültiger 'is_done' Status." });
+    }
+
+    try {
+        // Ruft die neue DAO-Funktion auf, die nur den Status ändert
+        const aktualisierterEintrag = todoDao.toggleDoneStatus(idAsNumber, is_done);
+
+        // Erfolg zurückmelden
+        res.status(200).json({
+            success: true,
+            data: {
+                id: aktualisierterEintrag.todo_id,
+                note: aktualisierterEintrag.note,
+                created_at: aktualisierterEintrag.created_at,
+                is_done: aktualisierterEintrag.is_done === 1 // Konvertiert DB-Wert zu Boolean
+            }
+        });
+    } catch (error) {
+        console.error("Fehler beim Umschalten des Status:", error);
+
+        if (error.message.includes("nicht finden")) {
+            return res.status(404).json({ success: false, error: error.message });
+        }
+        res.status(500).json({ success: false, error: error.message || "Interner Serverfehler beim Umschalten des Status." });
     }
 });
 
