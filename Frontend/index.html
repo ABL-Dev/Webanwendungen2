@@ -159,10 +159,16 @@
                 <div class="card flex-fill d-flex flex-column">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Transaktionen</h5>
-            
-                        <div class="position-relative ms-2" style="max-width: 200px; width: 100%;">
-                            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
-                            <input type="text" class="form-control form-control-sm ps-4" placeholder="Suchen" id="suchleiste">
+
+                        <div class="d-flex align-items-center">
+                            <div class="position-relative">
+                                <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
+                                <input type="text" class="form-control form-control-sm ps-4" placeholder="Suchen" id="suchleiste" style="width: 200px;">
+                            </div>
+
+                            <button id="deleteFilterBtn" class="btn btn-sm btn-primary ms-2">
+                                <i class="bi bi-plus"></i>
+                            </button>
                         </div>
                     </div>
             
