@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return !isNaN(num) && num >= 0.01;
     }
 
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit',  async (event) => {
       event.preventDefault(); // Wichtig: Damit das Kommunizieren mit dem Backend nicht unterbrochen wird von Submit.
 
       if (event.submitter && event.submitter.hasAttribute('data-bs-dismiss')) {
@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const radioChecked = form.querySelector('input[name="transactionType"]:checked');
+      const einnahme = radioChecked ? (radioChecked.value === 'einnahme') : false;
       let validationFailed = false;
 
       // Fehlermarker nur setzen, wenn kein Radio gewählt wurde
@@ -185,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!validationFailed) {
         
         // 1. Daten aus dem Formular auslesen (wie bisher)
-        const isEinnamhe = (radioChecked.value === 'einnahme');
+        const einnahme = (radioChecked.value === 'einnahme');
         const amuntStr = amountInput.value.replace(',', '.');
         const betrag = parseFloat(amuntStr);
         const datum = dateInput.value;
@@ -203,34 +204,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (transactionToUpdate) {
                 // Aktualisiere das bestehende Objekt im 'transactions'-Array
-                transactionToUpdate.einnahme = isEinnamhe;
+                transactionToUpdate.einnahme = einnahme;
                 transactionToUpdate.betrag = betrag;
                 transactionToUpdate.datum = datum;
                 transactionToUpdate.kategorie = kategorie;
                 transactionToUpdate.beschreibung = beschreibung;
                 transactionToUpdate.notizen = notizen;
-            }            
+            }
+            console.log("Edit modus");
+            
+          const data = {
+            tr_id: idZahl,
+            einnahme: einnahme ? "true" : "false",
+            betrag: betrag,
+            datum: datum,
+            kategorie: kategorie, // Hier sendet man nur Name der Kategorie mit. Im api/write wird dann Kategorie-ID geholt.
+            beschreibung: beschreibung,
+            notizen: notizen
+          };
+
+          try{
+            const resp = await fetch('/api/update', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+            if (!resp.ok) {
+              const text = await resp.text();
+              console.log(text);
+            }else{
+              const modalElement = document.getElementById('NEModal');
+              const modalInstance = bootstrap.Modal.getInstance(modalElement);
+              modalInstance.hide();
+
+              wasTransactionModified = true;
+
+              window.location.reload();
+            }
+
+          }catch (error){
+            console.error(error);
+          }
+
         } else {
             // ----------- MODUS: NEU ERSTELLEN -----------
             const maxId = transactions.reduce((max, objekt) =>{
               return objekt.id > max ? objekt.id : max;
             }, 0);
             
-            /*const newTransaction = {
-              "id": (maxId + 1), // Neue ID
-              "einnahme": isEinnamhe,
-              "betrag": betrag,
-              "datum": datum,
-              "kategorie": kategorie,
-              "beschreibung": beschreibung,
-              "notizen": notizen
-            };
-
-            transactions.push(newTransaction);*/
-
-            // TODO:
-          // Neue Daten an Server senden.
-
           // Werte aus dem New-Entry-Dokument holen.
           // TODO: Evtl. hier noch bestimmte Abfragen machen zu den Eingaben - Validation.
           const einnahme = document.getElementById('income-btn').checked ? "true" : "false";
@@ -238,14 +259,15 @@ document.addEventListener("DOMContentLoaded", () => {
           const datum = String(document.getElementById('date').value); // YYYY-MM-DD
           const kategorie = document.getElementById('category').value;
           const beschreibung = String(document.getElementById('beschreibung').value);
-          //const notizen = document.getElementById('notizen').value;
+          const notizen = document.getElementById('notizen').value;
 
           const data = {
             einnahme: einnahme,
             betrag: betrag,
             datum: datum,
             kategorie: kategorie, // Hier sendet man nur Name der Kategorie mit. Im api/write wird dann Kategorie-ID geholt.
-            beschreibung: beschreibung
+            beschreibung: beschreibung,
+            notizen: notizen
           };
 
           fetch('/api/write', {
@@ -330,12 +352,17 @@ function transactionEdit(id){
     modalInstance.show();
 };
 
-function transactionDelete(id){
-  //Erstellt ein neus Array mit allen auser dem zu Löschenden Objekt
-  const idZahl = parseInt(id, 10); // 10 für Dezimal
-  const newTransaction = transactions.filter(eintrag => eintrag.id !== idZahl);
-  transactions = newTransaction;
-  saveTransactions(newTransaction);
+async function transactionDelete(id){
+  const url = `/api/delete/${id}`;
+
+  try{
+    const respons = await fetch(url, {
+      method: 'DELETE'
+    });
+  }
+  catch{
+    console.error("Fetch-Fehler beim Löschen", error);
+  }
 
   // Kompleter relod der seite da auch alle diagrame usw. ne geladen werden müssen
   window.location.reload();
@@ -413,7 +440,7 @@ function recentTransaction(suchLeisteText) {
     listContainer.innerHTML = '';
 
     // Holt die aktuellen Daten aus der Datenbank.
-    const res = await fetch('/api/getTableArray');
+    const res = await fetch('/api/loadAll');
     const data = await res.json();
     transactions = data;
     console.log("Loaded transactions in render:", transactions);

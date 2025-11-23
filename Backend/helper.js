@@ -1,17 +1,17 @@
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 // check if value is undefined
-export const isUndefined = function(val) {
+const isUndefined = function(val) {
     return (val === undefined);
 }
 
 // check if value is null
-export const isNull = function(val) {
+const isNull = function(val) {
     return (val === null);
 }
 
 // checks if value is a number
-export const isNumeric = function(val) {
+const isNumeric = function(val) {
     if (val === null) 
         return false;
 
@@ -22,7 +22,7 @@ export const isNumeric = function(val) {
 }
 
 // checks if value is a array
-export const isArray = function(val) {
+const isArray = function(val) {
     if (val === null) 
         return false;
 
@@ -33,7 +33,7 @@ export const isArray = function(val) {
 }
 
 // checks if given value is an array and if its empty
-export const isArrayEmpty = function(val) {
+const isArrayEmpty = function(val) {
     if (val === null) 
         return true;
     
@@ -47,12 +47,12 @@ export const isArrayEmpty = function(val) {
 }
 
 // checks if given value is an object
-export const isObject = function(obj) {
+const isObject = function(obj) {
     return ( (typeof obj === 'object' || typeof obj === 'function') && (obj !== null) );
 }
 
 // checks if given value is an datetime object
-export const isDateTime = function(obj) {
+const isDateTime = function(obj) {
     if (!this.isObject(obj)) 
         return false;
     
@@ -60,34 +60,34 @@ export const isDateTime = function(obj) {
 }
 
 // concats the elements in an array and returns as string
-export const concatArray = function(arr) {
+const concatArray = function(arr) {
     return arr.join(', ');
 }
 
 // checks if a given string is a email address
 // returns true if so, otherwise false
-export const isEmail = function(val) {
+const isEmail = function(val) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 }
 
 // trims a given text
-export const trim = function(val) {
+const trim = function(val) {
     return val.trim();
 }
 
 // returns current date time
-export const getNow = function() {
+const getNow = function() {
     return DateTime.local();
 }
 
 // alias of getNow
-export const getDateTime = function() {
+const getDateTime = function() {
     return this.getNow();
 }
 
 // checks if a given string represents an german datetime string
 // returns true if yes, otherwise no, WITHOUT VALIDATION
-export const isGermanDateTimeFormat = function(val) {
+const isGermanDateTimeFormat = function(val) {
     if ( /[0-3]\d.[01]\d.\d{4} [0-2]\d:[0-5]\d:[0-5]\d$/.test(val) == false ) {
         return /[0-3]\d.[01]\d.\d{4}$/.test(val);
     }
@@ -97,7 +97,7 @@ export const isGermanDateTimeFormat = function(val) {
 
 // checks if a given string represents an sql datetime string
 // returns true if yes, otherwise no, WITHOUT VALIDATION
-export const isSQLDateTimeFormat = function(val) {
+const isSQLDateTimeFormat = function(val) {
     if ( /\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d$/.test(val) == false ) {
         return /\d{4}-[01]\d-[0-3]\d$/.test(val);
     }
@@ -107,7 +107,7 @@ export const isSQLDateTimeFormat = function(val) {
 
 // parses a german datetime string to a datetime object
 // if not valid, returns null, otherwise the object
-export const parseGermanDateTimeString = function(input) {
+const parseGermanDateTimeString = function(input) {
     var datetimeobj = null;
     if (input.length > 10) 
         datetimeobj = DateTime.fromFormat(input, 'dd.MM.yyyy HH:mm:ss');
@@ -122,7 +122,7 @@ export const parseGermanDateTimeString = function(input) {
 
 // parses a sql datetime string to a datetime object
 // if not valid, returns null, otherwise the object
-export const parseSQLDateTimeString = function(input) {
+const parseSQLDateTimeString = function(input) {
     var datetimeobj = DateTime.fromSQL(input);
 
     if (!datetimeobj.isValid) 
@@ -133,7 +133,7 @@ export const parseSQLDateTimeString = function(input) {
 
 // parses a given datetime string (german or sql) to a datetime object
 // if not valid, returns null, otherwise the object
-export const parseDateTimeString = function(input) {
+const parseDateTimeString = function(input) {
     if (this.isGermanDateTimeFormat(input)) 
         return this.parseGermanDateTimeString(input);
     
@@ -141,14 +141,14 @@ export const parseDateTimeString = function(input) {
 }
 
 // converts a datetime object as german date format
-export const formatToGermanDate = function(datetimeobj) {
+const formatToGermanDate = function(datetimeobj) {
     if (!this.isDateTime(datetimeobj)) 
         return null;
     return datetimeobj.toFormat('dd.MM.yyyy');
 }
 
 // converts a datetime object as german datetime format
-export const formatToGermanDateTime = function(datetimeobj) {
+const formatToGermanDateTime = function(datetimeobj) {
     if (!this.isDateTime(datetimeobj)) 
         return null;
     return datetimeobj.toFormat('dd.MM.yyyy HH:mm:ss');
@@ -156,14 +156,14 @@ export const formatToGermanDateTime = function(datetimeobj) {
 
 
 // converts a datetime object as sql date format
-export const formatToSQLDate = function(datetimeobj) {
+const formatToSQLDate = function(datetimeobj) {
     if (!this.isDateTime(datetimeobj)) 
         return null;
     return datetimeobj.toFormat('yyyy-MM-dd');
 }
 
 // converts a datetime object as sql datetime format
-export const formatToSQLDateTime = function(datetimeobj) {
+const formatToSQLDateTime = function(datetimeobj) {
     if (!this.isDateTime(datetimeobj)) 
         return null;
     return datetimeobj.toFormat('yyyy-MM-dd HH:mm:ss');
@@ -171,7 +171,7 @@ export const formatToSQLDateTime = function(datetimeobj) {
 
 // converts a datetime object to milliseconds
 // if no datetime object provided, null is returned
-export const formatToMilliseconds = function(datetimeobj) {
+const formatToMilliseconds = function(datetimeobj) {
     if (!this.isDateTime(datetimeobj)) 
         return null;
     return datetimeobj.valueOf();
@@ -180,7 +180,7 @@ export const formatToMilliseconds = function(datetimeobj) {
 // compares two datetime objects
 // if left is smaller of right, returns -1, otherwise +1, or 0 if equal
 // returns null on error
-export const compareDateTimes = function(leftdatetime, rightdatetime) {
+const compareDateTimes = function(leftdatetime, rightdatetime) {
     if (!this.isDateTime(leftdatetime) || !this.isDateTime(rightdatetime)) 
         return null;
 
@@ -197,7 +197,7 @@ export const compareDateTimes = function(leftdatetime, rightdatetime) {
 // adds or subs values to years, months, days, hours, minutes, seconds
 // positive values are added, negative ones subbed. 0 values are ignored
 // if no datetime objet is provided, now is used
-export const modifyDateTime = function(datetimeobj = null, y = 0, m = 0, d = 0, h = 0, i = 0, s = 0) {
+const modifyDateTime = function(datetimeobj = null, y = 0, m = 0, d = 0, h = 0, i = 0, s = 0) {
 
     if (!this.isDateTime(datetimeobj)) 
         datetimeobj = this.getNow();
@@ -225,7 +225,7 @@ export const modifyDateTime = function(datetimeobj = null, y = 0, m = 0, d = 0, 
 
 // checks if a string starts with specified text
 // returns true or false
-export const strStartsWith = function(haystack, needle) {
+const strStartsWith = function(haystack, needle) {
     if (this.isNull(haystack) || this.isUndefined(haystack)) 
         return false;
 
@@ -236,7 +236,35 @@ export const strStartsWith = function(haystack, needle) {
 }
 
 // rounds a given number to two digits after comma
-export const round = function(val) {
+const round = function(val) {
     val = Math.round(val*Math.pow(10,2))/Math.pow(10,2);
     return val;
+}
+
+export default{
+    isUndefined,
+    isNull,
+    isNumeric,
+    isArray,
+    isArrayEmpty,
+    isObject,
+    isDateTime,
+    concatArray,
+    isEmail,
+    trim,
+    getNow,
+    getDateTime,
+    isGermanDateTimeFormat,
+    isSQLDateTimeFormat,
+    parseGermanDateTimeString,
+    parseSQLDateTimeString,
+    parseDateTimeString,
+    formatToGermanDate,
+    formatToGermanDateTime,
+    formatToSQLDate,
+    formatToMilliseconds,
+    compareDateTimes,
+    modifyDateTime,
+    strStartsWith,
+    round
 }
