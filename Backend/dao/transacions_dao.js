@@ -10,8 +10,23 @@ export default class transactionDao{
         return this.__con;
     }
 
+    //Hold alle elemente aus der DB
     loadAll(){
-        var sql = 'SELECT * FROM transaktionen';
+        const sql = `
+            SELECT 
+                t.tr_id,
+                t.einnahme,
+                t.betrag,
+                t.datum,
+                t.beschreibung,
+                t.notizen,
+                k.name AS kategorie,
+                k.kategorie_id 
+            FROM transaktionen t
+            LEFT JOIN kategorien k 
+                ON t.kategorie_id = k.kategorie_id
+            ORDER BY t.datum DESC, t.tr_id DESC;
+        `;
         var statment = this.__con.prepare(sql);
         var result = statment.all();
 
@@ -21,6 +36,22 @@ export default class transactionDao{
         return result;
     }
     
+    loadById(id){
+        const sql = `SELECT 
+                tr_id, einnahme, betrag, datum, kategorie_id, beschreibung, notizen
+            FROM 
+                transaktionen 
+            WHERE 
+                tr_id = ?
+        `;
+
+        const statment = this.__con.prepare(sql);
+        const row = statment.get(id);
+        //WEnn es die reihe nicht gibt kommt nul zurück
+        return row || null;
+    }
+
+    // Erstellt neuen Eintrag
     create(transaction){
 
         const sql = `
@@ -54,10 +85,43 @@ export default class transactionDao{
 
     }
 
-    update(id, transaction){
+    //Ändert einen eintrag ab
+    update(transaction){
+        const sql = `
+            UPDATE transaktionen 
+            SET
+                einnahme = ?, 
+                betrag = ?, 
+                datum = ?, 
+                kategorie_id = ?, 
+                beschreibung = ?, 
+                notizen = ?
+            WHERE 
+                tr_id = ?
+        `;
 
+        // Parameter arry
+        const params = [
+            transaction.einnahme,
+            transaction.betrag,
+            transaction.datum,
+            transaction.kategorie_id,
+            transaction.beschreibung,
+            transaction.notizen || null,
+            transaction.tr_id
+        ];
+
+        const statment = this.__con.prepare(sql);
+        const result = statment.run(params);
+
+        if (result.changes === 0) {
+            throw new Error(`Konnte Eintrag mit ID ${transaction.tr_id} nicht aktualisiren`);
+        }
+
+        return this.loadById(transaction.tr_id);
     }
 
+    //Löschen von Transaktionen
     delete(id){
         const sql = 'DELETE FROM transaktionen WHERE tr_id = ?';
 
@@ -73,4 +137,5 @@ export default class transactionDao{
         }
     }
     
+
 }
