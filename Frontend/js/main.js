@@ -384,6 +384,14 @@ input.addEventListener('input', () => {
   }
 });
 
+// Suchleiste Filter-Löschen Knopf.
+const deleteFilterBtn = document.getElementById("deleteFilterBtn");
+deleteFilterBtn.addEventListener('click', () => {
+  input.value = "";
+  input.classList.remove('is-invalid'); // Rote invalid Umrandung entfernen.
+  recentTransaction(suchleiste.value); // Recent Transactions aktualisieren mit leerer Eingabe.
+});
+
 //************************************************************************************************************************************+
 // Recent Transactions
 //*****************************************************************************************************************************
