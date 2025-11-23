@@ -6,6 +6,10 @@ import { fileURLToPath } from 'url';
 import db from './db/database.js'; 
 import * as helper from './helper.js'; // Importiert alle Funktionen aus helper.js
 
+
+//routen importiren
+import transactionRouter from './services/transacion.js';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const HTTP_PORT = 8000;
@@ -108,82 +112,12 @@ app.get('/api/resetTable', (req, res) => {
     res.json(category);
 });
 
-// Das hier ist das eigentliche write, mit dem ich bei New Entry
-// Werte dynamisch in die Datenbank schreibe.
-// TODO: Hier fehlt noch die Validierung wie oben bei
-// app.post('/api/transactions' -> habe es damit nicht hingekriegt und dafür die Route hier geschrieben.
-app.post('/api/write', (req, res) => {
-    const { einnahme, betrag, datum, kategorie, beschreibung } = req.body;
+//Trasnsaktion service aufrufen (Aktuell nur für new Entry)
+const TOPLEVELPATH = '/api';
+app.locals.db = db
 
-    const kategorieRow = db.prepare("SELECT kategorie_id FROM kategorien WHERE name = ?").get(kategorie);
-    /*if (!catRow) {
-        return res.status(400).json({ success: false, error: "Kategorie existiert nicht" });
-    }*/
-    const kategorie_id = kategorieRow.kategorie_id;
+app.use(TOPLEVELPATH, transactionRouter);
 
-    const stmt = db.prepare(`
-        INSERT INTO transaktionen (einnahme, betrag, datum, kategorie_id, beschreibung)
-        VALUES (@einnahme, @betrag, @datum, @kategorie_id, @beschreibung)
-    `);
-
-    const info = stmt.run({
-        // TODO: tr_id: // Das hier braucht man glaub nicht da die IDs in der Datenbank eigenständig gemacht werden?
-        einnahme,
-        betrag,
-        datum,
-        kategorie_id,
-        beschreibung
-    });
-
-    res.json({ success: true, id: info.lastInsertRowid });
-});
-
-
-//----------------------------------------------------------------------------------------------------------------------------
-//Test neuer write
-//----------------------------------------------------------------------------------
-import TransactionDao from "./dao/transacions_dao.js";
-const transactionDao = new TransactionDao(db);
-
-app.post('/api/write1', (req, res) => {
-    // 1. Daten aus dem Body holen
-    const { einnahme, betrag, datum, kategorie, beschreibung, notizen } = req.body;
-
-    try {
-        // 2. Kategorie-ID ermitteln (Logik aus deinem alten Code übernommen)
-        // Das ist wichtig, weil die TransaktionDao eine ID erwartet, keinen Namen.
-        const kategorieRow = db.prepare("SELECT kategorie_id FROM kategorien WHERE name = ?").get(kategorie);
-        
-        // Kleiner Check, falls Kategorie nicht gefunden wird (optional aber empfohlen)
-        if (!kategorieRow) {
-             return res.status(400).json({ success: false, error: `Kategorie '${kategorie}' nicht gefunden.` });
-        }
-
-        // 3. Objekt für die DAO vorbereiten
-        const neueTransaktion = {
-            einnahme: einnahme, // muss 'true' oder 'false' sein (String)
-            betrag: betrag,
-            datum: datum,
-            kategorie_id: kategorieRow.kategorie_id, // Hier die ID übergeben!
-            beschreibung: beschreibung,
-            notizen: notizen
-        };
-        // 4. DAO aufrufen (Das ist der neue Teil!)
-        // Die DAO kümmert sich jetzt um das SQL INSERT und formatting
-        const erstellterEintrag = transactionDao.create(neueTransaktion);
-
-        // 5. Erfolg zurückmelden
-        // Wir senden den kompletten neuen Eintrag zurück (inkl. der neuen ID)
-        res.status(200).json({ 
-            success: true, 
-            data: erstellterEintrag 
-        });
-
-    } catch (error) {
-        console.error("Fehler beim Erstellen:", error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
 
 // Das hier ist ein write, um immer die gleichen Werte manuell über curl an die Datenbank zu senden
 // für Debuggingzwecke.

@@ -238,14 +238,15 @@ document.addEventListener("DOMContentLoaded", () => {
           const datum = String(document.getElementById('date').value); // YYYY-MM-DD
           const kategorie = document.getElementById('category').value;
           const beschreibung = String(document.getElementById('beschreibung').value);
-          //const notizen = document.getElementById('notizen').value;
+          const notizen = document.getElementById('notizen').value;
 
           const data = {
             einnahme: einnahme,
             betrag: betrag,
             datum: datum,
             kategorie: kategorie, // Hier sendet man nur Name der Kategorie mit. Im api/write wird dann Kategorie-ID geholt.
-            beschreibung: beschreibung
+            beschreibung: beschreibung,
+            notizen: notizen
           };
 
           fetch('/api/write', {
