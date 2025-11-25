@@ -22,7 +22,7 @@ settingsRouter.get('/settings/load', (req, res) =>{
     }
 });
 
-settingsRouter.post('settings/save', (req, res) =>{
+settingsRouter.post('/settings/save', (req, res) =>{
 
     const db = req.app.locals.db;
     const settingsDao = new SettingsDAO(db);
@@ -64,7 +64,7 @@ settingsRouter.post('settings/save', (req, res) =>{
             data: aktualisierteSettings
         });
     } catch (error) {
-        res.status(500).json({success: false, error: "Interner Serverfehler beim Speichern der Daten:" + error.massage})
+        res.status(500).json({success: false, error: "Interner Serverfehler beim Speichern der Daten:" + error.message})
     }
 
 

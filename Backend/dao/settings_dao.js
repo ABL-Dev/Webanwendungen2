@@ -10,7 +10,7 @@ export default class SETTINGSDAO{
         const statmant = this.__con.prepare(sql);
         const row = statmant.get();
 
-        return row
+        return row ? row.sprach_code: 'DE';
     };
 
     loadAllSlots(){
@@ -18,11 +18,11 @@ export default class SETTINGSDAO{
             SELECT 
                 es.slot_id, 
                 es.kategorie_id, 
-                es.custom_budget,
+                es.budget,
                 k.name AS kategorie_name
-            FROM dashboard_slots ds
-            LEFT JOIN kategorien k ON ds.kategorie_id = k.kategorie_id
-            ORDER BY ds.slot_id ASC
+            FROM einstellung_slots es
+            LEFT JOIN kategorien k ON es.kategorie_id = k.kategorie_id
+            ORDER BY es.slot_id ASC
         `;
 
         const statement = this.__con.prepare(sql);
@@ -72,10 +72,6 @@ export default class SETTINGSDAO{
             ]
 
             const result = statement.run(params);
-
-            if (result.changes === 0) {
-                throw new Error("Slots konnten nicht aktuallisirt werden");
-            };
         };
     };
 

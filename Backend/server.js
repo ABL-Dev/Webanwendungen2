@@ -10,6 +10,7 @@ import * as helper from './helper.js'; // Importiert alle Funktionen aus helper.
 //routen importiren
 import transactionRouter from './services/transacion.js';
 import todoRouter from "./services/todo.js";
+import settingsRouter from './services/settings.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -32,6 +33,7 @@ app.locals.db = db
 
 app.use(TOPLEVELPATH, transactionRouter);
 app.use(TOPLEVELPATH, todoRouter);
+app.use(TOPLEVELPATH, settingsRouter);
 
 // Händige alles im Frontend Ordner als File aus.
 // (Muss hier am Ende stehen).
