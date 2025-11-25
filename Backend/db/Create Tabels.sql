@@ -1,8 +1,7 @@
 -- kategorien und transaktionen umbenannt.
 CREATE TABLE IF NOT EXISTS kategorien(
     kategorie_id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name            TEXT NOT NULL,
-    max_budget_eur  REAL
+    name            TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS transaktionen(
@@ -23,7 +22,17 @@ CREATE TABLE IF NOT EXISTS todos(
     is_done         BOOLEAN DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS settings(
-    key             TEXT PRIMARY KEY,
-    value           TEXT
+CREATE TABLE IF NOT EXISTS sprache(
+    id              INTEGER PRIMARY KEY CHECK(id = 1),
+    sprach_code     TEXT NOT NULL DEFAULT 'DE' CHECK (sprach_code IN ('DE', 'EN'))        
+);
+
+CREATE TABLE IF NOT EXISTS einstellung_slots(
+    slot_id         INTEGER PRIMARY KEY,
+    kategorie_id    INTEGER,
+    budget          REAL,
+
+    FOREIGN KEY (kategorie_id) REFERENCES kategorien(kategorie_id) ON DELETE SET NULL,
+
+    CHECK (slot_id BETWEEN 1 AND 5)
 );
