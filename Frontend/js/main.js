@@ -1,18 +1,53 @@
 let transactions = [];
+// Gibt den jetzigen Monat als String an.
+currentMonthString = "";
 let wasTransactionModified = false;
 
+// Jetziges Datum holen.
+const now = new Date();
+const currentMonthIndex = now.getMonth();
+const currentYear = now.getFullYear();
+const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
+const monthButtons = document.querySelectorAll(".month-btn");
+const yearButton = document.getElementById("year");
+
+// Die Abkürzung des Monats als ganzes Wort.
+  function getMonthString(monthAbbreviation) {
+    switch (monthAbbreviation) {
+        case 'Jan':
+          return "Januar"
+        case 'Feb':
+          return "Februar"
+        case 'Mär':
+          return "März"
+        case 'Apr':
+          return "April"
+        case 'Mai':
+          return "Mai"
+        case 'Jun':
+          return "Juni"
+        case 'Jul':
+          return "Juli"
+        case 'Aug':
+          return "August"
+        case 'Sep':
+          return "September"
+        case 'Okt':
+          return "Oktober"
+        case 'Nov':
+          return "November"
+        case 'Dez':
+          return "Dezember"
+
+        // Standardmäßig den heutigen Monat ausgeben.
+        default:
+          return getMonthString(monthButtons[currentMonthIndex].textContent);
+      };
+  }
+
 // Navbar buttens (Statischer Dummy)
-
 document.addEventListener("DOMContentLoaded", () => {
-  const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
-  const monthButtons = document.querySelectorAll(".month-btn");
-  const yearButton = document.getElementById("year");
-
   //Aktuellen btn auswehlen
-  const now = new Date();
-  const currentMonthIndex = now.getMonth();
-  const currentYear = now.getFullYear();
-
   yearButton.textContent = currentYear;
 
   const currentMonthButton = monthButtons[currentMonthIndex];
@@ -52,9 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
           button.classList.remove("btn-outline-primary");
           button.classList.add("btn-primary");
 
-          //Für die spätere dynamik zum laden der Daten des buttens
-          //lodData(button.textContent, yearNumber);
-
+          // Nach dem ein Monat angeklickt wird, wird hier der
+          // neu ausgewählte Monat geholt und damit alle UI Sachen aktualisiert.
+          currentMonthString = getMonthString(button.textContent);
+          render(currentMonthString, "");
+          createPieChart();
+          createTotalBudgetChart();
+          createFinanicalOverview();
           break;
       };
     });
@@ -392,13 +431,7 @@ deleteFilterBtn.addEventListener('click', () => {
   recentTransaction(suchleiste.value); // Recent Transactions aktualisieren mit leerer Eingabe.
 });
 
-//************************************************************************************************************************************+
-// Recent Transactions
-//*****************************************************************************************************************************
-
-function recentTransaction(suchLeisteText) {
-
-  //daysAgo-Funktion
+//daysAgo-Funktion
   function daysAgo(dateStr) {
     const now = new Date();
     const date = new Date(dateStr);
@@ -411,52 +444,55 @@ function recentTransaction(suchLeisteText) {
 
   //////////////////////////
 
-  // einfache Kategorie -> Bootstrap Icon Map
-  const iconMap = {
-    "haupteinkommen": "bi-wallet-fill",
-    "nebeneinkommen": "bi-cash-stack",
-    "staatliche leistungen/transfers": "bi-patch-check-fill",
-    "kapitaleinkünfte": "bi-graph-up-arrow",
-    "sonstige einnahmen": "bi-three-dots",
-    "wohnen": "bi-house-fill",
-    "versicherungen": "bi-shield-shaded",
-    "mobilität (fix)": "bi-bus-front-fill",
-    "kommunikation/medien": "bi-headset",
-    "finanzen/sparen (fix)": "bi-bank",
-    "abonnements/mitgliedschaften": "bi-repeat",
-    "lebensmittel & haushalt": "bi-cart-fill",
-    "mobilität (variabel)": "bi-fuel-pump-fill",
-    "kleidung & körperpflege": "bi-bag-fill",
-    "gesundheit": "bi-heart-pulse-fill",
-    "freizeit & unterhaltung": "bi-controller",
-    "kinder/haustiere": "bi-people-fill",
-    "urlaub & reisen": "bi-airplane-fill",
-    "geschenke & spenden": "bi-gift-fill",
-    "sonstiges": "bi-three-dots",
-  };
+// einfache Kategorie -> Bootstrap Icon Map
+const iconMap = {
+  "haupteinkommen": "bi-wallet-fill",
+  "nebeneinkommen": "bi-cash-stack",
+  "staatliche leistungen/transfers": "bi-patch-check-fill",
+  "kapitaleinkünfte": "bi-graph-up-arrow",
+  "sonstige einnahmen": "bi-three-dots",
+  "wohnen": "bi-house-fill",
+  "versicherungen": "bi-shield-shaded",
+  "mobilität (fix)": "bi-bus-front-fill",
+  "kommunikation/medien": "bi-headset",
+  "finanzen/sparen (fix)": "bi-bank",
+  "abonnements/mitgliedschaften": "bi-repeat",
+  "lebensmittel & haushalt": "bi-cart-fill",
+  "mobilität (variabel)": "bi-fuel-pump-fill",
+  "kleidung & körperpflege": "bi-bag-fill",
+  "gesundheit": "bi-heart-pulse-fill",
+  "freizeit & unterhaltung": "bi-controller",
+  "kinder/haustiere": "bi-people-fill",
+  "urlaub & reisen": "bi-airplane-fill",
+  "geschenke & spenden": "bi-gift-fill",
+  "sonstiges": "bi-three-dots",
+};
 
-  //Ortnet den Katigorien Icons zu
-  function chooseIcon(cat) {
-    // fals es nicht das richtige Icon gibt wird das ? genommen
-    return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
-  }
+//Ortnet den Katigorien Icons zu
+function chooseIcon(cat) {
+  // fals es nicht das richtige Icon gibt wird das ? genommen
+  return iconMap[String(cat).toLowerCase()] || 'bi-question-circle';
+}
 
-  // Renderer - Asynchron, da auf das Fetchen der Transaktionsdaten gewartet werden muss.
-  async function render() {
-    //Hohlt die ul
-    const listContainer = document.getElementById("transactionList");
-    listContainer.innerHTML = '';
+// Renderer - Asynchron, da auf das Fetchen der Transaktionsdaten gewartet werden muss.
+async function render(currentMonthString, suchLeisteText) {
+  //Hohlt die ul
+  const listContainer = document.getElementById("transactionList");
+  listContainer.innerHTML = '';
 
-    // Holt die aktuellen Daten aus der Datenbank.
-    const res = await fetch('/api/loadAll');
-    const data = await res.json();
-    transactions = data;
-    console.log("Loaded transactions in render:", transactions);
+  // Holt die aktuellen Daten aus der Datenbank.
+  const res = await fetch('/api/loadAll');
+  const data = await res.json();
 
-    // nach Datum sortieren (neu -> alt)
-    transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+  // Hole alle Transaktionen.
+  transactions = data;
 
-    transactions.forEach(tx => {
+  // nach Datum sortieren (neu -> alt)
+  transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+  transactions.forEach(tx => {
+    // Abfrage: Nur die Werte des ausgewählten Monats werden angezeigt.
+    if (new Date(tx.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
       var addZeile = false;
 
       if (suchLeisteText == "") {
@@ -551,15 +587,25 @@ function recentTransaction(suchLeisteText) {
         bottomRow.appendChild(nots);
         bottomRow.appendChild(ecBtn);
 
-        
+
         li.appendChild(mainRow);
         li.appendChild(bottomRow);
 
         listContainer.appendChild(li);
       }
-      });
     }
-    return render(); // Gebe render() zurück, damit das window.onload-Fenster auf die zu fetchenden Transaktionen wartet.
+  });
+}
+
+//************************************************************************************************************************************+
+// Recent Transactions
+//*****************************************************************************************************************************
+
+function recentTransaction(suchLeisteText) {
+    // Returne render(), damit das window.onload-Fenster auf die zu fetchenden Transaktionen wartet.
+    // Render nur auf ausgewählten Monat auswählen.
+    currentMonthString = getMonthString(monthButtons[currentMonthIndex].textContent);
+    return render(currentMonthString, suchLeisteText);
 };
 
 //************************************************************************************************************************************+
@@ -572,29 +618,31 @@ suchleiste.addEventListener('input', () => {
     recentTransaction(suchleiste.value);
 });
 
-window.onload = async function () {
-  //Recent Transaktion laden
-  await recentTransaction(""); // Mit leerem String (Standardladevorgang).
-  console.log("in window should have transactions now");
-  console.log("Loaded transactions in window:", transactions);
+let categorySums = {};
+let categoryNames = [];
+let pieChart = null;
+let totalBudgetChart = null;
 
+function createPieChart() {
   // Pie chart // 
-
   // Filter die json Einträge nach einname === false, also nur Ausgaben anzeigen.
   const expenses = transactions.filter(entry => entry.einnahme === false);
   console.log("transactions: ",transactions);
   console.log("expenses: ",expenses);
 
   // Summen für die jeweiligen Kategorien.
-  const categorySums = {}; // Dictionary -> Kategoriename:Summe.
+  categorySums = {}; // Dictionary -> Kategoriename:Summe.
   expenses.forEach(entry => {
-    const category = entry.kategorie;
-    categorySums[category] = (categorySums[category] || 0) + entry.betrag;
+    // Das hier nur machen, wenn die Daten zum ausgewählten Monat passen.
+    if (new Date(entry.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
+      const category = entry.kategorie;
+      categorySums[category] = (categorySums[category] || 0) + entry.betrag;
+    }
   });
 
   // Dictionary keys werden zu labels.
   // Erste Buchstabe aber immer groß.
-  const categoryNames = Object.keys(categorySums).map(key =>
+  categoryNames = Object.keys(categorySums).map(key =>
     key.charAt(0).toUpperCase() + key.slice(1)
   );
 
@@ -602,7 +650,11 @@ window.onload = async function () {
 
   const ctx = document.getElementById('myChart').getContext('2d');
 
-  new Chart(ctx, {
+  if (pieChart !== null) {
+    pieChart.destroy();
+  }
+
+  pieChart = new Chart(ctx, {
     type: 'pie',
     data: {
       labels: categoryNames,
@@ -653,7 +705,9 @@ window.onload = async function () {
       }
     }
   });
+}
 
+function createTotalBudgetChart() {
   const ctxbar = document.getElementById('budgetChart').getContext('2d');
 
   const categories = categoryNames;
@@ -670,7 +724,11 @@ window.onload = async function () {
   // Übrig, also wie viel Geld man in dieser Kategorie noch ausgeben dürfte.
   const remaining = totalBudget.map((t, i) => Math.max(0, t - spent[i]));
 
-  const totalBudgetChart = new Chart(ctxbar, {
+  if (totalBudgetChart !== null) {
+    totalBudgetChart.destroy();
+  }
+
+  totalBudgetChart = new Chart(ctxbar, {
     type: 'bar',
     data: {
       labels: categories,
@@ -737,9 +795,35 @@ window.onload = async function () {
       }
     }
   });
+}
 
-  // Financial overview //
-  // Formats number to euro value.
+function createFinanicalOverview() {
+  // Die Liste braucht man um vom jetzigen Monats-String, bspw. "März" darauf "Februar", also den Monat davor zu erhalten.
+  const MONTHS = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+
+  // Holt mithilfe der Liste MONTHS den String des vorherigen Monats.
+  function getPreviousMonthString(currentMonthString) {
+    const currentIndex = MONTHS.indexOf(currentMonthString);
+    if (currentIndex === -1) return null; // not found / error
+
+    const previousIndex = (currentIndex - 1 + 12) % 12;
+    return MONTHS[previousIndex];
+  }
+
+  function percentageDiff(current, previous) {
+    // Wenn vorheriger Monat 0, dann im nächsten Monat 100% Wachstum.
+    // Wenn vorheriger Moant 0 und nächster Monat auch 0 dann bleibt Wachstum 0%.
+    if (previous === 0) return current === 0 ? 0 : 100;
+
+    // Prozentualen Unterschied zum vorherigen Monat ausrechnen.
+    const diff = current - previous;
+    return (diff / Math.abs(previous)) * 100;
+}
+
+  // Formatiere Eurowert korrekt.
   function formatEuro(amount) {
     return amount.toLocaleString("de-DE", {
       style: "currency",
@@ -747,24 +831,120 @@ window.onload = async function () {
     });
   }
 
-  // Calculate sums.
+  function changePercentValue(percentValue, element, icon, indicatorRight, iconRight) {
+    // Positive
+    if (percentValue >= 0) {
+      // Farbe ändern.
+      element.classList.remove("text-danger");
+      element.classList.add("text-success");
+      // Icon ändern.
+      icon.className = "bi bi-graph-up-arrow";
+
+      // Großes Icon rechts.
+      indicatorRight.classList.remove("text-danger");
+      indicatorRight.classList.add("text-success");
+      indicatorRight.style.backgroundColor = "#0B3534"; // green-ish background
+      iconRight.className = "bi bi-graph-up-arrow fs-6";
+
+      // Negative
+    } else if (percentValue < 0) {
+      element.classList.remove("text-success");
+      element.classList.add("text-danger");
+      icon.className = "bi bi-graph-down-arrow";
+
+      // Großes Icon rechts.
+      indicatorRight.classList.remove("text-success");
+      indicatorRight.classList.add("text-danger");
+      indicatorRight.style.backgroundColor = "#381E28"; // red-ish background (change as needed)
+      iconRight.className = "bi bi-graph-down-arrow fs-6";
+    }
+  }
+
+  // Financial overview //
+  // 1. Summen des jetzigen Monats kalkulieren.
   let einnahmenSumme = 0;
   let ausgabenSumme = 0;
   transactions.forEach(t => {
-    if (t.einnahme) {
-      einnahmenSumme += t.betrag;
-    } else {
-      ausgabenSumme += t.betrag;
+    // Rechne die Summen der Ein- und Ausgaben pro Monat aus.
+    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
+      if (t.einnahme) {
+        einnahmenSumme += t.betrag;
+      } else {
+        ausgabenSumme += t.betrag;
+      }
     }
   });
 
-  // Dynamically enter sums to corresponding id.
+  // 2. Verschiedene Werte des jetzigen Monats in der Finanzübersicht anzeigen.
   document.getElementById("income").textContent = formatEuro(einnahmenSumme);
   document.getElementById("expenses").textContent = formatEuro(ausgabenSumme);
-
-  // TODO: Will man so total ausrechnen? Oder gibt es extra variable für total?
-  // TODO: Prozentzahlen dynamisch anpassen unter den werten.
   document.getElementById("total").textContent = formatEuro(einnahmenSumme - ausgabenSumme);
+
+  // TODO: Prozentzahlen dynamisch anpassen unter den werten.
+  // 3. Monat davor berechnen.
+  const previousMonthString = getPreviousMonthString(currentMonthString);
+
+  let einnahmenSummeDavor = 0;
+  let ausgabenSummeDavor = 0;
+  transactions.forEach(t => {
+    // Rechne die Summen der Ein- und Ausgaben pro Monat aus.
+    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === previousMonthString) {
+      if (t.einnahme) {
+        einnahmenSummeDavor += t.betrag;
+      } else {
+        ausgabenSummeDavor += t.betrag;
+      }
+    }
+  });
+
+  // 4. Ausrechnen wie sich die einzelnen Werte prozentual im Vergleich zum vorherigen Monat verändert haben.
+  // Die Prozentwerte werden anschließend speziell als Prozentzahl formatiert.
+  let incomeValue = percentageDiff(einnahmenSumme, einnahmenSummeDavor);
+  let expensesValue = percentageDiff(ausgabenSumme, ausgabenSummeDavor);
+  let totalmoneyValue = percentageDiff((einnahmenSumme - ausgabenSumme), (einnahmenSummeDavor - ausgabenSummeDavor));
+
+  // 5. Eintragen der Prozentwerte in das HTML-Dokument an die richtige Stelle in der Finanzübersicht.
+  let element = document.getElementById("totalMoneyP");
+  let icon = element.querySelector("i");
+  let bigIndicator = document.getElementById("totalMoneyBigIndicator");
+  let bigIcon = bigIndicator.querySelector("i");
+  // Text und Icon ändern.
+  element.childNodes[element.childNodes.length - 1].textContent = " " + totalmoneyValue + "%";
+  changePercentValue(totalmoneyValue, element, icon, bigIndicator, bigIcon);
+
+  let element2 = document.getElementById("incomeP");
+  let icon2 = element2.querySelector("i");
+  let bigIndicator2 = document.getElementById("incomeBigIndicator");
+  let bigIcon2 = bigIndicator2.querySelector("i");
+  // Text und Icon ändern.
+  element2.childNodes[element2.childNodes.length - 1].textContent = " " + incomeValue + "%";
+  changePercentValue(incomeValue, element2, icon2, bigIndicator2, bigIcon2);
+
+  let element3 = document.getElementById("expensesP");
+  let icon3 = element3.querySelector("i");
+  let bigIndicator3 = document.getElementById("expensesBigIndicator");
+  let bigIcon3 = bigIndicator3.querySelector("i");
+  // Text und Icon ändern.
+  element3.childNodes[element3.childNodes.length - 1].textContent = " " + expensesValue + "%";
+  changePercentValue(expensesValue, element3, icon3, bigIndicator3, bigIcon3);
+
+  console.log("total:" + totalmoneyValue + "income:" + incomeValue + "expenses:" + expensesValue);
+}
+
+window.onload = async function () {
+  //Recent Transaktion laden
+  await recentTransaction(""); // Mit leerem String (Standardladevorgang).
+  console.log("in window should have transactions now");
+  console.log("Loaded transactions in window:", transactions);
+
+  // todo2 financial overview und charts
+
+  // Erstellt das Kuchendiagramm.
+  createPieChart();
+  // Erstellt das Balkendiagramm.
+  createTotalBudgetChart();
+  // Erstellt die Finanzübersicht.
+  createFinanicalOverview();
 
   // SETTINGS SAVE KNOPF //
 
