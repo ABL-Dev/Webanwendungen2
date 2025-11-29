@@ -49,7 +49,8 @@
 
             <!--Rechter bereich-->
             <div class="col-auto justify-content-end">
-                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ New Entry</button>
+                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ New
+                    Entry</button>
                 <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal">
                     <i class="bi bi-gear"></i>
                 </button>
@@ -58,7 +59,7 @@
         </div>
     </header>
 
-    
+
 
 
     <!--Dashboard bereiche-->
@@ -103,7 +104,8 @@
                                     </p>
                                 </div>
 
-                                <div id="totalMoneyBigIndicator" class="p-2 rounded-3 text-success" style="background-color: #0B3534;">
+                                <div id="totalMoneyBigIndicator" class="p-2 rounded-3 text-success"
+                                    style="background-color: #0B3534;">
                                     <i class="bi bi-graph-up-arrow fs-5"></i>
                                 </div>
                             </div>
@@ -119,7 +121,8 @@
                                     </p>
                                 </div>
 
-                                <div id="incomeBigIndicator" class="p-2 rounded-3 text-success" style="background-color: #0B3534;">
+                                <div id="incomeBigIndicator" class="p-2 rounded-3 text-success"
+                                    style="background-color: #0B3534;">
                                     <i class="bi bi-graph-up-arrow fs-6"></i>
                                 </div>
                             </div>
@@ -133,7 +136,8 @@
                                     </p>
                                 </div>
 
-                                <div id="expensesBigIndicator" class="p-2 rounded-3 text-danger" style="background-color: #381E28;">
+                                <div id="expensesBigIndicator" class="p-2 rounded-3 text-danger"
+                                    style="background-color: #381E28;">
                                     <i class="bi bi-graph-down-arrow fs-6"></i>
                                 </div>
                             </div>
@@ -162,8 +166,10 @@
 
                         <div class="d-flex align-items-center">
                             <div class="position-relative">
-                                <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
-                                <input type="text" class="form-control form-control-sm ps-4" placeholder="Suchen" id="suchleiste" style="width: 200px;">
+                                <i
+                                    class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
+                                <input type="text" class="form-control form-control-sm ps-4" placeholder="Suchen"
+                                    id="suchleiste" style="width: 200px;">
                             </div>
 
                             <button id="deleteFilterBtn" class="btn btn-sm btn-primary ms-2">
@@ -171,9 +177,11 @@
                             </button>
                         </div>
                     </div>
-            
-                    <div class="card-body d-flex flex-column overflow-auto p-2" id="data-conteiner" style="max-height: 91vh;">
-                        <ul id="transactionList" class="list-unstyled mb-0" role="list" aria-label="Letzte Transaktionen">
+
+                    <div class="card-body d-flex flex-column overflow-auto p-2" id="data-conteiner"
+                        style="max-height: 91vh;">
+                        <ul id="transactionList" class="list-unstyled mb-0" role="list"
+                            aria-label="Letzte Transaktionen">
                             <!-- JS wird hier Items einfügen -->
                         </ul>
                     </div>
@@ -277,7 +285,8 @@
                                 <option value="Mobilität (Fix)">Mobilität (Fix)</option>
                                 <option value="Kommunikation/Medien">Kommunikation/Medien</option>
                                 <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                                <option value="Abonnements/Mitgliedschaften">AbonnemquerySelector('.'ents/Mitgliedschaften</option>
+                                <option value="Abonnements/Mitgliedschaften">
+                                    AbonnemquerySelector('.'ents/Mitgliedschaften</option>
                                 <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
                                 <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
                                 <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
@@ -310,7 +319,8 @@
                         </section>
 
                         <div class="d-flex gap-3">
-                            <button class="btn btn-outline-primary flex-fill" type="submit" id="btn-transaktionen">Transaktion erstellen</button>
+                            <button class="btn btn-outline-primary flex-fill" type="submit"
+                                id="btn-transaktionen">Transaktion erstellen</button>
                             <button class="btn btn-outline-secondary flex-fill"
                                 data-bs-dismiss="modal">Abrechen</button>
                         </div>
@@ -351,29 +361,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect1" class="mb-0 me-3 text-nowrap">Category 1</label>
-
-                        <select id="categorySelect1" class="form-select w-auto border-primary me-2">
-                            <option value="Haupteinkommen" selected>Haupteinkommen</option>
-                            <option value="Nebeneinkommen">Nebeneinkommen</option>
-                            <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
-                            <option value="Kapitaleinkünfte">Kapitaleinkünfte</option>
-                            <option value="Sonstige Einnahmen">Sonstige Einnahmen</option>
-                            <option value="Wohnen">Wohnen</option>
-                            <option value="Versicherungen">Versicherungen</option>
-                            <option value="Mobilität (Fix)">Mobilität (Fix)</option>
-                            <option value="Kommunikation/Medien">Kommunikation/Medien</option>
-                            <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                            <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
-                            <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
-                            <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
-                            <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
-                            <option value="Gesundheit">Gesundheit</option>
-                            <option value="Freizeit & Unterhaltung">Freizeit & Unterhaltung</option>
-                            <option value="Kinder/Haustiere">Kinder/Haustiere</option>
-                            <option value="Urlaub & Reisen">Urlaub & Reisen</option>
-                            <option value="Geschenke & Spenden">Geschenke & Spenden</option>
-                            <option value="Sonstiges">Sonstiges</option>
-                        </select>
+                        <select id="categorySelect1" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget1"
                             class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget"
@@ -382,28 +370,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect2" class="mb-0 me-3">Category 2</label>
-                        <select id="categorySelect2" class="form-select w-auto border-primary me-2">
-                            <option value="Wohnen" selected>Wohnen</option>
-                            <option value="Haupteinkommen">Haupteinkommen</option>
-                            <option value="Nebeneinkommen">Nebeneinkommen</option>
-                            <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
-                            <option value="Kapitaleinkünfte">Kapitaleinkünfte</option>
-                            <option value="Sonstige Einnahmen">Sonstige Einnahmen</option>
-                            <option value="Versicherungen">Versicherungen</option>
-                            <option value="Mobilität (Fix)">Mobilität (Fix)</option>
-                            <option value="Kommunikation/Medien">Kommunikation/Medien</option>
-                            <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                            <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
-                            <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
-                            <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
-                            <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
-                            <option value="Gesundheit">Gesundheit</option>
-                            <option value="Freizeit & Unterhaltung">Freizeit & Unterhaltung</option>
-                            <option value="Kinder/Haustiere">Kinder/Haustiere</option>
-                            <option value="Urlaub & Reisen">Urlaub & Reisen</option>
-                            <option value="Geschenke & Spenden">Geschenke & Spenden</option>
-                            <option value="Sonstiges">Sonstiges</option>
-                        </select>
+                        <select id="categorySelect2" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget2"
                             class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget"
@@ -412,25 +379,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect3" class="mb-0 me-3">Category 3</label>
-                        <select id="categorySelect3" class="form-select w-auto border-primary me-2">
-                            <option value="Lebensmittel & Haushalt" selected>Lebensmittel & Haushalt</option>
-                            <option value="Haupteinkommen">Haupteinkommen</option>
-                            <option value="Nebeneinkommen">Nebeneinkommen</option>
-                            <option value="Wohnen">Wohnen</option>
-                            <option value="Versicherungen">Versicherungen</option>
-                            <option value="Mobilität (Fix)">Mobilität (Fix)</option>
-                            <option value="Kommunikation/Medien">Kommunikation/Medien</option>
-                            <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                            <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
-                            <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
-                            <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
-                            <option value="Gesundheit">Gesundheit</option>
-                            <option value="Freizeit & Unterhaltung">Freizeit & Unterhaltung</option>
-                            <option value="Kinder/Haustiere">Kinder/Haustiere</option>
-                            <option value="Urlaub & Reisen">Urlaub & Reisen</option>
-                            <option value="Geschenke & Spenden">Geschenke & Spenden</option>
-                            <option value="Sonstiges">Sonstiges</option>
-                        </select>
+                        <select id="categorySelect3" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget3"
                             class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget"
@@ -439,25 +388,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect4" class="mb-0 me-3">Category 4</label>
-                        <select id="categorySelect4" class="form-select w-auto border-primary me-2">
-                            <option value="Mobilität (Fix)" selected>Mobilität (Fix)</option>
-                            <option value="Haupteinkommen">Haupteinkommen</option>
-                            <option value="Nebeneinkommen">Nebeneinkommen</option>
-                            <option value="Wohnen">Wohnen</option>
-                            <option value="Versicherungen">Versicherungen</option>
-                            <option value="Kommunikation/Medien">Kommunikation/Medien</option>
-                            <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                            <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
-                            <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
-                            <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
-                            <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
-                            <option value="Gesundheit">Gesundheit</option>
-                            <option value="Freizeit & Unterhaltung">Freizeit & Unterhaltung</option>
-                            <option value="Kinder/Haustiere">Kinder/Haustiere</option>
-                            <option value="Urlaub & Reisen">Urlaub & Reisen</option>
-                            <option value="Geschenke & Spenden">Geschenke & Spenden</option>
-                            <option value="Sonstiges">Sonstiges</option>
-                        </select>
+                        <select id="categorySelect4" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget4"
                             class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget"
@@ -466,25 +397,7 @@
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
                         <label for="categorySelect5" class="mb-0 me-3">Category 5</label>
-                        <select id="categorySelect5" class="form-select w-auto border-primary me-2">
-                            <option value="Freizeit & Unterhaltung" selected>Freizeit & Unterhaltung</option>
-                            <option value="Haupteinkommen">Haupteinkommen</option>
-                            <option value="Nebeneinkommen">Nebeneinkommen</option>
-                            <option value="Wohnen">Wohnen</option>
-                            <option value="Versicherungen">Versicherungen</option>
-                            <option value="Mobilität (Fix)">Mobilität (Fix)</option>
-                            <option value="Kommunikation/Medien">Kommunikation/Medien</option>
-                            <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                            <option value="Abonnements/Mitgliedschaften">Abonnements/Mitgliedschaften</option>
-                            <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
-                            <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
-                            <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
-                            <option value="Gesundheit">Gesundheit</option>
-                            <option value="Kinder/Haustiere">Kinder/Haustiere</option>
-                            <option value="Urlaub & Reisen">Urlaub & Reisen</option>
-                            <option value="Geschenke & Spenden">Geschenke & Spenden</option>
-                            <option value="Sonstiges">Sonstiges</option>
-                        </select>
+                        <select id="categorySelect5" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget5"
                             class="form-control w-auto bg-dark text-light border-secondary" placeholder="max. Budget"
