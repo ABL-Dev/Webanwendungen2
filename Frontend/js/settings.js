@@ -1,110 +1,165 @@
-const settingsModalEl = document.getElementById("settingsModal");
-const settingsModal = new bootstrap.Modal(settingsModalEl);
+const AUSGABEN_KATEGORIEN = [
+    { id: 6, name: "Wohnen" },
+    { id: 7, name: "Versicherungen" },
+    { id: 8, name: "Mobilität (Fix)" },
+    { id: 9, name: "Kommunikation/Medien" },
+    { id: 10, name: "Finanzen/Sparen (Fix)" },
+    { id: 11, name: "Abonnements/Mitgliedschaften" },
+    { id: 12, name: "Lebensmittel & Haushalt" },
+    { id: 13, name: "Mobilität (Variabel)" },
+    { id: 14, name: "Kleidung & Körperpflege" },
+    { id: 15, name: "Gesundheit" },
+    { id: 16, name: "Freizeit & Unterhaltung" },
+    { id: 17, name: "Kinder/Haustiere" },
+    { id: 18, name: "Urlaub & Reisen" },
+    { id: 19, name: "Geschenke & Spenden" },
+    { id: 20, name: "Sonstiges" }
+];
 
-document.addEventListener('DOMContentLoaded', async () => {
+let currentSettings = { sprachCode: 'DE', slots: [] };
 
-    // Gespeicherte Settings vom Backend laden
-    let settings = { slots: [], sprachCode: 'DE' };
+document.addEventListener('DOMContentLoaded', () => {
+    const modalElement = document.getElementById("settingsModal");
+    if (!modalElement) return;
+    
+    modalElement.addEventListener('show.bs.modal', loadSettingsFromBackend);
+    setupSaveButton();
+    setupCategoryDropdowns();
+});
+
+async function loadSettingsFromBackend() {
     try {
         const response = await fetch('/api/settings/load');
         const result = await response.json();
-        if(result.success){
-            settings = result.data;
-        } else {
-            console.error("Fehler beim Laden der Einstellungen:", result.error);
+        
+        if (!result.success) throw new Error(result.error || "Fehler beim Laden");
+        
+        currentSettings = result.data;
+        
+        if (!Array.isArray(currentSettings.slots)) currentSettings.slots = [];
+        while (currentSettings.slots.length < 5) {
+            currentSettings.slots.push({
+                slot_id: currentSettings.slots.length + 1,
+                kategorie_id: null,
+                kategorie_name: null,
+                budget: 0
+            });
         }
-    } catch(err){
-        console.error("Fehler beim Abrufen der Einstellungen:", err);
+        
+        renderAllDropdowns();
+        renderBudgetFields();
+    } catch (error) {
+        console.error(error);
     }
+}
 
-    const categories = [
-        { id: 1, key: "Government benefits/transfers", defaultText: "Staatliche Leistungen/Transfers" },
-        { id: 2, key: "Housing", defaultText: "Wohnen" },
-        { id: 3, key: "Insurance", defaultText: "Versicherungen" },
-        { id: 4, key: "Mobility (fixed)", defaultText: "Mobilität (Fix)" },
-        { id: 5, key: "Communication/media", defaultText: "Kommunikation/Medien" },
-        { id: 6, key: "Finances/savings (fixed)", defaultText: "Finanzen/Sparen (Fix)" },
-        { id: 7, key: "Subscriptions/memberships", defaultText: "Abonnements/Mitgliedschaften" },
-        { id: 8, key: "Food & household", defaultText: "Lebensmittel & Haushalt" },
-        { id: 9, key: "Mobility (variable)", defaultText: "Mobilität (Variabel)" },
-        { id: 10, key: "Clothing & personal care", defaultText: "Kleidung & Körperpflege" },
-        { id: 11, key: "Health", defaultText: "Gesundheit" },
-        { id: 12, key: "Leisure & entertainment", defaultText: "Freizeit & Unterhaltung" },
-        { id: 13, key: "Children/pets", defaultText: "Kinder/Haustiere" },
-        { id: 14, key: "Vacations & travel", defaultText: "Urlaub & Reisen" },
-        { id: 15, key: "Gifts & donations", defaultText: "Geschenke & Spenden" },
-        { id: 16, key: "Other", defaultText: "Sonstiges" }
-    ];
-
-    const dropdownIds = ["categorySelect1", "categorySelect2", "categorySelect3", "categorySelect4", "categorySelect5"];
-    const dropdowns = dropdownIds.map(id => document.getElementById(id));
-
-    // Prüft, ob Kategorie bereits in einem Dropdown gewählt ist
-    function isCategorySelected(key, ignoreSelect = null){
-        return dropdowns.some(dd => dd !== ignoreSelect && dd.value === key);
-    }
-
-    // Dropdown mit Optionen befüllen
-    function fillDropdown(select, currentValue){
-        select.innerHTML = '';
-
-        // Platzhalter
+function renderAllDropdowns() {
+    for (let i = 0; i < 5; i++) {
+        const selectElement = document.getElementById(`categorySelect${i + 1}`);
+        if (!selectElement) continue;
+        
+        const selectedName = currentSettings.slots[i]?.kategorie_name || null;
+        const alreadySelected = currentSettings.slots
+            .filter((_, idx) => idx !== i)
+            .map(slot => slot.kategorie_name)
+            .filter(name => name != null);
+        
+        selectElement.innerHTML = '';
+        
         const placeholder = document.createElement('option');
         placeholder.value = '';
         placeholder.disabled = true;
-        placeholder.selected = !currentValue;
-        placeholder.textContent = i18next.t("Kategorie wählen", { defaultValue: "Kategorie wählen" });
-        select.appendChild(placeholder);
-
-        // Statische Kategorien einfügen, bereits gewählte ausblenden
-        categories.forEach(cat => {
-            if(!isCategorySelected(cat.key, select) || cat.key === currentValue){
+        placeholder.selected = !selectedName;
+        placeholder.textContent = "Kategorie wählen";
+        selectElement.appendChild(placeholder);
+        
+        AUSGABEN_KATEGORIEN.forEach(kategorie => {
+            if (!alreadySelected.includes(kategorie.name) || kategorie.name === selectedName) {
                 const option = document.createElement('option');
-                option.value = cat.key;
-                option.textContent = i18next.t(cat.key, { defaultValue: cat.defaultText });
-                if(cat.key === currentValue) option.selected = true;
-                select.appendChild(option);
+                option.value = kategorie.name;
+                option.textContent = kategorie.name;
+                option.dataset.kategorieId = kategorie.id;
+                if (kategorie.name === selectedName) option.selected = true;
+                selectElement.appendChild(option);
             }
         });
     }
+}
 
-    // Alle Dropdowns initial befüllen und EventListener hinzufügen
-    dropdowns.forEach((dd, index) => {
-        const slot = settings.slots[index];
-        const currentValue = slot?.kategorie_name || '';
-        fillDropdown(dd, currentValue);
+function renderBudgetFields() {
+    for (let i = 0; i < 5; i++) {
+        const categorySelect = document.getElementById(`categorySelect${i + 1}`);
+        if (!categorySelect) continue;
+        
+        const container = categorySelect.closest('.row') || categorySelect.parentElement;
+        const budgetInput = container?.querySelector('input[placeholder*="Budget"]');
+        
+        if (budgetInput) {
+            const budget = currentSettings.slots[i]?.budget || 0;
+            budgetInput.value = budget > 0 ? budget : '';
+        }
+    }
+}
 
-        dd.addEventListener('change', async () => {
-            // Auswahl im settings-Array speichern
-            slot.kategorie_name = dd.value;
-            slot.kategorie_id = categories.find(c => c.key === dd.value)?.id || null;
-
-            // Alle Dropdowns neu rendern, um doppelte Auswahl zu verhindern
-            dropdowns.forEach((otherDd, i) => fillDropdown(otherDd, settings.slots[i]?.kategorie_name));
-
-            // Änderungen ans Backend senden
-            try {
-                const response = await fetch('/api/settings/save', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        sprachCode: settings.sprachCode,
-                        slots: settings.slots
-                    })
-                });
-                const result = await response.json();
-                if(!result.success){
-                    console.error("Fehler beim Speichern:", result.error);
-                }
-            } catch(err){
-                console.error("Fehler beim Speichern der Settings:", err);
-            }
+function setupCategoryDropdowns() {
+    for (let i = 0; i < 5; i++) {
+        const selectElement = document.getElementById(`categorySelect${i + 1}`);
+        if (!selectElement) continue;
+        
+        selectElement.addEventListener('change', (event) => {
+            const selectedName = event.target.value;
+            const selectedOption = event.target.selectedOptions[0];
+            const kategorieId = selectedOption?.dataset.kategorieId || null;
+            
+            currentSettings.slots[i].kategorie_name = selectedName || null;
+            currentSettings.slots[i].kategorie_id = kategorieId ? parseInt(kategorieId) : null;
+            
+            renderAllDropdowns();
         });
+        
+        const container = selectElement.closest('.row') || selectElement.parentElement;
+        const budgetInput = container?.querySelector('input[placeholder*="Budget"]');
+        
+        if (budgetInput) {
+            budgetInput.addEventListener('input', (event) => {
+                currentSettings.slots[i].budget = parseFloat(event.target.value) || 0;
+            });
+        }
+    }
+}
+
+function setupSaveButton() {
+    const buttons = document.querySelectorAll('#settingsModal button');
+    const saveButton = Array.from(buttons).find(btn => 
+        btn.textContent.trim().toLowerCase().includes('speichern')
+    );
+    
+    if (!saveButton) return;
+    
+    saveButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/api/settings/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sprachCode: currentSettings.sprachCode,
+                    slots: currentSettings.slots
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success || result.sucess) {
+                const modalElement = document.getElementById("settingsModal");
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                if (modalInstance) modalInstance.hide();
+            } else {
+                throw new Error(result.error || "Fehler beim Speichern");
+            }
+        } catch (error) {
+            console.error(error);
+        }
     });
+}
 
-    // Sprachupdate-Funktion für i18next
-    window.updateCategoryDropdowns = function(){
-        dropdowns.forEach((dd, i) => fillDropdown(dd, settings.slots[i]?.kategorie_name));
-    };
-
-});
+window.updateCategoryDropdowns = renderAllDropdowns;
