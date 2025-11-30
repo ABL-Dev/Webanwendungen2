@@ -1024,6 +1024,6 @@ window.onload = async function () {
     totalBudgetChart.update();
 
     // Settings Seite schließen.
-    settingsModal.hide();
+    window.location.reload();
   });
 };
