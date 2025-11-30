@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Tracker Dashboard</title>
+    <title>Finanz Tracker Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/main.css">
@@ -18,11 +18,11 @@
 
             <!--Linker Bereich-->
             <div class="col-auto">
-                <h1 class="mb-0">Finance Tracker</h1>
+                <h1 class="mb-0">Finanz Tracker</h1>
             </div>
 
             <!--Mitlerer bereich-->
-            <div class="col-auto">
+            <div class="col-auto mx-auto">
                 <!--Monats navbar-->
                 <nav class="container-fluid py-2 text-center" id="navbar">
                     <button class="btn btn-primary mb-2" disabled><span id="year"></span></button>
@@ -49,7 +49,7 @@
 
             <!--Rechter bereich-->
             <div class="col-auto justify-content-end">
-                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ New Entry</button>
+                <button class="btn btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#NEModal">+ Neuer Eintrag</button>
                 <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal">
                     <i class="bi bi-gear"></i>
                 </button>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="card flex-fill">
-                    <div class="card-header">Budget Overview</div>
+                    <div class="card-header">Budgetübersicht</div>
                     <div class="card-body d-flex justify-content-center align-items-center">
                         <!--Dimension wird in css angepasst.-->
                         <canvas id="budgetChart"></canvas>
@@ -89,14 +89,14 @@
                 <!--Financial Overview-->
                 <!--Icons u. Prozentwerte werden später Dynamisirt und immer im vergelich zum Vormonat angepast-->
                 <div class="card">
-                    <div class="card-header">Financial Overview</div>
+                    <div class="card-header">Finanzielle Übersicht</div>
 
                     <div class="card-body d-flex justify-content-start align-items-center">
                         <div class="financial-overview w-100">
 
                             <div class="overview-item mb-3 d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="label text-primary fw-semibold mb-1 small">Total Balance</p>
+                                    <p class="label text-primary fw-semibold mb-1 small">Gesamtguthaben</p>
                                     <p id="total" class="amount fs-4 fw-bold mb-0">2.714,50€</p>
                                     <p id="totalMoneyP" class="change up small text-success mb-0">
                                         <i class="bi bi-graph-up-arrow"></i> 11,2%
@@ -113,7 +113,7 @@
 
                             <div class="overview-item mb-3 d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="label text-primary fw-semibold mb-1 small">Income</p>
+                                    <p class="label text-primary fw-semibold mb-1 small">Einkommen</p>
                                     <p id="income" class="amount fs-5 fw-bold mb-0">1.563,50€</p>
                                     <p id="incomeP" class="change up small text-success mb-0">
                                         <i class="bi bi-graph-up-arrow"></i> 7,1%
@@ -128,7 +128,7 @@
 
                             <div class="overview-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="label text-primary fw-semibold mb-1 small">Expenses</p>
+                                    <p class="label text-primary fw-semibold mb-1 small">Ausgaben</p>
                                     <p id="expenses" class="amount fs-5 fw-bold mb-0">673,50€</p>
                                     <p id="expensesP" class="change down small text-danger mb-0">
                                         <i class="bi bi-graph-down-arrow"></i> 1,6%
@@ -277,15 +277,14 @@
                                 <option value="Haupteinkommen">Haupteinkommen</option>
                                 <option value="Nebeneinkommen">Nebeneinkommen</option>
                                 <option value="Staatliche Leistungen/Transfers">Staatliche Leistungen/Transfers</option>
-                                <option value="Kapitaleinkünfte">Kapitaleinkünfte</oquerySelector('.'ption>
+                                <option value="Kapitaleinkünfte">Kapitaleinkünfte</option>
                                 <option value="Sonstige Einnahmen">Sonstige Einnahmen</option>
                                 <option value="Wohnen">Wohnen</option>
                                 <option value="Versicherungen">Versicherungen</option>
                                 <option value="Mobilität (Fix)">Mobilität (Fix)</option>
                                 <option value="Kommunikation/Medien">Kommunikation/Medien</option>
                                 <option value="Finanzen/Sparen (Fix)">Finanzen/Sparen (Fix)</option>
-                                <option value="Abonnements/Mitgliedschaften">
-                                    AbonnemquerySelector('.'ents/Mitgliedschaften</option>
+                                <option value="Abonnements/Mitgliedschaften"></option>
                                 <option value="Lebensmittel & Haushalt">Lebensmittel & Haushalt</option>
                                 <option value="Mobilität (Variabel)">Mobilität (Variabel)</option>
                                 <option value="Kleidung & Körperpflege">Kleidung & Körperpflege</option>
@@ -321,7 +320,7 @@
                             <button class="btn btn-outline-primary flex-fill" type="submit"
                                 id="btn-transaktionen">Transaktion erstellen</button>
                             <button class="btn btn-outline-secondary flex-fill"
-                                data-bs-dismiss="modal">Abrechen</button>
+                                data-bs-dismiss="modal">Abbrechen</button>
                         </div>
                     </form>
                 </main>
@@ -336,18 +335,18 @@
             <article class="modal-content border border-primary w-auto">
 
                 <header class="modal-header border-primary">
-                    <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                    <h5 class="modal-title" id="settingsModalLabel">Einstellungen</h5>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </header>
 
                 <main class="modal-body text-center">
 
                     <!-- Finance Settings -->
-                    <h5 class="mt-4 mb-2">Finance Settings</h5>
+                    <h5 class="mt-4 mb-2">Finanzeinstellungen</h5>
                     <hr class="border-primary mb-3">
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect1" class="mb-0 me-3 text-nowrap">Category 1</label>
+                        <label for="categorySelect1" class="mb-0 me-3 text-nowrap">Kategorie 1</label>
                         <select id="categorySelect1" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget1"
@@ -356,7 +355,7 @@
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect2" class="mb-0 me-3">Category 2</label>
+                        <label for="categorySelect2" class="mb-0 me-3">Kategorie 2</label>
                         <select id="categorySelect2" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget2"
@@ -365,7 +364,7 @@
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect3" class="mb-0 me-3">Category 3</label>
+                        <label for="categorySelect3" class="mb-0 me-3">Kategorie 3</label>
                         <select id="categorySelect3" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget3"
@@ -374,7 +373,7 @@
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect4" class="mb-0 me-3">Category 4</label>
+                        <label for="categorySelect4" class="mb-0 me-3">Kategorie 4</label>
                         <select id="categorySelect4" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget4"
@@ -383,7 +382,7 @@
                     </section>
 
                     <section class="d-flex justify-content-between align-items-center mb-2">
-                        <label for="categorySelect5" class="mb-0 me-3">Category 5</label>
+                        <label for="categorySelect5" class="mb-0 me-3">Kategorie 5</label>
                         <select id="categorySelect5" class="form-select w-auto border-primary me-2"></select>
 
                         <input type="text" id="totalBudget5"
