@@ -955,6 +955,12 @@ window.onload = async function () {
   // Hier den event listener gemacht, weil hier alle Variablen sind.
   const saveButton = document.getElementById("saveFinanceSettings");
   saveButton.addEventListener("click", function () {
+    // Alte Werte löschen.
+    totalBudgetChart.data.labels = [];
+    totalBudgetChart.data.datasets[0].data = [];
+    totalBudgetChart.data.datasets[1].data = [];
+    totalBudgetChart.data.datasets[2].data = [];
+    
     for (let i = 1; i < 6; i++) {
       const selectElement = document.getElementById("categorySelect" + i);
       selectedElementArray.push(selectElement.value);
@@ -972,7 +978,8 @@ window.onload = async function () {
     // gar nicht gibt - dann wird die kategorie als label übernommen, aber die ausgaben sind einfach 0
     // für diese kategorie.
     const categoryNamesLower = selectedElementArray.map(str => str.toLowerCase());
-    totalBudgetChart.data.labels = categoryNamesLower; // Alte Kategorien mit neuen aus Settings austauschen im Chart.
+
+    totalBudgetChart.data.labels = selectedElementArray; // Alte Kategorien mit neuen aus Settings austauschen im Chart.
 
     // Neues "spent" Array wird erstellt.
     // Gibt es Ausgaben für die ausgewählte Kategorie in Settings werden diese übernommen.
@@ -985,11 +992,11 @@ window.onload = async function () {
     // Gehe durch Daten Dictionary und prüfe ob es bereits Summenwerte gibt für ausgewählte Kategorien aus Settings.
     // Sonst ordne 0 zu, weil es keine Daten zur Kategorie gibt.
     for (let i = 0; i < 5; i++) {
-      if (categorySums[categoryNamesLower[i]] == undefined) { // Kategoriewerte existieren nicht = 0.
+      if (categorySums[selectedElementArray[i]] == undefined) { // Kategoriewerte existieren nicht = 0.
         newSpent.push("0");
       }
       else {
-        newSpent.push(categorySums[categoryNamesLower[i]]); // Es gibt Werte zur Kategorie -> Werte übernehmen.
+        newSpent.push(categorySums[selectedElementArray[i]]); // Es gibt Werte zur Kategorie -> Werte übernehmen.
       }
     }
     
@@ -1019,10 +1026,21 @@ window.onload = async function () {
       if (datasetLabel === 'Remaining') return `Übrig: ${newRemaining[i]} €`;
     };
 
+    // Scale anpassen an neue SettingsWerte nach Save Button bei Settings.
+    const budgetsNum = newTotalBudget.map(Number);
+    const spentNum = newSpent.map(Number);
+    const exceededNum = newExceededSpent.map(Number);
+    const chartMax = Math.max(
+      ...budgetsNum,
+      ...spentNum,
+      ...exceededNum
+    );
+    totalBudgetChart.options.scales.x.max = chartMax;
+
     // Chart updaten mit neuen Werten und neu zeichnen.
     totalBudgetChart.update();
 
     // Settings Seite schließen.
-    window.location.reload();
+    //window.location.reload(); Das hier auskommentiert, nicht nötig normal.
   });
 };
