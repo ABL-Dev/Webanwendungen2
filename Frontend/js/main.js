@@ -605,8 +605,6 @@ async function render(currentMonthString, suchLeisteText) {
 
 function recentTransaction(suchLeisteText) {
     // Returne render(), damit das window.onload-Fenster auf die zu fetchenden Transaktionen wartet.
-    // Render nur auf ausgewählten Monat auswählen.
-    currentMonthString = getMonthString(monthButtons[currentMonthIndex].textContent);
     return render(currentMonthString, suchLeisteText);
 };
 
@@ -935,6 +933,7 @@ function createFinanicalOverview() {
 
 window.onload = async function () {
   //Recent Transaktion laden
+  currentMonthString = getMonthString(monthButtons[currentMonthIndex].textContent);
   await recentTransaction(""); // Mit leerem String (Standardladevorgang).
   console.log("in window should have transactions now");
   console.log("Loaded transactions in window:", transactions);
