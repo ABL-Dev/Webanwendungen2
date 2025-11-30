@@ -122,6 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById('NEModal'); 
     const btn = document.getElementById('btn-transaktionen');
 
+    btn.textContent = 'Transaktionen erstellen';
+
     modalElement.querySelector('.modal-title').textContent = 'Transaktionen erstellen';
 
       const formToReset = this.querySelector('.needs-validation');
