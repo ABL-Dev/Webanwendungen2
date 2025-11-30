@@ -22,11 +22,6 @@ CREATE TABLE IF NOT EXISTS todos(
     is_done         BOOLEAN DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS sprache(
-    id              INTEGER PRIMARY KEY CHECK(id = 1),
-    sprach_code     TEXT NOT NULL DEFAULT 'DE' CHECK (sprach_code IN ('DE', 'EN'))        
-);
-
 CREATE TABLE IF NOT EXISTS einstellung_slots(
     slot_id         INTEGER PRIMARY KEY,
     kategorie_id    INTEGER,

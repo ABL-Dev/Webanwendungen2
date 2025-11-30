@@ -16,7 +16,7 @@ const AUSGABEN_KATEGORIEN = [
     { id: 20, name: "Sonstiges" }
 ];
 
-let currentSettings = { sprachCode: 'DE', slots: [] };
+let currentSettings = { slots: [] };
 
 document.addEventListener('DOMContentLoaded', () => {
     const modalElement = document.getElementById("settingsModal");
@@ -36,16 +36,6 @@ async function loadSettingsFromBackend() {
         
         currentSettings = result.data;
         
-        if (!Array.isArray(currentSettings.slots)) currentSettings.slots = [];
-        while (currentSettings.slots.length < 5) {
-            currentSettings.slots.push({
-                slot_id: currentSettings.slots.length + 1,
-                kategorie_id: null,
-                kategorie_name: null,
-                budget: 0
-            });
-        }
-        
         renderAllDropdowns();
         renderBudgetFields();
     } catch (error) {
@@ -58,8 +48,8 @@ function renderAllDropdowns() {
         const selectElement = document.getElementById(`categorySelect${i + 1}`);
         if (!selectElement) continue;
         
-        const selectedName = currentSettings.slots[i]?.kategorie_name || null;
-        const alreadySelected = currentSettings.slots
+        const selectedName = currentSettings[i]?.kategorie_name || null;
+        const alreadySelected = currentSettings
             .filter((_, idx) => idx !== i)
             .map(slot => slot.kategorie_name)
             .filter(name => name != null);
@@ -95,7 +85,7 @@ function renderBudgetFields() {
         const budgetInput = container?.querySelector('input[placeholder*="Budget"]');
         
         if (budgetInput) {
-            const budget = currentSettings.slots[i]?.budget || 0;
+            const budget = currentSettings[i]?.budget || 0;
             budgetInput.value = budget > 0 ? budget : '';
         }
     }
@@ -111,8 +101,8 @@ function setupCategoryDropdowns() {
             const selectedOption = event.target.selectedOptions[0];
             const kategorieId = selectedOption?.dataset.kategorieId || null;
             
-            currentSettings.slots[i].kategorie_name = selectedName || null;
-            currentSettings.slots[i].kategorie_id = kategorieId ? parseInt(kategorieId) : null;
+            currentSettings[i].kategorie_name = selectedName || null;
+            currentSettings[i].kategorie_id = kategorieId ? parseInt(kategorieId) : null;
             
             renderAllDropdowns();
         });
@@ -122,7 +112,7 @@ function setupCategoryDropdowns() {
         
         if (budgetInput) {
             budgetInput.addEventListener('input', (event) => {
-                currentSettings.slots[i].budget = parseFloat(event.target.value) || 0;
+                currentSettings[i].budget = parseFloat(event.target.value) || 0;
             });
         }
     }
@@ -143,7 +133,7 @@ function setupSaveButton() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     sprachCode: currentSettings.sprachCode,
-                    slots: currentSettings.slots
+                    slots: currentSettings
                 })
             });
             

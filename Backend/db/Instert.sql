@@ -20,8 +20,6 @@ INSERT INTO kategorien (name) VALUES ('Urlaub & Reisen');
 INSERT INTO kategorien (name) VALUES ('Geschenke & Spenden');
 INSERT INTO kategorien (name) VALUES ('Sonstiges');
 
-INSERT OR IGNORE INTO sprache (id, sprach_code) VALUES (1, 'DE');
-
 INSERT OR IGNORE INTO einstellung_slots (slot_id, kategorie_id, budget) VALUES 
 (1, NULL, 0),
 (2, NULL, 0),

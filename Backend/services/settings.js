@@ -10,7 +10,7 @@ settingsRouter.get('/settings/load', (req, res) =>{
     const settingsDao = new SettingsDAO(db);
 
     try {
-        const settings = settingsDao.loadSettings();
+        const settings = settingsDao.loadAllSlots();
 
         res.status(200).json({
             success: true,
@@ -27,12 +27,8 @@ settingsRouter.post('/settings/save', (req, res) =>{
     const db = req.app.locals.db;
     const settingsDao = new SettingsDAO(db);
 
-    const {sprachCode, slots} = req.body;
+    const {slots} = req.body;
 
-    // validirung
-    if (!sprachCode || !['DE', 'EN'].includes(sprachCode)) {
-        return res.status(400).json({success: false, error: "Ungültiger sprachCode"});
-    }
 
     if (!Array.isArray(slots) || slots.length !==5) {
         return res.status(400).json({success: false, error: "Es müssen genau 5 slots übergeben werden."});
@@ -57,7 +53,7 @@ settingsRouter.post('/settings/save', (req, res) =>{
 
     try {
         
-        const aktualisierteSettings = settingsDao.saveSettings(sprachCode, slots);
+        const aktualisierteSettings = settingsDao.updateSlots(slots);
 
         res.status(200).json({
             sucess: true,
