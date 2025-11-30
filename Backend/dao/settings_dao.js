@@ -4,15 +4,6 @@ export default class SETTINGSDAO{
         this.__con = dbConnection;
     };
 
-    loadSprache(){
-        const sql = `SELECT sprach_code FROM sprache WHERE id = 1`;
-
-        const statmant = this.__con.prepare(sql);
-        const row = statmant.get();
-
-        return row ? row.sprach_code: 'DE';
-    };
-
     loadAllSlots(){
         const sql = `
             SELECT 
@@ -38,21 +29,6 @@ export default class SETTINGSDAO{
         };
     };
 
-    updateSprache(sprachCode){
-        const sql = `
-            UPDATE sprache 
-            SET sprach_code = ?
-            WHERE id = 1
-        `;
-
-        const statement = this.__con.prepare(sql);
-        const result = statement.run(sprachCode);
-
-        if (result.changes === 0 && this.loadSprache() !== sprachCode) {
-            throw new Error("Konnte Sprache nicht in db aktualisiren");
-        };
-    };
-
     updateSlots(slots){
         const sql = `
             UPDATE einstellung_slots 
@@ -74,19 +50,4 @@ export default class SETTINGSDAO{
             const result = statement.run(params);
         };
     };
-
-    //nur für die einfachheit damit nur eine funktion gebraucht wird
-    saveSettings(sprachCode, slots){
-
-        const runInTransakrion = this.__con.transaction(()=>{
-
-            this.updateSprache(sprachCode);
-            this.updateSlots(slots);
-
-            return this.loadSettings();
-        });
-
-        return runInTransakrion();
-    }
-
 };
