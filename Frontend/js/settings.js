@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadSettingsFromBackend() {
     try {
-        const response = await fetch('/api/settings/load');
+        const response = await fetch('http://localhost:8000/api/settings/load');
         const result = await response.json();
         
         if (!result.success) throw new Error(result.error || "Fehler beim Laden");
@@ -128,7 +128,7 @@ function setupSaveButton() {
     
     saveButton.addEventListener('click', async () => {
         try {
-            const response = await fetch('/api/settings/save', {
+            const response = await fetch('http://localhost:8000/api/settings/save', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

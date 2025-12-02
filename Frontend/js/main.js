@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
           };
 
           try{
-            const resp = await fetch('/api/update', {
+            const resp = await fetch('http://localhost:8000/api/update', {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data)
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
             notizen: notizen
           };
 
-          fetch('/api/write', {
+          fetch('http://localhost:8000/api/write', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -394,7 +394,7 @@ function transactionEdit(id){
 };
 
 async function transactionDelete(id){
-  const url = `/api/delete/${id}`;
+  const url = `http://localhost:8000/api/delete/${id}`;
 
   try{
     const respons = await fetch(url, {
@@ -483,7 +483,7 @@ async function render(currentMonthString, suchLeisteText) {
   listContainer.innerHTML = '';
 
   // Holt die aktuellen Daten aus der Datenbank.
-  const res = await fetch('/api/loadAll');
+  const res = await fetch('http://localhost:8000/api/loadAll');
   const data = await res.json();
 
   // Hole alle Transaktionen.

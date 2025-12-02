@@ -26,7 +26,7 @@ let currentEditIndex = null;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 async function apiLoadNotes() {
-    const res = await fetch('/api/todo/loadAll');
+    const res = await fetch('http://localhost:8000/api/todo/loadAll');
     if (!res.ok) throw new Error('Fehler beim Laden der Notizen vom Server');
     const json = await res.json();
     if (!json.success) throw new Error(json.error || 'Serverfehler');
@@ -35,7 +35,7 @@ async function apiLoadNotes() {
 }
 
 async function apiCreateNote(text) {
-    const res = await fetch('/api/todo/write', {
+    const res = await fetch('http://localhost:8000/api/todo/write', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ note: text })
@@ -48,7 +48,7 @@ async function apiCreateNote(text) {
 }
 
 async function apiUpdateNote(id, text, checked) {
-    const res = await fetch('/api/todo/update', {
+    const res = await fetch('http://localhost:8000/api/todo/update', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ todo_id: id, note: text, is_done: !!checked })
@@ -62,14 +62,14 @@ async function apiUpdateNote(id, text, checked) {
 
 
 async function apiDeleteNote(id) {
-    const res = await fetch(`/api/todo/delete/${id}`, { method: 'DELETE' });
+    const res = await fetch(`http://localhost:8000/api/todo/delete/${id}`, { method: 'DELETE' });
     if (res.status === 204) return true;
     if (!res.ok) throw new Error('Fehler beim Löschen der Notiz');
     return true;
 }
 
 async function apiToggleNote(id, checked) {
-    const res = await fetch(`/api/todo/toggle/${id}`, {
+    const res = await fetch(`http://localhost:8000/api/todo/toggle/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ is_done: !!checked })
@@ -82,7 +82,7 @@ async function apiToggleNote(id, checked) {
 }
 
 async function apiDeleteAll() {
-    const res = await fetch('/api/todo/deleteAll', { method: 'DELETE' });
+    const res = await fetch('http://localhost:8000/api/todo/deleteAll', { method: 'DELETE' });
     if (!res.ok) throw new Error('Fehler beim Löschen aller Einträge');
     return true;
 }
@@ -127,7 +127,7 @@ function renderNotes() {
             // Wenn es eine DB-id gibt -> nur den Boolean an die API senden.
             if (note.id) {
                 try {
-                    const res = await fetch(`/api/todo/toggle/${note.id}`, {
+                    const res = await fetch(`http://localhost:8000/api/todo/toggle/${note.id}`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ is_done: !!checked })
