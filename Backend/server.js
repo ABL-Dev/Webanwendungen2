@@ -19,12 +19,6 @@ app.use(cors());
 
 // +++ API ROUTEN +++
 
-// 1. Kategorien abrufen
-app.get('/api/categories', (req, res) => {
-    const rows = db.prepare('SELECT * FROM kategorien ORDER BY name ASC').all();
-    res.json(rows);
-});
-
 //Trasnsaktion service aufrufen (Aktuell nur für new Entry)
 const TOPLEVELPATH = '/api';
 app.locals.db = db
