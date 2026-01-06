@@ -1,6 +1,7 @@
 let transactions = [];
 // Gibt den jetzigen Monat als String an.
 currentMonthString = "";
+currentYearString = "";
 let wasTransactionModified = false;
 
 // Jetziges Datum holen.
@@ -65,13 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
         case '<':
           yearNumber--;
           yearButton.textContent = yearNumber;
-          //lodData(button.textContent, yearNumber);
+          currentYearString = yearButton.textContent;
           break;
 
         case '>':
           yearNumber++;
           yearButton.textContent = yearNumber;
-          //lodData(button.textContent, yearNumber);
+          currentYearString = yearButton.textContent;
           break;
 
         default:
@@ -79,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.disabled = false;
             btn.classList.remove("btn-primary");
             btn.classList.add("btn-outline-primary");
-
           });
 
           // Geklickten Button aktivieren & markieren
@@ -88,14 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
           button.classList.add("btn-primary");
 
           // Nach dem ein Monat angeklickt wird, wird hier der
-          // neu ausgewählte Monat geholt und damit alle UI Sachen aktualisiert.
+          // neu ausgewählte Monat geholt
           currentMonthString = getMonthString(button.textContent);
-          render(currentMonthString, "");
-          createPieChart();
-          createTotalBudgetChart();
-          createFinanicalOverview();
           break;
       };
+
+      // Mit neu ausgewähltem Monat alle UI Sachen aktualisiert.
+      render(currentMonthString, currentYearString, "");
+      createPieChart();
+      createTotalBudgetChart();
+      createFinanicalOverview();
     });
   });
 
@@ -477,7 +479,7 @@ function chooseIcon(cat) {
 }
 
 // Renderer - Asynchron, da auf das Fetchen der Transaktionsdaten gewartet werden muss.
-async function render(currentMonthString, suchLeisteText) {
+async function render(currentMonthString, currentYearString, suchLeisteText) {
   //Hohlt die ul
   const listContainer = document.getElementById("transactionList");
   listContainer.innerHTML = '';
@@ -493,8 +495,8 @@ async function render(currentMonthString, suchLeisteText) {
   transactions.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
   transactions.forEach(tx => {
-    // Abfrage: Nur die Werte des ausgewählten Monats werden angezeigt.
-    if (new Date(tx.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
+    // Abfrage: Nur die Werte des ausgewählten Monats und Jahres werden angezeigt.
+    if (new Date(tx.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString && new Date(tx.datum).toLocaleString("de-DE", { year: "numeric" }) === currentYearString) {
       var addZeile = false;
 
       if (suchLeisteText == "") {
@@ -605,7 +607,7 @@ async function render(currentMonthString, suchLeisteText) {
 
 function recentTransaction(suchLeisteText) {
     // Returne render(), damit das window.onload-Fenster auf die zu fetchenden Transaktionen wartet.
-    return render(currentMonthString, suchLeisteText);
+    return render(currentMonthString, currentYearString, suchLeisteText);
 };
 
 //************************************************************************************************************************************+
@@ -633,8 +635,8 @@ function createPieChart() {
   // Summen für die jeweiligen Kategorien.
   categorySums = {}; // Dictionary -> Kategoriename:Summe.
   expenses.forEach(entry => {
-    // Das hier nur machen, wenn die Daten zum ausgewählten Monat passen.
-    if (new Date(entry.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
+    // Das hier nur machen, wenn die Daten zum ausgewählten Monat und Jahr passen.
+    if (new Date(entry.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString && new Date(entry.datum).toLocaleString("de-DE", { year: "numeric" }) === currentYearString) {
       const category = entry.kategorie;
       categorySums[category] = (categorySums[category] || 0) + entry.betrag;
     }
@@ -866,7 +868,7 @@ function createFinanicalOverview() {
   let ausgabenSumme = 0;
   transactions.forEach(t => {
     // Rechne die Summen der Ein- und Ausgaben pro Monat aus.
-    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString) {
+    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === currentMonthString && new Date(t.datum).toLocaleString("de-DE", { year: "numeric" }) === currentYearString) {
       if (t.einnahme) {
         einnahmenSumme += t.betrag;
       } else {
@@ -888,7 +890,7 @@ function createFinanicalOverview() {
   let ausgabenSummeDavor = 0;
   transactions.forEach(t => {
     // Rechne die Summen der Ein- und Ausgaben pro Monat aus.
-    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === previousMonthString) {
+    if (new Date(t.datum).toLocaleString("de-DE", { month: "long" }) === previousMonthString && new Date(t.datum).toLocaleString("de-DE", { year: "numeric" }) === currentYearString) {
       if (t.einnahme) {
         einnahmenSummeDavor += t.betrag;
       } else {
@@ -934,6 +936,7 @@ function createFinanicalOverview() {
 window.onload = async function () {
   //Recent Transaktion laden
   currentMonthString = getMonthString(monthButtons[currentMonthIndex].textContent);
+  currentYearString = yearButton.textContent;
   await recentTransaction(""); // Mit leerem String (Standardladevorgang).
   console.log("in window should have transactions now");
   console.log("Loaded transactions in window:", transactions);
@@ -949,12 +952,12 @@ window.onload = async function () {
 
   // SETTINGS SAVE KNOPF //
 
-  const selectedElementArray = []; // Ausgewählte Kategorien in Settings.
-  const selectedTotalBudgetArray = []; // Ausgewählte max. Budgets in Settings.
-
   // Hier den event listener gemacht, weil hier alle Variablen sind.
   const saveButton = document.getElementById("saveFinanceSettings");
   saveButton.addEventListener("click", function () {
+    const selectedElementArray = []; // Ausgewählte Kategorien in Settings.
+    const selectedTotalBudgetArray = []; // Ausgewählte max. Budgets in Settings.
+
     // Alte Werte löschen.
     totalBudgetChart.data.labels = [];
     totalBudgetChart.data.datasets[0].data = [];
