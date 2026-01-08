@@ -714,14 +714,51 @@ function createPieChart() {
   });
 }
 
-function createTotalBudgetChart() {
+async function createTotalBudgetChart() {
   const ctxbar = document.getElementById('budgetChart').getContext('2d');
 
-  const categories = categoryNames;
-  // Ausgaben je Kategorie.
-  const spent = Object.values(categorySums);
-  // Max. budget in Kategorie (wie viel man pro Kategorie ausgeben darf).
-  const totalBudget = [600, 500, 300, 1200, 200];
+  // Einstellungen aus der DB laden
+  let slots = [];
+  try {
+    const res = await fetch('http://localhost:8000/api/settings/load');
+    const result = await res.json();
+    if (result.success) {
+        slots = result.data;
+    }
+  } catch (e) {
+    console.error("Fehler beim Laden der Budget-Settings:", e);
+  }
+
+  // Falls keine Slots geladen wurden (Fehler oder leer), Fallback oder leere Arrays
+  if (!slots || slots.length === 0) {
+      // Fallback-Werte damit Chart nicht crasht
+      slots = [
+          { kategorie_name: "Kategorie 1", budget: 0 },
+          { kategorie_name: "Kategorie 2", budget: 0 },
+          { kategorie_name: "Kategorie 3", budget: 0 },
+          { kategorie_name: "Kategorie 4", budget: 0 },
+          { kategorie_name: "Kategorie 5", budget: 0 }
+      ];
+  }
+
+  // Arrays für Chart vorbereiten
+  const categories = [];
+  const totalBudget = [];
+  const spent = [];
+
+  slots.forEach(slot => {
+      // Name der Kategorie oder Platzhalter
+      const catName = slot.kategorie_name || "Leer";
+      categories.push(catName);
+
+      // Budget
+      totalBudget.push(slot.budget);
+
+      // Ausgaben für diese Kategorie finden (aus categorySums, welches in createPieChart gefüllt wurde)
+      // Achtung: categorySums keys sind die exakten Strings aus der DB.
+      const val = categorySums[catName] || 0;
+      spent.push(val);
+  });
 
   // In zwei Teile aufteilen.
   // Ausgaben.
@@ -916,7 +953,7 @@ function createFinanicalOverview() {
   let bigIndicator = document.getElementById("totalMoneyBigIndicator");
   let bigIcon = bigIndicator.querySelector("i");
   // Text und Icon ändern.
-  element.childNodes[element.childNodes.length - 1].textContent = " " + totalmoneyValue + "%";
+  element.childNodes[element.childNodes.length - 1].textContent = " " + totalmoneyValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(totalmoneyValue, element, icon, bigIndicator, bigIcon);
 
   let element2 = document.getElementById("incomeP");
@@ -924,7 +961,7 @@ function createFinanicalOverview() {
   let bigIndicator2 = document.getElementById("incomeBigIndicator");
   let bigIcon2 = bigIndicator2.querySelector("i");
   // Text und Icon ändern.
-  element2.childNodes[element2.childNodes.length - 1].textContent = " " + incomeValue + "%";
+  element2.childNodes[element2.childNodes.length - 1].textContent = " " + incomeValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(incomeValue, element2, icon2, bigIndicator2, bigIcon2);
 
   let element3 = document.getElementById("expensesP");
@@ -932,7 +969,7 @@ function createFinanicalOverview() {
   let bigIndicator3 = document.getElementById("expensesBigIndicator");
   let bigIcon3 = bigIndicator3.querySelector("i");
   // Text und Icon ändern.
-  element3.childNodes[element3.childNodes.length - 1].textContent = " " + expensesValue + "%";
+  element3.childNodes[element3.childNodes.length - 1].textContent = " " + expensesValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(expensesValue, element3, icon3, bigIndicator3, bigIcon3);
 
   console.log("total:" + totalmoneyValue + "income:" + incomeValue + "expenses:" + expensesValue);
@@ -951,104 +988,9 @@ window.onload = async function () {
   // Erstellt das Kuchendiagramm.
   createPieChart();
   // Erstellt das Balkendiagramm.
-  createTotalBudgetChart();
+  await createTotalBudgetChart();
   // Erstellt die Finanzübersicht.
   createFinanicalOverview();
 
-  // SETTINGS SAVE KNOPF //
-
-  // Hier den event listener gemacht, weil hier alle Variablen sind.
-  const saveButton = document.getElementById("saveFinanceSettings");
-  saveButton.addEventListener("click", function () {
-    const selectedElementArray = []; // Ausgewählte Kategorien in Settings.
-    const selectedTotalBudgetArray = []; // Ausgewählte max. Budgets in Settings.
-
-    // Alte Werte löschen.
-    totalBudgetChart.data.labels = [];
-    totalBudgetChart.data.datasets[0].data = [];
-    totalBudgetChart.data.datasets[1].data = [];
-    totalBudgetChart.data.datasets[2].data = [];
-    
-    for (let i = 1; i < 6; i++) {
-      const selectElement = document.getElementById("categorySelect" + i);
-      selectedElementArray.push(selectElement.value);
-
-      const totalBudgetElement = document.getElementById("totalBudget" + i);
-      selectedTotalBudgetArray.push(totalBudgetElement.value);
-    }
-
-    // Neue total Budgets die in settings gesetzt wurden (graue balken in diagramm).
-    const newTotalBudget = selectedTotalBudgetArray;
-
-    // Danach wandle die neuen Kategorien um in lowercase (so wie die daten im json stehen).
-    // Gibt es die daten im json wird der bereits bestehende wert für die kategorie genommen.
-    // Wurde in den settings eine kategorie ausgewählt die es im json/später in der datenbank
-    // gar nicht gibt - dann wird die kategorie als label übernommen, aber die ausgaben sind einfach 0
-    // für diese kategorie.
-    const categoryNamesLower = selectedElementArray.map(str => str.toLowerCase());
-
-    totalBudgetChart.data.labels = selectedElementArray; // Alte Kategorien mit neuen aus Settings austauschen im Chart.
-
-    // Neues "spent" Array wird erstellt.
-    // Gibt es Ausgaben für die ausgewählte Kategorie in Settings werden diese übernommen.
-    // Gibt es keine Ausgaben für die Kategorie (Daten für Kategorie existieren noch nicht)
-    // dann wird als Summe der Ausgaben einfach 0 übernommen.
-    
-    //Object.values(categorySums);
-    const newSpent = [];
-
-    // Gehe durch Daten Dictionary und prüfe ob es bereits Summenwerte gibt für ausgewählte Kategorien aus Settings.
-    // Sonst ordne 0 zu, weil es keine Daten zur Kategorie gibt.
-    for (let i = 0; i < 5; i++) {
-      if (categorySums[selectedElementArray[i]] == undefined) { // Kategoriewerte existieren nicht = 0.
-        newSpent.push("0");
-      }
-      else {
-        newSpent.push(categorySums[selectedElementArray[i]]); // Es gibt Werte zur Kategorie -> Werte übernehmen.
-      }
-    }
-    
-    // Oben wurde totalBudget ersetzt, jetzt werden die restlichen alten Werte des Budget Overview Charts ersetzt.
-    // In zwei Teile aufteilen.
-    // Ausgaben.
-    const newNormalSpent = newSpent.map((s, i) => Math.min(s, newTotalBudget[i]));
-    // Mehr als Limit ausgegeben (rot).
-    const newExceededSpent = newSpent.map((s, i) => Math.max(0, s - newTotalBudget[i]));
-    // Übrig, also wie viel Geld man in dieser Kategorie noch ausgeben dürfte.
-    const newRemaining = newTotalBudget.map((t, i) => Math.max(0, t - newSpent[i]));
-
-    // Chart updaten mit Settings Daten.
-    totalBudgetChart.data.datasets[0].data = newNormalSpent;
-    totalBudgetChart.data.datasets[1].data = newExceededSpent;
-    totalBudgetChart.data.datasets[2].data = newRemaining;
-
-    // X-Achse manuell updaten mit neuen Settings Daten.
-    totalBudgetChart.options.scales.x.max = Math.max(...newTotalBudget.concat(newSpent));
-
-    // Tooltips manuell updaten mit neuen Settings Daten.
-    totalBudgetChart.options.plugins.tooltip.callbacks.label = function (context) {
-      const i = context.dataIndex;
-      const datasetLabel = context.dataset.label;
-      if (datasetLabel === 'Spent (within budget)') return `Im Budget: ${newNormalSpent[i]} €`;
-      if (datasetLabel === 'Spent (exceeded)') return `Überschritten: ${newExceededSpent[i]} €`;
-      if (datasetLabel === 'Remaining') return `Übrig: ${newRemaining[i]} €`;
-    };
-
-    // Scale anpassen an neue SettingsWerte nach Save Button bei Settings.
-    const budgetsNum = newTotalBudget.map(Number);
-    const spentNum = newSpent.map(Number);
-    const exceededNum = newExceededSpent.map(Number);
-    const chartMax = Math.max(
-      ...budgetsNum,
-      ...spentNum,
-      ...exceededNum
-    );
-    totalBudgetChart.options.scales.x.max = chartMax;
-
-    // Chart updaten mit neuen Werten und neu zeichnen.
-    totalBudgetChart.update();
-
-    // Settings Seite schließen.
-    //window.location.reload(); Das hier auskommentiert, nicht nötig normal.
-  });
+  // Alte SETTINGS SAVE Logik entfernt, da jetzt über settings.js und DB
 };
