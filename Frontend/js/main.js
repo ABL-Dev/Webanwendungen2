@@ -6,8 +6,8 @@ let wasTransactionModified = false;
 
 // Jetziges Datum holen.
 const now = new Date();
-const currentMonthIndex = now.getMonth();
-const currentYear = now.getFullYear();
+const currentMonthIndex = sessionStorage.getItem('selectedMonthIndex') !== null ? parseInt(sessionStorage.getItem('selectedMonthIndex')) : now.getMonth();
+const currentYear = sessionStorage.getItem('selectedYear') !== null ? parseInt(sessionStorage.getItem('selectedYear')) : now.getFullYear();
 const navButtons = document.querySelectorAll("#navbar button:not([disabled])");
 const monthButtons = document.querySelectorAll(".month-btn");
 const yearButton = document.getElementById("year");
@@ -67,19 +67,24 @@ document.addEventListener("DOMContentLoaded", () => {
           yearNumber--;
           yearButton.textContent = yearNumber;
           currentYearString = yearButton.textContent;
+          sessionStorage.setItem('selectedYear', yearNumber);
           break;
 
         case '>':
           yearNumber++;
           yearButton.textContent = yearNumber;
           currentYearString = yearButton.textContent;
+          sessionStorage.setItem('selectedYear', yearNumber);
           break;
 
         default:
-          monthButtons.forEach(btn => {
+          monthButtons.forEach((btn, index) => {
             btn.disabled = false;
             btn.classList.remove("btn-primary");
             btn.classList.add("btn-outline-primary");
+            if (btn === button) {
+              sessionStorage.setItem('selectedMonthIndex', index);
+            }
           });
 
           // Geklickten Button aktivieren & markieren
