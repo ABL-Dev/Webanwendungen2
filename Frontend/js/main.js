@@ -953,7 +953,7 @@ function createFinanicalOverview() {
   let bigIndicator = document.getElementById("totalMoneyBigIndicator");
   let bigIcon = bigIndicator.querySelector("i");
   // Text und Icon ändern.
-  element.childNodes[element.childNodes.length - 1].textContent = " " + totalmoneyValue + "%";
+  element.childNodes[element.childNodes.length - 1].textContent = " " + totalmoneyValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(totalmoneyValue, element, icon, bigIndicator, bigIcon);
 
   let element2 = document.getElementById("incomeP");
@@ -961,7 +961,7 @@ function createFinanicalOverview() {
   let bigIndicator2 = document.getElementById("incomeBigIndicator");
   let bigIcon2 = bigIndicator2.querySelector("i");
   // Text und Icon ändern.
-  element2.childNodes[element2.childNodes.length - 1].textContent = " " + incomeValue + "%";
+  element2.childNodes[element2.childNodes.length - 1].textContent = " " + incomeValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(incomeValue, element2, icon2, bigIndicator2, bigIcon2);
 
   let element3 = document.getElementById("expensesP");
@@ -969,7 +969,7 @@ function createFinanicalOverview() {
   let bigIndicator3 = document.getElementById("expensesBigIndicator");
   let bigIcon3 = bigIndicator3.querySelector("i");
   // Text und Icon ändern.
-  element3.childNodes[element3.childNodes.length - 1].textContent = " " + expensesValue + "%";
+  element3.childNodes[element3.childNodes.length - 1].textContent = " " + expensesValue.toFixed(2).replace('.', ',') + "%";
   changePercentValue(expensesValue, element3, icon3, bigIndicator3, bigIcon3);
 
   console.log("total:" + totalmoneyValue + "income:" + incomeValue + "expenses:" + expensesValue);
