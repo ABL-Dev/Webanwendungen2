@@ -143,6 +143,7 @@ function setupSaveButton() {
                 const modalElement = document.getElementById("settingsModal");
                 const modalInstance = bootstrap.Modal.getInstance(modalElement);
                 if (modalInstance) modalInstance.hide();
+                window.location.reload();
             } else {
                 throw new Error(result.error || "Fehler beim Speichern");
             }
